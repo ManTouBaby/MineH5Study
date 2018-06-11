@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>标题栏</title>
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script>
+        /* $(function () {
+             $("button").click(function () {
+                 alert("单击")
+             }).mouseenter(function () {
+                 alert("鼠标进入")
+             })
+         })*/
+
+        /* $(function () {
+             $("button").bind("click mouseenter",function () {
+                 alert("单击")
+             })
+         })*/
+
+        /*$(function () {
+            $("button").bind({
+                "click": function () {
+                    alert("单击")
+                },
+                "mouseenter": function () {
+                    alert("进入")
+                }
+            })
+        })*/
+
+        /*$(function () {
+            $("button").bind("click", "我是传进来的数据，也可以传入对象", function (e) {
+                alert(e.data)
+            })
+        })*/
+
+        //只触发一次
+        /*$(function () {
+            $("button").one("click", function (e) {
+                alert("\"我是传进来的数据，也可以传入对象\",")
+            })
+        })*/
+        //给所有的Lib绑定事件，效率比较低，因为绑定事件是需要消耗时间的
+        /*$(function () {
+            $("li").bind("click", function () {
+                alert($(this).html())
+            })
+        })*/
+        //delegate绑定方式处理了多次绑定，效率底下的问题
+        /*$(function () {
+            $("ul").delegate("li", "click", function () {
+                alert($(this).html())
+            })
+        })*/
+
+        //on 强烈推荐
+        $(function () {
+            $("ul").on("click", "li", function () {
+                alert($(this).html())
+            })
+        })
+
+    </script>
+</head>
+<body>
+<button>绑定两个事件</button>
+<ul>
+    <li>我是Li1</li>
+    <li>我是Li2</li>
+    <li>我是Li3</li>
+    <li>我是Li4</li>
+    <li>我是Li5</li>
+    <li>我是Li6</li>
+    <li>我是Li7</li>
+    <li>我是Li8</li>
+    <li>我是Li9</li>
+    <li>我是Li10</li>
+</ul>
+</body>
+</html>
