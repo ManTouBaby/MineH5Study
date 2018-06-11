@@ -1,0 +1,161 @@
+@charset "UTF-8";
+/*css 初始化 */
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img {
+    margin: 0; /*去掉外边距*/
+    padding: 0; /*去掉外内边距*/
+}
+
+fieldset, img, input, button {
+    border: none;
+    padding: 0;
+    margin: 0;
+    outline-style: none; /*去掉外边蓝边框*/
+}
+
+ul, ol {
+    list-style: none;
+}
+
+input {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-family: "SimSun", "宋体";
+}
+
+select, input {
+    vertical-align: middle;
+}
+
+select, input, textarea {
+    font-size: 12px;
+    margin: 0;
+}
+
+textarea {
+    resize: none; /*防止文本域拖动*/
+}
+
+img { /*  去掉图片低测默认的3像素空白缝隙*/
+    border: 0;
+    vertical-align: middle;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+body {
+    font: 12px/150% Arial, Verdana, "\5b8b\4f53"; /*"\5b8b\4f53" Unicode表示宋体*/
+    color: #666;
+    background: #fff
+}
+
+.clearfix:before, .clearfix:after { /*清除浮动*/
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    *zoom: 1; /*IE/7/6*/
+}
+
+a {
+    color: #666;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #C81623;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 100%; /*让其字体大小跟父亲一样大*/
+}
+
+s, i, em {
+    font-style: normal;
+    text-decoration: none;
+}
+
+.col-red {
+    color: #C81623 !important;
+}
+
+/*公共类*/
+.w { /*版心 提取 */
+    width: 1210px;
+    margin: 0 auto;
+}
+
+.fl {
+    float: left
+}
+
+.fr {
+    float: right
+}
+
+.al {
+    text-align: left
+}
+
+.ac {
+    text-align: center
+}
+
+.ar {
+    text-align: right
+}
+
+.hide {
+    display: none
+}
+
+/*头部导航开始*/
+.shortcut {
+    height: 30px;
+    line-height: 30px; /*可以实现文字垂直居中*/
+    background-color: #f1f1f1;
+    width: 100%;
+}
+
+.shortcut i {
+    font: 400 15px/15px "宋体"; /*400表示font-weight（加粗） 用数字表示表示加粗的大小*/
+}
+
+.shortcut s {
+    position: absolute; /*绝对定位不占位置，相对定位占位置 fixed跟absolute不占位置，static和relative占用位置*/
+    top: 0;
+    left: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
