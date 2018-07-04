@@ -125,13 +125,24 @@ s, i, em {
     width: 100%;
 }
 
+.destination {
+    position: relative;
+    background-color: pink;
+    padding: 0 20px 0 10px;
+}
+
 .shortcut i {
+    position: absolute;
     font: 400 15px/15px "宋体"; /*400表示font-weight（加粗） 用数字表示表示加粗的大小*/
+    overflow: hidden;
+    height: 7px;
+    top: 13px;
+    width: 15px;
 }
 
 .shortcut s {
     position: absolute; /*绝对定位不占位置，相对定位占位置 fixed跟absolute不占位置，static和relative占用位置*/
-    top: 0;
+    top: -8px;
     left: 0;
 }
 
