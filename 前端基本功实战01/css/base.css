@@ -120,31 +120,57 @@ s, i, em {
 /*头部导航开始*/
 .shortcut {
     height: 30px;
-    line-height: 30px; /*可以实现文字垂直居中*/
     background-color: #f1f1f1;
     width: 100%;
+    font: 400 12px/30px "宋体";
 }
 
-.destination {
+.dt {
     position: relative;
-    background-color: pink;
+    height: 30px;
     padding: 0 20px 0 10px;
 }
 
-.shortcut i {
+.dt i {
     position: absolute;
-    font: 400 15px/15px "宋体"; /*400表示font-weight（加粗） 用数字表示表示加粗的大小*/
-    overflow: hidden;
-    height: 7px;
-    top: 13px;
     width: 15px;
+    top: 13px;
+    right: 4px;
+    height: 7px;
+    line-height: 7px;
+    overflow: hidden;
 }
 
-.shortcut s {
-    position: absolute; /*绝对定位不占位置，相对定位占位置 fixed跟absolute不占位置，static和relative占用位置*/
-    top: -8px;
+.dt s {
+    position: absolute;
+    top: -7px;
     left: 0;
+    height: 15px;
+    line-height: 15px;
 }
+
+/*.dd {*/
+/*top: 30px;*/
+/*left: 0;*/
+/*position: absolute;*/
+/*width: 300px;*/
+/*height: 136px;*/
+/*background-color: pink;*/
+/*}*/
+ul.bar {
+    float: right;
+    height: 30px;
+    line-height: 30px;
+}
+
+ul.bar li {
+    list-style: none;
+    height: 30px;
+    line-height: 30px;
+    float: left;
+    margin-right: 8px;
+}
+
 
 
 
