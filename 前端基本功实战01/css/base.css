@@ -158,17 +158,84 @@ s, i, em {
 /*background-color: pink;*/
 /*}*/
 
-ul.bar li {
+.fr li {
     float: left;
     padding: 0 10px;
 }
 
-ul.bar .line {
+.fr .line {
     height: 12px;
     width: 1px;
     background-color: #ddd;
     margin-top: 9px;
     padding: 0;
+}
+
+.shortcut .jd-tel {
+    padding: 0 20px;
+}
+
+.tel {
+    position: absolute;
+    background: url(../img/sprite.png) no-repeat;
+    width: 15px;
+    height: 20px;
+    top: 5px;
+    left: 5px;
+}
+
+.topbanner {
+    background-color: #8E18D4;
+}
+
+.close-banner {
+    position: absolute;
+    right: 0;
+    top: 5px;
+    width: 19px;
+    height: 19px;
+    background: url(../img/close.png) no-repeat;
+}
+
+.topbanner .w {
+    position: relative;
+}
+
+.close-banner:hover {
+    background-position: bottom;
+}
+
+.logo {
+    position: relative;
+    width: 360px;
+    height: 100px;
+    float: left;
+}
+
+.logo .logo-icon {
+    display: block;
+    width: 270px;
+    height: 60px;
+    margin-top: 25px;
+    background: url(../img/logo.png) no-repeat;
+    text-indent: -2000em;
+}
+
+.logo div {
+    position: absolute;
+    top: 10px;
+    left: 168px;
+}
+
+.search {
+    width: 538px;
+    height: 100px;
+    background-color: purple;
+    float: left;
+}
+
+.shopping-car {
+
 }
 
 
