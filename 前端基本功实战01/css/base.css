@@ -50,6 +50,7 @@ body {
     background: #fff
 }
 
+/*双伪元素清除浮动法*/
 .clearfix:before, .clearfix:after { /*清除浮动*/
     content: "";
     display: table;
@@ -62,6 +63,15 @@ body {
 .clearfix {
     *zoom: 1; /*IE/7/6*/
 }
+
+/*伪元素清除浮动法*/
+/*.clearfix:after {
+    content:"";
+    visibility: hidden;
+    display: block;
+    height: 0;
+    clear: both;
+}*/
 
 a {
     color: #666;
