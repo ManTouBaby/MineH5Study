@@ -240,7 +240,28 @@ s, i, em {
 .search {
     width: 538px;
     height: 100px;
-    background-color: purple;
+    float: left;
+}
+
+.search input {
+    margin-top: 25px;
+    width: 450px;
+    height: 32px;
+    padding-left: 4px;
+    border: 2px solid #B61D1D;
+    font: 14px/32px "微软雅黑";
+    color: #666;
+    float: left;
+}
+
+.search button {
+    margin-top: 25px;
+    width: 80px;
+    height: 36px;
+    background-color: #B61D1D;
+    font: 16px/36px "微软雅黑";
+    color: #fff;
+    cursor: pointer;
     float: left;
 }
 
