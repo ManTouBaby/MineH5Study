@@ -159,15 +159,6 @@ s, i, em {
     line-height: 15px;
 }
 
-/*.dd {*/
-/*top: 30px;*/
-/*left: 0;*/
-/*position: absolute;*/
-/*width: 300px;*/
-/*height: 136px;*/
-/*background-color: pink;*/
-/*}*/
-
 .fr li {
     float: left;
     padding: 0 10px;
@@ -312,6 +303,72 @@ s, i, em {
     margin-right: 6px;
 }
 
+/*主体*/
+.jd-nav {
+    width: 100%;
+    height: 44px;
+    border-bottom: solid 2px #b1191a;
+}
+
+.dropdown {
+    width: 210px;
+    height: 44px;
+    padding: 0px 0px;
+    float: left;
+    position: relative;
+    z-index: 10;
+}
+
+.dropdown dt {
+    height: 44px;
+}
+
+.dropdown dt a {
+    display: block;
+    height: 44px;
+    font: 15px/44px "微软雅黑";
+    color: #FFFFFF;
+    background: #b1191a;
+    padding-left: 10px;
+}
+
+.dropdown dd {
+    margin-top: 2px;
+    height: 465px;
+    background: #D60716;
+}
+
+.navItems {
+    width: 680px;
+    height: 44px;
+    float: left;
+}
+
+.navItems li {
+    float: left;
+}
+.navItems li a{
+    padding: 0px 20px;
+    font: 15px/44px "微软雅黑";
+    color: #333333;
+}
+.navItems li.new{
+    background: url(../img/new.jpg) no-repeat right top;
+}
+
+.navOther {
+    width: 140px;
+    height: 44px;
+    background: no-repeat url(../img/bike.jpg);
+    float: right;
+}
+
+.navOther a {
+    display: block;
+    height: 44px;
+}
+
+/*页尾*/
 .slogan {
     height: 54px;
     position: relative;
@@ -389,20 +446,24 @@ s, i, em {
     color: #888888;
 }
 
-.copyright .copyright-author{
+.copyright .copyright-author {
     width: 612px;
     margin: 0px auto;
 }
+
 .copyright .copyright-author a {
     float: left;
-    display:inline-block;
+    display: inline-block;
     width: 103px;
     height: 32px;
 
 }
-.copyright .copyright-author a.last{
+
+.copyright .copyright-author a.last {
     width: 184px;
 }
+
+
 
 
 
