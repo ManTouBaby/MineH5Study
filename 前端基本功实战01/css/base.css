@@ -399,10 +399,12 @@ s, i, em {
     clear: both;
     width: 100%;
 }
-.slogan .w{
-    position:relative;
+
+.slogan .w {
+    position: relative;
     margin: 0 auto;
 }
+
 .slogan span {
     position: absolute;
     top: 20px;
@@ -414,7 +416,7 @@ s, i, em {
 }
 
 .slogen2 {
-    right:50%;
+    right: 50%;
 }
 
 .slogen3 {
