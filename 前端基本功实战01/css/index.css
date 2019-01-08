@@ -1,0 +1,13 @@
+@charset "UTF-8";
+.bigBanner {
+    position: relative;
+}
+
+.bigBanner a {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: url(../img/banner.jpg) no-repeat top center;
+    height: 603px;
+}

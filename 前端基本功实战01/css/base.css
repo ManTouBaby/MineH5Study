@@ -338,6 +338,26 @@ s, i, em {
     background: #D60716;
 }
 
+.dropdown .items {
+    height: 31px;
+    padding-left: 10px;
+    padding-right: 8px;
+    font: 400 15px/31px "微软雅黑";
+    color: #FFFFFF;
+}
+
+.dropdown p {
+    float: left;
+
+}
+
+.dropdown span {
+    float: right;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: "宋体";
+}
+
 .navItems {
     width: 680px;
     height: 44px;
@@ -347,12 +367,14 @@ s, i, em {
 .navItems li {
     float: left;
 }
-.navItems li a{
+
+.navItems li a {
     padding: 0px 20px;
     font: 15px/44px "微软雅黑";
     color: #333333;
 }
-.navItems li.new{
+
+.navItems li.new {
     background: url(../img/new.jpg) no-repeat right top;
 }
 
@@ -372,11 +394,15 @@ s, i, em {
 .slogan {
     height: 54px;
     position: relative;
-    background: #f5f5f5;
+    background-color: #f5f5f5;
     padding: 20px;
     clear: both;
+    width: 100%;
 }
-
+.slogan .w{
+    position:relative;
+    margin: 0 auto;
+}
 .slogan span {
     position: absolute;
     top: 20px;
@@ -384,19 +410,19 @@ s, i, em {
 }
 
 .slogen1 {
-    margin-left: 0px;
+    left: 0px;
 }
 
 .slogen2 {
-    margin-left: 304px;
+    right:50%;
 }
 
 .slogen3 {
-    margin-left: 608px;
+    left: 50%;
 }
 
 .slogen4 {
-    margin-left: 912px;
+    right: 0px;
 }
 
 .service-content {
