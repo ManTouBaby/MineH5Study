@@ -11,3 +11,122 @@
     background: url(../img/banner.jpg) no-repeat top center;
     height: 603px;
 }
+
+.main {
+    position: relative;
+    height: 465px;
+}
+
+.mainBanner {
+    height: 455px;
+    width: 730px;
+    float: left;
+    margin-left: 220px;
+    margin-top: 10px;
+    background-color: pink;
+    position: relative;
+}
+
+.slidesPoint {
+    position: absolute;
+    left: 50%;
+    margin-left: -66px;
+    bottom: 10px;
+}
+
+.slidesPoint li.currentPoint {
+    background-color: #B61D1F;
+}
+
+.slidesPoint li {
+    float: left;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #e3e3e3;
+    color: #FFFFFF;
+    text-align: center;
+    line-height: 18px;
+    margin: 0 2px;
+    cursor: pointer;
+}
+
+.sliderBtnParent {
+    visibility: visible;
+}
+
+.sliderToLeft, .sliderToRight {
+    font: 600 20px/62px "宋体";
+    width: 28px;
+    height: 62px;
+    background: rgba(0, 0, 0, .2);
+    position: absolute;
+    top: 50%;
+    color: #FFFFFF;
+    text-align: center;
+    margin-top: -31px;
+}
+
+.sliderToLeft:hover, .sliderToRight:hover {
+    background: rgba(0, 0, 0, .4);
+    color: #FFFFFF;
+}
+
+.sliderToLeft {
+    left: 0;
+}
+
+.sliderToRight {
+    right: 0;
+}
+
+.mainTip {
+    height: 453px;
+    width: 247px;
+    float: right;
+    margin-right: 1px;
+    margin-top: 10px;
+    border: #f4f4f4 solid 1px;
+}
+
+.mainTip .news {
+    height: 200px;
+    border-bottom: 1px dashed #f4f4f4;
+}
+
+.mainTip .news .news-content {
+    padding: 8px 0 0 15px;
+}
+
+.mainTip .news .news-content li {
+    height: 28px;
+    font: 12px/28px "微软雅黑";
+}
+
+.mainTip .news .news-content li span{
+    font-weight: bold;
+    margin-right: 4px;
+}
+
+.mainTip .liftService {
+    height: 252px;
+}
+
+.mainTip .news .news-title, .mainTip .liftService .lift-title {
+    height: 43px;
+    border-bottom: 1px dotted #f4f4f4;
+}
+
+.mainTip .news .news-title p, .mainTip .liftService .lift-title p {
+    float: left;
+    padding-left: 15px;
+    font: 14px/43px "微软雅黑";
+    color: #666666;
+}
+
+.mainTip .news .news-title a {
+    float: right;
+    padding-right: 15px;
+    font: 12px/43px "宋体";
+}
+
