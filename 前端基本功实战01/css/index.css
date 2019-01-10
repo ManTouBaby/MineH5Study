@@ -94,6 +94,10 @@
     border-bottom: 1px dashed #f4f4f4;
 }
 
+.mainTip .liftService {
+    height: 252px;
+}
+
 .mainTip .news .news-content {
     padding: 8px 0 0 15px;
 }
@@ -103,13 +107,9 @@
     font: 12px/28px "微软雅黑";
 }
 
-.mainTip .news .news-content li span{
+.mainTip .news .news-content li span {
     font-weight: bold;
     margin-right: 4px;
-}
-
-.mainTip .liftService {
-    height: 252px;
 }
 
 .mainTip .news .news-title, .mainTip .liftService .lift-title {
@@ -128,5 +128,102 @@
     float: right;
     padding-right: 15px;
     font: 12px/43px "宋体";
+}
+
+.mainTip .liftService {
+    overflow: hidden;
+}
+
+.mainTip .liftService .lift-content ul {
+    margin-top: -1px;
+    width: 248px;
+}
+
+.mainTip .liftService .lift-content li {
+    width: 61px;
+    height: 69px;
+    float: left;
+    border: #f4f4f4 1px solid;
+    margin: -1px 0 0 -1px;
+}
+
+.mainTip .liftService .lift-content a {
+    display: block;
+    width: 61px;
+    height: 69px;
+    padding-top: 44px;
+    text-align: center;
+    position: relative;
+}
+
+.mainTip .liftService .lift-content i {
+    position: absolute;
+    top: 13px;
+    left: 18px;
+    width: 25px;
+    height: 25px;
+    background: url("../img/icon_lifeserv.png") no-repeat right top;
+}
+
+.mainTip .liftService .lift-content2 i {
+    background-position: right -25px;
+}
+
+.jd-night {
+    position: relative;
+    margin-top: 10px;
+}
+
+.jd-night .night-l {
+    float: left;
+    width: 210px;
+    height: 150px;
+    background: url("../img/night.jpg") no-repeat 0 0;
+}
+
+.jd-night .night-r {
+    float: right;
+    height: 150px;
+    width: 1000px;
+    overflow: hidden;
+    position: relative;
+}
+
+.jd-night .night-r ul {
+    width: 500%;
+}
+
+.jd-night .night-r li {
+    float: left;
+    margin-left: 1px;
+}
+
+.night-arrow {
+    width: 1000px;
+    position: absolute;
+    top: 50%;
+    margin-top: -21px;
+}
+
+.night-arrow .night-arrow-l, .night-arrow .night-arrow-r {
+    width: 24px;
+    height: 42px;
+    background: rgba(0, 0, 0, .1);
+    font: 400 13px/42px "宋体";
+    color: #FFF;
+    text-align: center;
+}
+
+.night-arrow .night-arrow-l:hover, .night-arrow .night-arrow-r:hover {
+    background: rgba(0, 0, 0, .4);
+    color: #FFF;
+}
+
+.night-arrow .night-arrow-l {
+    float: left;
+}
+
+.night-arrow .night-arrow-r {
+    float: right;
 }
 
