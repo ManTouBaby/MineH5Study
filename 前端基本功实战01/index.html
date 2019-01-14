@@ -6,11 +6,44 @@
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="shortcut icon" href="img/favicon.ico"><!--设置浏览器标题图标-->
-    <style>
+    <script>
+        //如果这个script写在head里面，那么这个script必须调用window.onload这个方法(表示整个window文件加载完成)
+        window.onload = function () {
+            //头部广告栏
+            var closeBanner = document.getElementById("close-top-banner");
+            var topBanner = document.getElementById("top-banner");
+            closeBanner.onclick = function () {
+                topBanner.style.display = "none";
+            };
+            //主体Banner
+            var sliderContainer = document.getElementById("slider-container");
+            var bannerBody = document.getElementById("main-banner-body");
+            bannerBody.onmouseover = function () {
+                sliderContainer.style.display = "block";
+            };
+            bannerBody.onmouseout = function () {
+                sliderContainer.style.display = "none";
+            };
 
-    </style>
+            var dialogContainer = document.getElementById("dialog-bg");
+            var dialogClose = document.getElementById("dialog-close");
+            var jdLogin = document.getElementById("jd-login");
+            jdLogin.onclick = function () {
+                dialogContainer.style.display = "block";
+            };
+            dialogClose.onclick = function () {
+                dialogContainer.style.display = "none";
+            }
+        }
+
+    </script>
 </head>
 <body>
+<div id="dialog-bg">
+    <div id="dialog">
+        <span id="dialog-close">×</span>
+    </div>
+</div>
 <!--j京东顶部导航开始-->
 <div class="shortcut">
     <div class="w">
@@ -23,7 +56,7 @@
         <div class="fr">
             <ul>
                 <li>
-                    <a href="#"> 你好，请登录</a>
+                    <a href="javaScript:;" id="jd-login"> 你好，请登录</a>
                     <a href="#" class="col-red"> 免费注册</a>
                 </li>
                 <li>我的订单
@@ -55,10 +88,10 @@
 </div>
 <!--j京东顶部导航结束-->
 <!--Banner开始-->
-<div class="topbanner">
+<div class="topbanner" id="top-banner">
     <div class="w">
         <img src="img/topbanner.jpg">
-        <a href="javascript:;" class="close-banner"></a>
+        <a href="javascript:" class="close-banner" id="close-top-banner"></a>
     </div>
 </div>
 <!--Banner结束-->
@@ -184,9 +217,9 @@
 </div>
 <!--主界面轮播-->
 <div class="main w clearfix">
-    <div class="mainBanner">
+    <div class="mainBanner" id="main-banner-body">
         <img src="img/slider1.jpg"/>
-        <ul class="slidesPoint"><!--滚动的小红心-->
+        <ul class="slidesPoint" id="slider-posint"><!--滚动的小红心-->
             <li class="currentPoint">1</li>
             <li>2</li>
             <li>3</li>
@@ -194,7 +227,7 @@
             <li>5</li>
             <li>6</li>
         </ul>
-        <div class="sliderBtnParent">
+        <div class="sliderBtnParent" id="slider-container">
             <a class="sliderToLeft"><</a>
             <a class="sliderToRight">></a>
         </div>
