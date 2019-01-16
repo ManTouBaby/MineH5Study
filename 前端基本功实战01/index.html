@@ -9,15 +9,19 @@
     <script>
         //如果这个script写在head里面，那么这个script必须调用window.onload这个方法(表示整个window文件加载完成)
         window.onload = function () {
+            function $(id) {
+                return document.getElementById(id);
+            }
+
             //头部广告栏
-            var closeBanner = document.getElementById("close-top-banner");
-            var topBanner = document.getElementById("top-banner");
+            var closeBanner = $("close-top-banner");
+            var topBanner = $("top-banner");
             closeBanner.onclick = function () {
                 topBanner.style.display = "none";
             };
             //主体Banner
-            var sliderContainer = document.getElementById("slider-container");
-            var bannerBody = document.getElementById("main-banner-body");
+            var sliderContainer = $("slider-container");
+            var bannerBody = $("main-banner-body");
             bannerBody.onmouseover = function () {
                 sliderContainer.style.display = "block";
             };
@@ -25,15 +29,18 @@
                 sliderContainer.style.display = "none";
             };
 
-            var dialogContainer = document.getElementById("dialog-bg");
-            var dialogClose = document.getElementById("dialog-close");
-            var jdLogin = document.getElementById("jd-login");
+            //登录弹出框
+            var dialogContainer = $("dialog-bg");
+            var dialogClose = $("dialog-close");
+            var jdLogin = $("jd-login");
             jdLogin.onclick = function () {
                 dialogContainer.style.display = "block";
             };
             dialogClose.onclick = function () {
                 dialogContainer.style.display = "none";
             }
+
+            //搜索框实现
         }
 
     </script>
@@ -104,7 +111,7 @@
         </div>
     </div>
     <div class="search">
-        <input type="text" name="搜索" id="" value="图书开始">
+        <input type="text" name="搜索" id="" value="请输入...">
         <button>搜索</button>
     </div>
     <div class="shopping-car">

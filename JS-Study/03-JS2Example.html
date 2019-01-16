@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JS使用用例</title>
+    <style>
+        .clear {
+            *zoom: 1;
+        }
+
+        .clear:after {
+            clear: both;
+        }
+
+        .clear:before, .clear:after {
+            content: "";
+            display: table;
+        }
+
+        #box {
+            height: 75px;
+            width: 360px;
+            margin: 50px auto 0;
+            border: #e4e4e4 1px solid;
+            padding-top: 360px;
+            background: url(img/01big.jpg) no-repeat top left;
+        }
+
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        li {
+            float: left;
+            margin: 0 1px;
+        }
+
+        #search {
+            width: 360px;
+            margin: 0 auto;
+        }
+
+        #search input {
+            margin: 0px;
+            padding: 0 0 0 8px;
+            width: 291px;
+            height: 28px;
+            float: left;
+            border: none;
+            outline-style: none; /*去除选中篮筐*/
+            border-bottom: #e4e4e4 solid 1px;
+            border-top: #e4e4e4 solid 1px;
+            border-left: #e4e4e4 solid 1px;
+            color: #888;
+        }
+
+        #search span {
+            margin: 0px;
+            padding: 0;
+            float: right;
+            display: block;
+            width: 60px;
+            height: 30px;
+            text-align: center;
+            font: 14px/30px "微软雅黑";
+            background-color: #ff413a;
+            color: #FFF;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            function $(id) {
+                return document.getElementById(id);
+            }
+
+            /*实现输入框交互*/
+            $("search-input").onfocus = function () {
+                if (this.value === "请输入搜索内容...") {
+                    this.value = "";
+                    this.style.color = "#333"
+                } else {
+                    this.select();
+                    /*选中已经输入了的文字*/
+                }
+            }
+            $("search-input").onblur = function () {
+                if (this.value === "") {
+                    this.value = "请输入搜索内容...";
+                    this.style.color = "#888"
+                }
+            }
+
+            /*实现滑动鼠标，切换图片*/
+            /*     function show(view, img) {
+                     $(view).onmouseover = function () {
+                         $("box").style.backgroundImage = img;
+                     }
+                 }
+
+                 show("box1", "url(img/01big.jpg)");
+                 show("box2", "url(img/02big.jpg)");
+                 show("box3", "url(img/03big.jpg)");
+                 show("box4", "url(img/04big.jpg)");
+                 show("box5", "url(img/05big.jpg)");*/
+
+            /*实现滑动鼠标，切换图片*/
+            function show() {
+                var lis = document.getElementsByTagName("li");
+                for (var index = 0; index < lis.length; index++) {
+                    var view = lis[index];
+                    var img = "url(img/0" + (1 + index) + "big.jpg)";
+                    view.onmouseover = function () {
+                        $("box").style.backgroundImage = img;
+                    }
+                }
+            }
+
+            show();
+        }
+    </script>
+</head>
+
+<body>
+<div id="search" class="clear">
+    <input id="search-input" type="text" value="请输入搜索内容...">
+    <span>搜索</span>
+</div>
+<div id="box">
+    <ul>
+        <li id="box1"><img src="img/01.jpg" alt=""></li>
+        <li id="box2"><img src="img/02.jpg" alt=""></li>
+        <li id="box3"><img src="img/03.jpg" alt=""></li>
+        <li id="box4"><img src="img/04.jpg" alt=""></li>
+        <li id="box5"><img src="img/05.jpg" alt=""></li>
+    </ul>
+</div>
+
+</body>
+</html>
