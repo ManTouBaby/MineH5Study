@@ -106,13 +106,26 @@
                  show("box5", "url(img/05big.jpg)");*/
 
             /*实现滑动鼠标，切换图片*/
-            function show() {
+
+            /*function show() {
                 var lis = document.getElementsByTagName("li");
                 for (var index = 0; index < lis.length; index++) {
-                    var view = lis[index];
-                    var img = "url(img/0" + (1 + index) + "big.jpg)";
-                    view.onmouseover = function () {
-                        $("box").style.backgroundImage = img;
+                    addMouseover(lis[index], "url(img/0" + (1 + index) + "big.jpg)");
+                }
+            }
+
+            function addMouseover(view, img) {
+                view.onmouseover = function () {
+                    $("box").style.backgroundImage = img;
+                }
+            }*/
+
+            function show() {
+                var lis = document.getElementsByTagName("li");
+                for (var i = 0; i , lis.length; i++) {
+                    lis[i].index = i;
+                    lis[i].onmouseover = function () {
+                        $("box").style.backgroundImage = "url(img/0" + (1 + this.index) + "big.jpg)";
                     }
                 }
             }

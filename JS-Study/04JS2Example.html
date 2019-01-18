@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>水平菜单可弹出下级菜单</title>
+    <style>
+        body, ul, li, div {
+            margin: 0;
+            padding: 0;
+        }
+
+        a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .w {
+            width: 1000px;
+            margin: 0 auto;
+        }
+
+        .clear {
+            *zoom: 1;
+        }
+
+        .clear:after {
+            clear: both;
+        }
+
+        .clear:before, .clear:after {
+            content: "";
+            display: table;
+        }
+
+        .menu-horizontal {
+            margin-top: 50px;
+        }
+
+        .menu-top {
+            border-bottom: #ce8483 1px solid;
+            height: 40px;
+        }
+
+        ul {
+            list-style: none;
+            float: right;
+            margin-top: 1px;
+            margin-right: 50px;
+        }
+
+        .menu-top li {
+            float: right;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .menu-top li a {
+            display: block;
+            padding: 0 8px;
+        }
+
+        .menu-top .current-select {
+            height: 37px;
+            line-height: 37px;
+            border-left: #ce8483 1px solid;
+            border-top: #ce8483 2px solid;
+            border-right: #ce8483 1px solid;
+            border-bottom: #FFF 1px solid;
+        }
+
+        .menu-bottom {
+            float: right;
+            margin-right: 50px;
+        }
+
+        .menu-bottom div {
+            width: 600px;
+            height: 600px;
+            display: none;
+        }
+
+        .menu-bottom .show {
+            display: block;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+            function $(id) {
+                return document.getElementById(id);
+            }
+
+            var menuTop = $("menu-top");
+            var menuBottom = $("menu-bottom");
+            var lis = menuTop.getElementsByTagName("li");
+            var divs = menuBottom.getElementsByTagName("div");
+            for (var i = 0; i < lis.length; i++) {
+                lis[i].index = i;
+                lis[i].onmouseover = function () {
+                    for (var j = 0; j < lis.length; j++) {
+                        lis[j].className = "";
+                        divs[j].className = "";
+                    }
+                    this.className = "current-select";
+                    divs[this.index].className = "show";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="menu-horizontal w">
+    <div class="menu-top clear" id="menu-top">
+        <ul>
+            <li class="current-select"><a href="#">第一菜单</a></li>
+            <li><a href="#">第二菜单</a></li>
+            <li><a href="#">第三菜单</a></li>
+            <li><a href="#">第四菜单</a></li>
+            <li><a href="#">第五菜单</a></li>
+            <li><a href="#">第六菜单</a></li>
+        </ul>
+    </div>
+    <div class="menu-bottom" id="menu-bottom">
+        <div class="show">第一菜单内容</div>
+        <div>第二菜单内容</div>
+        <div>第三菜单内容</div>
+        <div>第四菜单内容</div>
+        <div>第五菜单内容</div>
+        <div>第六菜单内容</div>
+    </div>
+</div>
+</body>
+</html>

@@ -41,6 +41,15 @@
             }
 
             //搜索框实现
+
+
+            //实现生活服务中动态添加背景
+            var serviceContainer = $("lift-service-container");
+            var lis = serviceContainer.getElementsByTagName("i");
+            for (var i = 0; i < lis.length; i++) {
+                var serviceView = lis[i];
+                serviceView.style.backgroundPosition = "right -" + i * 25 + "px";
+            }
         }
 
     </script>
@@ -259,7 +268,7 @@
             <div class="lift-title">
                 <p>生活服务</p>
             </div>
-            <div class="lift-content">
+            <div class="lift-content" id="lift-service-container">
                 <ul>
                     <li>
                         <a href="#">
@@ -267,7 +276,7 @@
                             <span>话费</span>
                         </a>
                     </li>
-                    <li class="lift-content2">
+                    <li>
                         <a href="#">
                             <i></i>
                             <span>话费</span>
