@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分支选择器使用</title>
+
+    <style>
+        span {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        .box {
+            margin: 100px auto 0;
+            width: 360px;
+            height: 360px;
+            border: #9e9e9e 1px solid;
+        }
+
+        .title {
+            margin-left: 10px;
+            margin-top: 10px;
+            font: 16px "微软雅黑";
+            color: #ce8483;
+
+        }
+
+        #select-xZ {
+            margin-left: 10px;
+            margin-top: 10px;
+            font: 14px/24px "微软雅黑";
+        }
+
+        .content {
+            overflow: hidden;
+            margin-top: 6px;
+            margin-bottom: 6px;
+        }
+
+        .content img {
+            float: left;
+            margin-left: 10px;
+        }
+
+        .content .main-content {
+            float: left;
+            margin-right: 10px;
+            width: 279px;
+        }
+
+        .luck, .character, .loving, .description {
+            overflow: hidden;
+        }
+
+        .luck .loving, .description {
+            margin-top: 2px;
+        }
+
+        .content-key, .content-value {
+            display: inline-block;
+            font-size: 12px;
+            float: left;
+            margin-left: 10px;
+        }
+
+        .content-key {
+            text-align: right;
+            width: 54px;
+        }
+
+        .content-value {
+            width: 200px;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            function $(id) {
+                return document.getElementById(id);
+            }
+
+            var xzDescription = [
+                "水瓶男是公认的难以捉摸的星座男，虽然他的外表看起来开朗直爽，但是你永远不知道他在想什么，他的思想就像是散落深邃的夜空的辰星一样，神秘遥远，难以猜测。他行事向来不按理出牌，情绪就像风一样变化无常。时而热情开朗时而冷漠，矛盾的性格让人很摸不着头脑。水瓶男追求精神世界的享受超过物质的享... 详细>>",
+                "双鱼男非常细腻，他们温柔体贴、善解人意、具有非常强的感知力。他们可以很敏锐地感受到他人的情绪波动，你往往会发现在你难过的时候他会是最快过来安慰你的人。双鱼男风趣幽默，兴趣广泛并且多才多艺，他们人相处非常融洽，和大家都玩的很好，人际交往当中如鱼得水。他们有丰富的想象力非常的浪漫梦幻... 详细>>",
+                "白羊男是大男子主义的代表人物，他们对于自己的事业，不爱别人指手画脚，也不喜欢和家里人商量，对于白羊来说，最不需要的就是别人无谓的同情和帮助。他们的字典里没有“不可能”。白羊座的男生性格十分直爽，不屑伪装，讲求外在于内心的统一，对于虚伪的事情他们甚至会持鄙视的态度。真性情的白羊男总... 详细>>",
+                "金牛座男生对于新生事物的适应能力比较弱，是一个喜欢安定生活和具有田园诗人性格的人，一般情况下金牛男不愿意轻易地去改变自己的生活习惯。对于感情节奏的变化也比较迟钝缓慢，不过一经触发，就一发不可收拾。因此，金牛男生一般带给人老实而忠厚的感觉，感情上就像一头牛一样耿直而持久。家庭观念对... 详细>>",
+                "双子座男生对外在事物拥有着强烈的好奇心，乐于接受瞬息万变的生活节奏，对周围一切新鲜刺激的玩意都充满着无止境的探索欲望。所以双子男是极具意象色彩的人，总是在某个角落弹奏着恰好好处的弦律。从容不迫，和蔼可亲。常给人以永远是局外人的印象。在欣赏缤纷生活的同时，也不断吸引着新的“听众”。 详细>>",
+                "巨蟹男温文尔雅、风度翩翩。初次与他相见，有种和蔼可亲之感，与他一起感觉不到压力，久而久之会发现他的口若悬河，还有他独特的幽默。但是他的情绪化时不时会跑出来作怪，让他没有安全感。 详细>>",
+                "狮子座男爱面子、自信得简直可以说是自大，常常会很在乎别人对自己的看法，也常会因此使自己不快乐，与生俱来超级自信和坚韧不拔的品性，他们看似严谨冷漠，但内心深处孤独，脆弱细腻。任何难关面前从不低头，一直以昂首的姿态，凭借坚忍不拔的毅力战胜艰难险阻。狮子男具有很强的危机感，他们会以此为... 详细>>",
+                "处女座的男生心思细腻，做事认真，追求完美，凡事兢兢业业，一丝不苟;但心细的处女男由于过于偏执地追求完美，对人太少宽容，过多挑剔，不免显得婆婆妈妈。处女座男人大都给人以纤细、有思想、有智慧的印象。 详细>>",
+                "天秤座的男生是典型的完美主义者。他们希望自己以及身边的一切都是洁白无暇的，追求完美永远是天秤座男生锲而不舍的目标。天秤座的男生有种与生俱来的风采，即使他长得不帅，但是多半拥有着温和儒雅的气质，有很多偶像级的男明星都是天秤座的，加上他是天生的暧昧高手，女生会拜倒在天秤男的牛仔裤下一... 详细>>",
+                "天蝎座的男生不管是观察人还是对别人内心的了解，都能观察入微，发现一般人难以察觉的细节，他们有直达别人心灵深处的本领。天蝎座的男人不走寻常路，他们深情且多情，但一旦爱上了你，你一定是他这辈子的唯一。他们喜欢独一无二且拥有耐心和毅力，自己选择的路跪着也要走完，一旦决定的事情便不会轻易... 详细>>",
+                "射手男是典型的热爱自由，不受束缚的星座男。喜欢自由自在的行动，有强烈的主观意识，并且经常不自觉的忽视别人的感受，而只注重自己的感觉。 详细>>",
+                "摩羯男具有冷静的判断力，思考多于行动，能客观地看待事物。具有耐力和不屈不挠的精神，有高度的责任感以及惊人的持久力，对事业充满野心。摩羯男不期待获得父母兄弟的帮助，若要成功只有自己靠自己。为人有些死板，缺乏灵活性，固执且过于慎重和优柔寡断，有时会错过唾手可得的机遇。有很强的好奇心和... 详细>>"
+            ];
+            var xzCharacter = [
+                "宽容、理想、冷静",
+                "善良、好脾气",
+                "勇敢、火热",
+                "浪漫、决断能力、逻辑思考",
+                "联想力、开朗、反映机智",
+                "慎重 、友善、有爱心",
+                "热情 、组织能力、正义感",
+                "调皮、热情、害羞",
+                "理想主义、公正",
+                "感觉敏锐，深谋远虑",
+                "感觉敏锐，深谋远虑",
+                "宽大 、乐观"
+            ];
+            var xzLoving = [
+                "遇到爱情，不会把握",
+                "不怕被女生拒绝，绝对专一",
+                "感情充沛、富于表达力",
+                "沉默、安逸、踏实、耐性",
+                "认为爱情是最美好的东西",
+                "喜欢优越和成功的对象",
+                "追求轰轰烈烈的爱情",
+                "处女座细心追求完美",
+                "天秤的爱情是无私的",
+                "在爱情中占主导地位",
+                "在爱情中占主导地位",
+                "一旦投入感情就是全身心"
+            ];
+
+            $("select-xZ").onchange = function () {
+                $("character-value").innerHTML = xzCharacter[this.value];
+                $("loving-value").innerHTML = xzLoving[this.value];
+                $("description-value").innerHTML = xzDescription[this.value];
+            }
+        }
+    </script>
+</head>
+<body>
+<div class="box">
+    <div class="title">今日运势</div>
+    <select name="星座运势" id="select-xZ">
+        <option value="0">水瓶座(1月20日-2月18日)</option>
+        <option value="1">双鱼座(2月19日-3月20日)</option>
+        <option value="2">白羊座(3月21日-4月19日)</option>
+        <option value="3">金牛座(4月20日-5月20日)</option>
+        <option value="4">双子座(5月21日-6月21日)</option>
+        <option value="5">巨蟹座(6月22日-7月22日)</option>
+        <option value="6">狮子座(6月22日-7月22日)</option>
+        <option value="7">处女座(8月23日-9月22日)</option>
+        <option value="8">天秤座(9月23日-10月23日)</option>
+        <option value="9">天蝎座(10月24日-11月22日)</option>
+        <option value="10">射手座(11月23日-12月21日)</option>
+        <option value="11">摩羯座(12月22日-1月19日)</option>
+    </select>
+    <div class="content">
+        <img src="img/XinZuo-01.png">
+        <div class="main-content">
+            <div class="luck">
+                <span class="content-key">运势:</span>
+                <span class="content-value"> </span>
+                <span class="content-value"> </span>
+            </div>
+            <div class="character">
+                <span class="content-key">性格:</span>
+                <span class="content-value" id="character-value">勇敢、火热 </span>
+            </div>
+            <div class="loving">
+                <span class="content-key">爱情:</span>
+                <span class="content-value" id="loving-value">感情充沛、富于表达力</span>
+            </div>
+            <div class="description">
+                <span class="content-key">个性分析:</span>
+                <span class="content-value" id="description-value">
+                    白羊男是大男子主义的代表人物，他们对于自己的事业，不爱别人指手画脚，也不喜欢和家里人商量，对于白羊来说，最不需要的就是别人无谓的同情和帮助。他们的字典里没有“不可能”。白羊座的男生性格十分直爽，不屑伪装，讲求外在于内心的统一，对于虚伪的事情他们甚至会持鄙视的态度。真性情的白羊男总... 详细>>
+                </span>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
