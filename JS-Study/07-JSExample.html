@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>定时器</title>
+    <script>
+        window.onload = function () {
+            // setInterval(fun, 1000);
+            // var number = 1;
+            //
+            // function fun() {
+            //     number++;
+            //     console.log(number);
+            // }
+
+            var endDate = new Date("2019/2/10 12:00:00");
+            var box = document.getElementsByTagName("div")[0];
+
+            function dealWith() {
+
+                var beginDate = new Date();
+                var needTime = parseInt((endDate.getTime() - beginDate.getTime()) / 1000);
+
+                var d = parseInt(needTime / 3600 / 24);
+                var hour = parseInt(needTime / 3600 % 24);
+                var minute = parseInt(needTime / 60 % 60);
+                var mi = parseInt(needTime % 60);
+
+                var dStr = d < 10 ? "0" + d : d + "";
+                var hourStr = hour < 10 ? "0" + hour : hour + "";
+                var minuteStr = minute < 10 ? "0" + minute : minute + "";
+                var miStr = mi < 10 ? "0" + mi : mi + "";
+                box.innerHTML = dStr + "天" + hourStr + "小时" + minuteStr + "分" + miStr + "秒";
+            }
+
+            setInterval(dealWith, 1000);
+
+        }
+
+    </script>
+</head>
+<body>
+<div class="box">
+
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>制作时钟</title>
+    <style>
+        .clock {
+            margin: 0 auto;
+            width: 600px;
+            height: 600px;
+            background: url(img/clock.jpg) no-repeat;
+            position: relative;
+        }
+
+        .hour, .minute, .second {
+            width: 600px;
+            height: 600px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .hour {
+            background: url(img/hour.png) no-repeat center center;
+        }
+
+        .minute {
+            background: url(img/minute.png) no-repeat center center;
+        }
+
+        .second {
+            background: url(img/second.png) no-repeat center center;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="clock">
+    <div class="hour"></div>
+    <div class="minute"></div>
+    <div class="second"></div>
+</div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无缝轮播图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            vertical-align: top; /*取消img标签底部3像素距离*/
+        }
+
+        #box {
+            width: 600px;
+            height: 200px;
+            border: #9e9e9e 1px solid;
+            margin: 100px auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        ul {
+            list-style: none;
+            width: 400%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        li {
+            float: left;
+        }
+
+    </style>
+    <script>
+        window.onload = function () {
+            var scroll = document.getElementById("box");
+            var ul = scroll.children[0];
+
+            var timer = null;
+            timer = setInterval(autoShow, 10);
+            var num = 0;
+
+            function autoShow() {
+                num--;
+                num = num <= -1200 ? 0 : num;
+                ul.style.left = num + "px";
+            }
+
+            scroll.onmouseover = function () {
+                clearInterval(timer);
+            }
+            scroll.onmouseout = function () {
+                timer = setInterval(autoShow, 10);
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li><img src="img/11.jpg" alt=""></li>
+        <li><img src="img/12.jpg" alt=""></li>
+        <li><img src="img/13.jpg" alt=""></li>
+        <li><img src="img/14.jpg" alt=""></li>
+        <li><img src="img/11.jpg" alt=""></li>
+        <li><img src="img/12.jpg" alt=""></li>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>左右滚动轮播图</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            vertical-align: top;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .slidesShow {
+            width: 520px;
+            height: 280px;
+            padding: 5px;
+            border: #9e9e9e 1px solid;
+            margin: 100px auto;
+        }
+
+        .inner {
+            width: 520px;
+            height: 280px;
+            background-color: #ffe5a7;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slidesPoint {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            margin-left: -75px;
+        }
+
+        .slidesPoint li {
+            width: 20px;
+            height: 20px;
+            font: 400 16px/20px "宋体";
+            border-radius: 50%;
+            background-color: #cdcdcd;
+            text-align: center;
+            margin: 0 5px;
+            cursor: pointer;
+            float: left;
+        }
+
+        li.currentPoint {
+            background-color: #ff6d78;
+        }
+
+        .slidesImg {
+            width: 600%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .slidesImg li {
+            float: left;
+        }
+
+
+    </style>
+    <script>
+        window.onload = function () {
+            function $(id) {
+                return document.getElementById(id);
+            }
+
+            var slidesPoint = $("slidesPoint");
+            var pointChildren = slidesPoint.children;
+            var slidesImg = $("slidesImg");
+
+            var stPosi = 0;// 没改变之前的位置
+            var changePosi = 0;  //改变到的位置
+
+            for (var i = 0; i < pointChildren.length; i++) {
+                pointChildren[i].index = i;
+                pointChildren[i].onclick = function () {
+                    console.log("当前单击对象:" + this.index);
+                    for (var j = 0; j < pointChildren.length; j++) {
+                        pointChildren[j].className = "";
+                    }
+                    this.className = "currentPoint";
+                    changePosi = (-this.index * 520);
+                    scrollShow();
+                }
+            }
+
+            function scrollShow() {
+
+                var timer = setInterval(function () {
+                    stPosi = stPosi + (changePosi - stPosi) / 10;//减速公式
+                    console.log("平移数据:" + stPosi + "  " + changePosi)
+                    if (parseInt(stPosi) == (changePosi + 1)) {
+                        clearInterval(timer);
+                    }
+                    slidesImg.style.left = stPosi + "px";
+                }, 40);
+            }
+
+
+        }
+    </script>
+</head>
+<body>
+<div class="slidesShow">
+    <div class="inner">
+        <ul class="slidesImg" id="slidesImg">
+            <li><a href="#"><img src="img/21.jpg" alt=""></a></li>
+            <li><a href="#"><img src="img/22.jpg" alt=""></a></li>
+            <li><a href="#"><img src="img/23.jpg" alt=""></a></li>
+            <li><a href="#"><img src="img/24.jpg" alt=""></a></li>
+            <li><a href="#"><img src="img/25.jpg" alt=""></a></li>
+        </ul>
+        <ul class="slidesPoint" id="slidesPoint">
+            <li class="currentPoint">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
