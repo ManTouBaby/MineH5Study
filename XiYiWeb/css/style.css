@@ -674,7 +674,7 @@ h3.title-w3-agileits.two {
 #testimonial{
 	background: #12345f;
 }
-#testimonial,.inner_section_w3ls,.about-w3layouts-agileinfo,#blog,{
+#testimonial,.inner_section_w3ls,.about-w3layouts-agileinfo,#blog{
      padding:5em 0;
 }
 .banner-bottom{
@@ -930,7 +930,6 @@ h3.title-w3-agileits.two {
       flex-wrap: wrap;
     justify-content: space-between;
 	-ms-flex-pack: justify;
-	-ms-flex-pack: space-between;
 	margin-bottom: 3%;
 	letter-spacing: 1px;
     font-size: 16px;
