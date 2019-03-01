@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8"/>
+    <title>CSS3之伸缩布局</title>
+    <meta name="author" content="Joy Du(飘零雾雨), dooyoe@gmail.com"/>
+    <meta name="copyright" content="www.doyoe.com"/>
+    <style>
+        .box > header {
+            text-align: center;
+            font: 700 23px "微软雅黑";
+            margin: 0 auto;
+        }
+
+        section {
+            margin: 20px 20px 0;
+            border: #9e9e9e 1px solid;
+            background-color: #f6ffd3;
+        }
+
+        section > header {
+            background-color: #c1fff8;
+            padding: 5px;
+            border-bottom: #9e9e9e 1px solid;
+        }
+
+        .item-show {
+            height: 250px;
+            background-color: #fff;
+            padding: 10px 0;
+        }
+
+        .item-show > div {
+            width: 180px;
+            padding: 4px;
+        }
+
+        section:nth-of-type(1) > .item-show {
+            display: flex; /*过使用弹性布局的话，弹性容器必须设置flex这个属性*/
+        }
+
+        section:nth-of-type(2) > .item-show {
+            display: flex; /*过使用弹性布局的话，弹性容器必须设置flex这个属性*/
+            flex-direction: row-reverse;
+        }
+
+        section:nth-of-type(3) > .item-show {
+            display: flex; /*过使用弹性布局的话，弹性容器必须设置flex这个属性*/
+            flex-direction: row-reverse;
+            justify-content: space-between;
+        }
+
+        section:nth-of-type(4) > .item-show {
+            display: flex; /*过使用弹性布局的话，弹性容器必须设置flex这个属性*/
+            margin-top: 10px;
+        }
+
+        section:nth-of-type(4) > .item-show > div {
+            height: 100px;
+        }
+
+        section:nth-of-type(4) > div:nth-of-type(1) {
+            display: flex; /*过使用弹性布局的话，弹性容器必须设置flex这个属性*/
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        section:nth-of-type(4) > div:nth-of-type(2) {
+            display: flex; /*过使用弹性布局的话，弹性容器必须设置flex这个属性*/
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        section:nth-of-type(4) > div:nth-of-type(3) {
+            display: flex; /*过使用弹性布局的话，弹性容器必须设置flex这个属性*/
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        section:nth-of-type(4) > div:nth-of-type(4) {
+            display: flex; /*过使用弹性布局的话，弹性容器必须设置flex这个属性*/
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        section:nth-of-type(4) > div:nth-of-type(5) {
+            display: flex; /*过使用弹性布局的话，弹性容器必须设置flex这个属性*/
+            flex-direction: row-reverse;
+            justify-content: space-between;
+            align-items: stretch;
+        }
+
+        section:nth-of-type(5) > div > div {
+            height: 40px;
+        }
+
+        section:nth-of-type(5) > div {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <header>伸缩布局的用法</header>
+    <section>
+        <header>弹性盒子由弹性容器(Flex container)和弹性子元素(Flex item)组成</header>
+        <div class="item-show">
+            <div style="background-color:#a9ffb9;">弹性子元素1</div>
+            <div style="background-color:#ffe59d;">弹性子元素2</div>
+            <div style="background-color:#ffb3bd;">弹性子元素3</div>
+            <div style="background-color:#d6b7ff;">弹性子元素4</div>
+            <div style="background-color:#a7d5ff;">弹性子元素5</div>
+        </div>
+    </section>
+    <section>
+        <header>弹性容器中通过设置flex-direction设置子元素的放置位置以及放置方向</header>
+        flex-direction中可以进行设置的属性<br>
+        1、row：横向从左到右排列（左对齐），默认的排列方式。<br>
+        2、row-reverse：反转横向排列（右对齐，从后往前排，最后一项排在最前面。<br>
+        3、column：纵向排列。<br>
+        4、column-reverse：反转纵向排列，从后往前排，最后一项排在最上面。、row默认属性，<br>
+        <div class="item-show">
+            <div style="background-color:#a9ffb9;">弹性子元素1</div>
+            <div style="background-color:#ffe59d;">弹性子元素2</div>
+            <div style="background-color:#ffb3bd;">弹性子元素3</div>
+            <div style="background-color:#d6b7ff;">弹性子元素4</div>
+            <div style="background-color:#a7d5ff;">弹性子元素5</div>
+        </div>
+    </section>
+    <section>
+        <header>弹性容器中通过设置justify-content属性，来规定弹性子元素的排布方式</header>
+        justify-content中用到的属性值<br>
+        1、flex-start：弹性项目向行头紧挨着填充。这个是默认值。第一个弹性项的main-start外边距边线被放置在该行的main-start边线，而后续弹性项依次平齐摆放。<br>
+        2、flex-end： 弹性项目向行尾紧挨着填充。第一个弹性项的main-end外边距边线被放置在该行的main-end边线，而后续弹性项依次平齐摆放。<br>
+        3、center： 弹性项目居中紧挨着填充。（如果剩余的自由空间是负的，则弹性项目将在两个方向上同时溢出）。<br>
+        4、space-between：弹性项目平均分布在该行上。如果剩余空间为负或者只有一个弹性项，则该值等同于flex-start。否则，第1个弹性项的外边距和行的main-start边线对齐，而最后1个弹性项的外边距和行的main-end边线对齐，然后剩余的弹性项分布在该行上，相邻项目的间隔相等。<br>
+        5、space-around：弹性项目平均分布在该行上，两边留有一半的间隔空间。如果剩余空间为负或者只有一个弹性项，则该值等同于center。否则，弹性项目沿该行分布，且彼此间隔相等（比如是20px），同时首尾两边和弹性容器之间留有一半的间隔（1/2*20px=10px）。<br>
+        <div class="item-show">
+            <div style="background-color:#a9ffb9;">弹性子元素1</div>
+            <div style="background-color:#ffe59d;">弹性子元素2</div>
+            <div style="background-color:#ffb3bd;">弹性子元素3</div>
+            <div style="background-color:#d6b7ff;">弹性子元素4</div>
+            <div style="background-color:#a7d5ff;">弹性子元素5</div>
+        </div>
+    </section>
+    <section>
+        <header>弹性容器中通过设置align-items属性,来规定弹性子元素的纵向的对齐方式</header>
+        1、flex-start：弹性盒子元素的侧轴（纵轴）起始位置的边界紧靠住该行的侧轴起始边界。<br>
+        2、flex-end：弹性盒子元素的侧轴（纵轴）起始位置的边界紧靠住该行的侧轴结束边界。<br>
+        3、center：弹性盒子元素在该行的侧轴（纵轴）上居中放置。（如果该行的尺寸小于弹性盒子元素的尺寸，则会向两个方向溢出相同的长度）。<br>
+        4、baseline：如弹性盒子元素的行内轴与侧轴为同一条，则该值与'flex-start'等效。其它情况下，该值将参与基线对齐。<br>
+        5、stretch：如果指定侧轴大小的属性值为'auto'，则其值会使项目的边距盒的尺寸尽可能接近所在行的尺寸，但同时会遵照'min/max-width/height'属性的限制。<br>
+        <div class="item-show">
+            <div style="background-color:#a9ffb9;">弹性子元素1</div>
+            <div style="background-color:#ffe59d;">弹性子元素2</div>
+            <div style="background-color:#ffb3bd;">弹性子元素3</div>
+            <div style="background-color:#d6b7ff;">弹性子元素4</div>
+            <div style="background-color:#a7d5ff;">弹性子元素5</div>
+        </div>
+        <div class="item-show">
+            <div style="background-color:#a9ffb9;">弹性子元素1</div>
+            <div style="background-color:#ffe59d;">弹性子元素2</div>
+            <div style="background-color:#ffb3bd;">弹性子元素3</div>
+            <div style="background-color:#d6b7ff;">弹性子元素4</div>
+            <div style="background-color:#a7d5ff;">弹性子元素5</div>
+        </div>
+        <div class="item-show">
+            <div style="background-color:#a9ffb9;">弹性子元素1</div>
+            <div style="background-color:#ffe59d;">弹性子元素2</div>
+            <div style="background-color:#ffb3bd;">弹性子元素3</div>
+            <div style="background-color:#d6b7ff;">弹性子元素4</div>
+            <div style="background-color:#a7d5ff;">弹性子元素5</div>
+        </div>
+        <div class="item-show">
+            <div style="background-color:#a9ffb9;">弹性子元素1</div>
+            <div style="background-color:#ffe59d;">弹性子元素2</div>
+            <div style="background-color:#ffb3bd;">弹性子元素3</div>
+            <div style="background-color:#d6b7ff;">弹性子元素4</div>
+            <div style="background-color:#a7d5ff;">弹性子元素5</div>
+        </div>
+        <div class="item-show">
+            <div style="background-color:#a9ffb9;">弹性子元素1</div>
+            <div style="background-color:#ffe59d;">弹性子元素2</div>
+            <div style="background-color:#ffb3bd;">弹性子元素3</div>
+            <div style="background-color:#d6b7ff;">弹性子元素4</div>
+            <div style="background-color:#a7d5ff;">弹性子元素5</div>
+        </div>
+    </section>
+    <section>
+        <header>flex-wrap用于指定弹性盒子的子元素换行方式</header>
+        flex-wrap设置属性:<br>
+        1、nowrap - 默认， 弹性容器为单行。该情况下弹性子项可能会溢出容器。<br>
+        2、wrap - 弹性容器为多行。该情况下弹性子项溢出的部分会被放置到新行，子项内部会发生断行<br>
+        3、wrap-reverse -反转 wrap 排列。<br>
+        <div class="item-show">
+            <div style="background-color:#a9ffb9;">弹性子元素1</div>
+            <div style="background-color:#ffe59d;">弹性子元素2</div>
+            <div style="background-color:#ffb3bd;">弹性子元素3</div>
+            <div style="background-color:#d6b7ff;">弹性子元素4</div>
+            <div style="background-color:#a7d5ff;">弹性子元素5</div>
+            <div style="background-color:#a7d5ff;">弹性子元素6</div>
+            <div style="background-color:#a7d5ff;">弹性子元素7</div>
+            <div style="background-color:#a7d5ff;">弹性子元素8</div>
+        </div>
+    </section>
+    <section>
+        <header></header>
+        <div class="item-show">
+            <div style="background-color:#a9ffb9;">弹性子元素1</div>
+            <div style="background-color:#ffe59d;">弹性子元素2</div>
+            <div style="background-color:#ffb3bd;">弹性子元素3</div>
+            <div style="background-color:#d6b7ff;">弹性子元素4</div>
+            <div style="background-color:#a7d5ff;">弹性子元素5</div>
+        </div>
+    </section>
+    <section>
+        <header></header>
+        <div class="item-show">
+            <div style="background-color:#a9ffb9;">弹性子元素1</div>
+            <div style="background-color:#ffe59d;">弹性子元素2</div>
+            <div style="background-color:#ffb3bd;">弹性子元素3</div>
+            <div style="background-color:#d6b7ff;">弹性子元素4</div>
+            <div style="background-color:#a7d5ff;">弹性子元素5</div>
+        </div>
+    </section>
+    <section>
+        <header></header>
+        <div class="item-show">
+            <div style="background-color:#a9ffb9;">弹性子元素1</div>
+            <div style="background-color:#ffe59d;">弹性子元素2</div>
+            <div style="background-color:#ffb3bd;">弹性子元素3</div>
+            <div style="background-color:#d6b7ff;">弹性子元素4</div>
+            <div style="background-color:#a7d5ff;">弹性子元素5</div>
+        </div>
+    </section>
+    <section>
+        <header></header>
+        <div class="item-show">
+            <div style="background-color:#a9ffb9;">弹性子元素1</div>
+            <div style="background-color:#ffe59d;">弹性子元素2</div>
+            <div style="background-color:#ffb3bd;">弹性子元素3</div>
+            <div style="background-color:#d6b7ff;">弹性子元素4</div>
+            <div style="background-color:#a7d5ff;">弹性子元素5</div>
+        </div>
+    </section>
+    <section>
+        <header></header>
+        <div class="item-show">
+            <div style="background-color:#a9ffb9;">弹性子元素1</div>
+            <div style="background-color:#ffe59d;">弹性子元素2</div>
+            <div style="background-color:#ffb3bd;">弹性子元素3</div>
+            <div style="background-color:#d6b7ff;">弹性子元素4</div>
+            <div style="background-color:#a7d5ff;">弹性子元素5</div>
+        </div>
+    </section>
+
+</div>
+</body>
+</html>

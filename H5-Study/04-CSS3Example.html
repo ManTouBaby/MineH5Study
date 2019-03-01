@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画</title>
+    <style>
+        .clearfix:before, .clearfix:after {
+            content: "";
+            display: block;
+        }
+
+        .clearfix:after {
+            clear: both;
+        }
+
+        .clearfix {
+            *zoom: 1;
+        }
+
+        .box {
+            width: 1020px;
+            margin: 100px auto;
+            border: #9e9e9e 1px solid;
+        }
+
+        .item-content {
+            width: 198px;
+            height: 200px;
+            border: #23527c 1px dashed;
+            text-align: center;
+            line-height: 100px;
+            float: left;
+            margin-bottom: 5px;
+            margin-right: 5px;
+        }
+
+        .item-content:nth-child(5n) {
+            margin-right: 0px;
+        }
+
+        .loading-dialog {
+            z-index: 100;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, .1);
+            /*display: none;*/
+        }
+
+        .dialog-content {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            margin-left: -30px;
+            margin-top: -30px;
+            left: 50%;
+            top: 50%;
+            /*animation: start-dialog 1s infinite;*/
+        }
+
+        @keyframes start-dialog {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .dialog-content > span {
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-radius: 10px;
+        }
+
+        .dialog-content > span:nth-child(1) {
+            background-color: #ffe0b1;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+        }
+
+        .dialog-content > span:nth-child(2) {
+            background-color: #feddff;
+            position: absolute;
+            top: 30px;
+            left: 35px;
+        }
+
+        .dialog-content > span:nth-child(3) {
+            background-color: #aaffd9;
+            position: absolute;
+            top: 30px;
+            left: 5px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="box clearfix">
+    <div class="item-content">测试子元素1</div>
+    <div class="item-content">测试子元素2</div>
+    <div class="item-content">测试子元素3</div>
+    <div class="item-content">测试子元素4</div>
+    <div class="item-content">测试子元素5</div>
+    <div class="item-content">测试子元素6</div>
+    <div class="item-content">测试子元素7</div>
+    <div class="item-content">测试子元素8</div>
+    <div class="item-content">测试子元素9</div>
+    <div class="item-content">测试子元素10</div>
+    <div class="item-content">测试子元素11</div>
+    <div class="item-content">测试子元素12</div>
+    <div class="item-content">测试子元素13</div>
+    <div class="item-content">测试子元素14</div>
+    <div class="item-content">测试子元素15</div>
+    <div class="item-content">测试子元素16</div>
+    <div class="item-content">测试子元素17</div>
+    <div class="item-content">测试子元素18</div>
+    <div class="item-content">测试子元素19</div>
+</div>
+<div class="loading-dialog">
+    <div class="dialog-content">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+</div>
+</body>
+</html>

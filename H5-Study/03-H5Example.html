@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>访问历史API</title>
+    <style>
+        aside {
+
+        }
+
+        article {
+
+        }
+    </style>
+</head>
+<body>
+<aside></aside>
+<article></article>
+</body>
+</html>
+<script>
+    function forward() {
+        window.history.forward();
+    }
+
+    function back() {
+        window.history.back();
+    }
+
+    function refresh() {
+        //go 传入一个地址表示跳到这个地址，不传的话表示刷新当前页面
+        window.history.go();
+    }
+</script>
