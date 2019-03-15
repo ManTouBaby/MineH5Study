@@ -1,0 +1,105 @@
+/*section:nth-of-type(2n+1) {*/
+/*background-color: #e3e3e3;*/
+/*}*/
+
+.top-bar {
+    border-bottom: 1px #c0c0c0 solid;
+    color: #888;
+    line-height: 40px;
+}
+
+.top-bar > .coverer #mobile-phone > a, .top-bar > .coverer #issue > a, .top-bar > .coverer #login > a + a {
+    color: #888;
+    text-decoration-line: none;
+}
+
+.banner > .coverer > .navbar .nav > li {
+    vertical-align: middle;
+}
+
+.top-bar > .coverer > div > div + div {
+    border-left: 1px #c0c0c0 solid;
+}
+
+#nav-bar, #nav-bar-logo {
+    padding: 15px 0;
+}
+
+#nav-bar > li {
+    font-size: 18px;
+}
+
+#nav-bar > li:hover {
+    border-bottom: 2px solid #E9232C;
+}
+
+#mobile-phone {
+    position: relative;
+}
+
+#mobile-phone:hover img {
+    display: block;
+}
+
+#mobile-phone img {
+    top: 34px;
+    left: 50%;
+    margin-left: -60px;
+    position: absolute;
+    z-index: 1001;
+    display: none;
+}
+
+/*以上属于导航栏，以下属于广告栏*/
+#main_ads .item {
+    height: 410px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
+
+#special,#appointment {
+    padding: 40px 0;
+    border-bottom: #e3e3e3 1px solid;
+}
+
+#special .special-item {
+    padding: 10px 10px;
+}
+
+#special .special {
+    height: 60px;
+    position: relative;
+}
+
+#special .special > .special-left > i {
+    font-size: 36px;
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    margin-top: -24px;
+}
+
+#special .special > .special-right {
+    position: absolute;
+    top: 50%;
+    left: 68px;
+    margin-top: -32px;
+}
+
+#special .special > .special-right > h4 {
+    font: 500 20px/20px "微软雅黑";
+}
+
+#appointment {
+    padding: 20px 0;
+}
+
+#appointment .appointment-left {
+    float: left;
+}
+
+#appointment .appointment-right {
+    float: right;
+}

@@ -1,0 +1,260 @@
+body {
+    font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #888;
+}
+
+/*定义字体*/
+@font-face {
+    font-family: "weijinsuo";
+    src: url("../font/Mifie-Web-Font.eot") format('embedded-opentype'),
+    url("../font/MiFie-Web-Font.svg") format('svg'),
+    url("../font/MiFie-Web-Font.ttf") format('truetype'),
+    url("../font/MiFie-Web-Font.woff") format('woff') ;
+}
+
+[class^='icon'], [class*=' icon-'] {
+    font-family: weijinsuo;
+    font-style: normal;
+}
+
+.btn-subject-color {
+    color: #ffffff;
+    background-color: #E9232C;
+    border-color: #DB3B43;
+}
+
+.btn-subject-color:hover,
+.btn-subject-color:focus,
+.btn-subject-color:active,
+.btn-subject-color.active,
+.open .dropdown-toggle.btn-subject-color {
+    color: #ffffff;
+    background-color: #C2082D;
+    border-color: #DB3B43;
+}
+
+.btn-subject-color:active,
+.btn-subject-color.active,
+.open .dropdown-toggle.btn-subject-color {
+    background-image: none;
+}
+
+.btn-subject-color.disabled,
+.btn-subject-color[disabled],
+fieldset[disabled] .btn-subject-color,
+.btn-subject-color.disabled:hover,
+.btn-subject-color[disabled]:hover,
+fieldset[disabled] .btn-subject-color:hover,
+.btn-subject-color.disabled:focus,
+.btn-subject-color[disabled]:focus,
+fieldset[disabled] .btn-subject-color:focus,
+.btn-subject-color.disabled:active,
+.btn-subject-color[disabled]:active,
+fieldset[disabled] .btn-subject-color:active,
+.btn-subject-color.disabled.active,
+.btn-subject-color[disabled].active,
+fieldset[disabled] .btn-subject-color.active {
+    background-color: #E9232C;
+    border-color: #DB3B43;
+}
+
+.navbar-mine {
+    background-color: #ffffff;
+    border-color: #f5f5f5;
+    margin-bottom: 0;
+}
+
+.navbar-mine .navbar-brand {
+    color: #777;
+    height: 80px;
+}
+
+.navbar-mine .navbar-brand:hover,
+.navbar-mine .navbar-brand:focus {
+    color: #5e5e5e;
+    background-color: transparent;
+}
+
+.navbar-mine .navbar-text {
+    color: #777;
+}
+
+.navbar-mine .navbar-nav > li > a {
+    color: #777;
+    line-height: 48px;
+}
+
+.navbar-mine .navbar-nav > li > a:hover,
+.navbar-mine .navbar-nav > li > a:focus {
+    color: #333;
+    background-color: transparent;
+    border-bottom: 2px solid #b92322;
+}
+
+.navbar-mine .navbar-nav > .active > a,
+.navbar-mine .navbar-nav > .active > a:hover,
+.navbar-mine .navbar-nav > .active > a:focus {
+    color: #555;
+    background-color: transparent;
+    border-bottom: 2px solid #b92322;
+}
+
+.navbar-mine .navbar-nav > .disabled > a,
+.navbar-mine .navbar-nav > .disabled > a:hover,
+.navbar-mine .navbar-nav > .disabled > a:focus {
+    color: #ccc;
+    background-color: transparent;
+}
+
+.navbar-mine .navbar-toggle {
+    border-color: #ddd;
+    margin-top: 20px;
+}
+
+.navbar-mine .navbar-toggle:hover,
+.navbar-mine .navbar-toggle:focus {
+    background-color: #ddd;
+}
+
+.navbar-mine .navbar-toggle .icon-bar {
+    background-color: #888;
+}
+
+.navbar-mine .navbar-collapse,
+.navbar-mine .navbar-form {
+    border-color: #e7e7e7;
+}
+
+.navbar-mine .navbar-nav > .open > a,
+.navbar-mine .navbar-nav > .open > a:hover,
+.navbar-mine .navbar-nav > .open > a:focus {
+    color: #555;
+    background-color: #e7e7e7;
+}
+
+@media (max-width: 767px) {
+    .navbar-mine .navbar-nav .open .dropdown-menu > li > a {
+        color: #777;
+    }
+
+    .navbar-mine .navbar-nav .open .dropdown-menu > li > a:hover,
+    .navbar-mine .navbar-nav .open .dropdown-menu > li > a:focus {
+        color: #333;
+        background-color: transparent;
+    }
+
+    .navbar-mine .navbar-nav .open .dropdown-menu > .active > a,
+    .navbar-mine .navbar-nav .open .dropdown-menu > .active > a:hover,
+    .navbar-mine .navbar-nav .open .dropdown-menu > .active > a:focus {
+        color: #555;
+        background-color: #e7e7e7;
+    }
+
+    .navbar-mine .navbar-nav .open .dropdown-menu > .disabled > a,
+    .navbar-mine .navbar-nav .open .dropdown-menu > .disabled > a:hover,
+    .navbar-mine .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+        color: #ccc;
+        background-color: transparent;
+    }
+}
+
+.navbar-mine .navbar-link {
+    color: #777;
+}
+
+.navbar-mine .navbar-link:hover {
+    color: #333;
+}
+
+.navbar-mine .btn-link {
+    color: #777;
+}
+
+.navbar-mine .btn-link:hover,
+.navbar-mine .btn-link:focus {
+    color: #333;
+}
+
+.navbar-mine .btn-link[disabled]:hover,
+fieldset[disabled] .navbar-mine .btn-link:hover,
+.navbar-mine .btn-link[disabled]:focus,
+fieldset[disabled] .navbar-mine .btn-link:focus {
+    color: #ccc;
+}
+
+.btn-subject-color .badge {
+    color: #E9232C;
+    background-color: #ffffff;
+}
+
+.icon-mobilephone:before {
+    content: "\e908";
+    font-size: 13px;
+}
+
+.icon-telephone:before {
+    content: "\e909";
+    font-size: 15px;
+}
+
+.icon-icon::before {
+    content: "\e920";
+}
+
+.icon-icon {
+    color: #E9232C;
+    font-size: 50px;
+    vertical-align: middle;
+    line-height: 50px;
+}
+
+.icon-logo::before {
+    content: "\e93e";
+}
+
+.icon-logo {
+    font-size: 35px;
+    color: #434243;
+    vertical-align: middle;
+    line-height: 50px;
+}
+
+.icon-uniE900:before {
+    content: "\e900";
+}
+
+.icon-uniE901:before {
+    content: "\e901";
+}
+
+.icon-uniE902:before {
+    content: "\e902";
+}
+
+.icon-uniE903:before {
+    content: "\e903";
+}
+
+.icon-uniE904:before {
+    content: "\e904";
+}
+
+.icon-uniE905:before {
+    content: "\e905";
+}
+
+.icon-uniE906:before {
+    content: "\e906";
+}
+
+.icon-uniE907:before {
+    content: "\e907";
+}
