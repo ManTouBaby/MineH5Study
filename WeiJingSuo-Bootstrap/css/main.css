@@ -52,14 +52,25 @@
 
 /*以上属于导航栏，以下属于广告栏*/
 #main_ads .item {
-    height: 410px;
+
     background-repeat: no-repeat;
     background-position: center center;
     -webkit-background-size: cover;
     background-size: cover;
 }
 
-#special,#appointment {
+@media (min-width: 768px) {
+    #main_ads .item {
+        height: 410px;
+    }
+}
+
+#main_ads .item > img {
+    width: 100%;
+}
+
+/*特色介绍*/
+#special, #appointment {
     padding: 40px 0;
     border-bottom: #e3e3e3 1px solid;
 }
@@ -92,6 +103,7 @@
     font: 500 20px/20px "微软雅黑";
 }
 
+/*立即预约*/
 #appointment {
     padding: 20px 0;
 }
@@ -102,4 +114,203 @@
 
 #appointment .appointment-right {
     float: right;
+}
+
+/*产品推荐*/
+#product {
+    padding: 30px 0;
+    background-color: #f0f0f0
+}
+
+#product > .container > .ul-constainer > .nav-tabs > li > a {
+    font-size: 18px;
+}
+
+#product > .container > .ul-constainer > .nav-tabs {
+    padding-left: 15px;
+}
+
+#product > .container > .ul-constainer > .nav-tabs > li.active > a {
+    color: #555;
+    cursor: default;
+    border: none;
+    background-color: transparent;
+    border-bottom: solid 4px #E9232C;
+}
+
+#product > .container > .ul-constainer > .tab-content > div {
+    padding: 20px 0;
+}
+
+.panel-main {
+    border-color: #ddd;
+    position: relative;
+    box-shadow: 1px 1px 2px #787373;
+    border-radius: 0;
+}
+
+.panel-main.active::before {
+    content: "\e915";
+    position: absolute;
+    font-family: weijinsuo;
+    color: #E9232C;
+    font-size: 33px;
+    font-weight: 100;
+    top: -8px;
+    left: -1px;
+}
+
+.panel-main > .panel-heading {
+    color: #333;
+    float: right;
+    padding: 24px 0;
+    width: 120px;
+    text-align: center;
+    position: relative;
+}
+
+.jd-icon, .real-icon {
+    width: 20px;
+    height: 20px;
+    padding: 3px;
+    font-size: 10px;
+}
+
+.jd-icon:hover, .real-icon:hover {
+    cursor: pointer;
+}
+
+.jd-icon {
+    border: 1px solid #E9232C;
+    color: #E9232C;
+}
+
+.real-icon {
+    border: 1px solid #399;
+    color: #399;
+}
+
+.panel-main > .panel-heading strong {
+    font-size: 45px;
+    color: #E9232C;
+}
+
+.panel-main > .panel-body::before, .panel-main > .panel-body::after {
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: table;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    position: absolute;
+}
+
+.panel-main > .panel-body::before {
+    top: -10px;
+    right: 110px;
+}
+
+.panel-main > .panel-body::after {
+    bottom: -10px;
+    right: 110px;
+    box-shadow: 0px -1px 1px #787373;
+}
+
+.panel-main > .panel-body {
+    padding: 15px;
+    margin-right: 120px;
+    border-right: 1px dashed #bab7b7;
+}
+
+.panel-main > .panel-body > h5 {
+    margin: 0px 0px 15px;
+    font-size: 19px;
+    color: inherit;
+}
+
+.panel-main > .panel-body dt {
+    color: #c0c0c0;
+}
+
+.panel-main > .panel-heading + .panel-collapse > .panel-body {
+    border-top-color: #ddd;
+}
+
+.panel-main > .panel-heading .badge {
+    color: #f5f5f5;
+    background-color: #333;
+}
+
+.panel-main > .panel-footer + .panel-collapse > .panel-body {
+    border-bottom-color: #ddd;
+}
+
+/*新闻部分*/
+#new {
+    padding: 60px 0;
+}
+
+.new-title {
+    height: 48px;
+    line-height: 48px;
+    font-size: 20px;
+    border-bottom: #c0c0c0 dashed 1px;
+    position: relative;
+}
+
+.new-title::after {
+    content: " ";
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    border: #c0c0c0 dashed 1px;
+    position: absolute;
+    right: -10px;
+    bottom: -5px;
+}
+
+.new-content {
+    position: relative;
+}
+
+.new-content > i {
+    position: absolute;
+    left: 50%;
+    top: 30px;
+    height: 100%;
+    width: 1px;
+    border-left: #c0c0c0 dashed 1px;
+    display: block;
+}
+
+#new > .container > .row ul > li > a {
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    margin-bottom: 20px;
+}
+
+#new > .container > .row ul > li {
+    float: none;
+}
+
+#new > .container > .row ul {
+    padding-left: 45px;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    color: #fff;
+    background-color: #E9232C;
+}
+
+.nav > li > a, .nav > li > a {
+    background-color: #ccc;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+    background-color: #E9232C;
+}
+
+#new > .container > .row ul > li:last-of-type {
+    margin-bottom: 0px;
 }
