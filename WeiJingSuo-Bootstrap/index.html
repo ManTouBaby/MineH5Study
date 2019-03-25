@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/main.css">
 
     <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
-    <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+    <!-- 警告：通过 flie:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
     <!--[if lt IE 9]>-->
     <!--<script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>-->
     <!--<script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>-->
@@ -30,7 +30,7 @@
             <div class="row">
                 <div class="col-xs-2 text-center" id="mobile-phone">
                     <a href="#">
-                        <i class="icon-mobilephone"></i>
+                        <i class="icon-mobliephone"></i>
                         <span class="text-center">手机微金所</span>
                         <i class="glyphicon glyphicon-chevron-down" aria-hidden="true"></i>
                         <img src="img/c_06.jpg">
@@ -45,13 +45,13 @@
                     <a href="#">财富登录</a>
                 </div>
                 <div class="col-xs-2 text-center" id="login">
-                    <a href="#" class="btn btn-subject-color">免费注册</a>
-                    <a href="#" class="btn btn-link">登录</a>
+                    <a href="#" class="btn btn-subject-color" data-toggle="modal" data-target="#register-dialog">免费注册</a>
+                    <a href="#" class="btn btn-link" data-toggle="modal" data-target="#login-dialog">登录</a>
                 </div>
             </div>
         </div>
     </div>
-    <div class="banner">
+    <div class="banner" id="mine_banner" data-spy="affix" data-offset-top="40" data-offset-bottom="160">
         <nav class="navbar navbar-mine navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -476,21 +476,78 @@
             <div class="col-md-offset-2 col-md-2 text-center new-title">
                 全部新闻
             </div>
-            <div class="col-md-2 new-content">
-                <ul class="nav nav-pills" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"><i class="icon-news01"></i></a></li>
-                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab"><i class="icon-news02"></i></a></li>
-                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"><i class="icon-news03"></i></a></li>
-                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"><i class="icon-news04"></i></a></li>
+            <div class="col-md-2 new-content-title">
+                <ul class="nav nav-plils" role="tablist">
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab"
+                                                              data-toggle="tab" data-title="全部新闻"><i
+                            class="icon-news01"></i></a></li>
+                    <li role="presentation"><a href="#proflie" aria-controls="proflie" role="tab" data-toggle="tab"
+                                               data-title="媒体报道"><i class="icon-news02"></i></a></li>
+                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab"
+                                               data-title="微金所头条"><i class="icon-news03"></i></a></li>
+                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab"
+                                               data-title="行业资讯"><i class="icon-news04"></i></a></li>
                 </ul>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 new-content">
                 <!-- Tab panes -->
                 <div class="tab-content">
-                    <div role="tabpanel" class="tab-pane active" id="home">1</div>
-                    <div role="tabpanel" class="tab-pane" id="profile">2</div>
-                    <div role="tabpanel" class="tab-pane" id="messages">3</div>
-                    <div role="tabpanel" class="tab-pane" id="settings">4</div>
+                    <div role="tabpanel" class="tab-pane active fade in" id="home">
+                        <ul>
+                            <li><a href="#">全部新闻</a></li>
+                            <li><a href="#">全部新闻</a></li>
+                            <li><a href="#">全部新闻</a></li>
+                            <li><a href="#">全部新闻</a></li>
+                            <li><a href="#">全部新闻</a></li>
+                            <li><a href="#">全部新闻</a></li>
+                            <li><a href="#">全部新闻</a></li>
+                            <li><a href="#">全部新闻</a></li>
+                            <li><a href="#">全部新闻</a></li>
+                            <li><a href="#">全部新闻</a></li>
+                        </ul>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="proflie">
+                        <ul>
+                            <li><a href="">媒体报道1</a></li>
+                            <li><a href="">媒体报道2</a></li>
+                            <li><a href="">媒体报道3</a></li>
+                            <li><a href="">媒体报道4</a></li>
+                            <li><a href="">媒体报道5</a></li>
+                            <li><a href="">媒体报道6</a></li>
+                            <li><a href="">媒体报道7</a></li>
+                            <li><a href="">媒体报道8</a></li>
+                            <li><a href="">媒体报道9</a></li>
+                            <li><a href="">媒体报道10</a></li>
+                        </ul>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="messages">
+                        <ul>
+                            <li><a href="">微金所头条1</a></li>
+                            <li><a href="">微金所头条2</a></li>
+                            <li><a href="">微金所头条3</a></li>
+                            <li><a href="">微金所头条4</a></li>
+                            <li><a href="">微金所头条5</a></li>
+                            <li><a href="">微金所头条6</a></li>
+                            <li><a href="">微金所头条7</a></li>
+                            <li><a href="">微金所头条8</a></li>
+                            <li><a href="">微金所头条9</a></li>
+                            <li><a href="">微金所头条10</a></li>
+                        </ul>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="settings">
+                        <ul>
+                            <li><a href="">行业资讯1</a></li>
+                            <li><a href="">行业资讯2</a></li>
+                            <li><a href="">行业资讯3</a></li>
+                            <li><a href="">行业资讯4</a></li>
+                            <li><a href="">行业资讯5</a></li>
+                            <li><a href="">行业资讯6</a></li>
+                            <li><a href="">行业资讯7</a></li>
+                            <li><a href="">行业资讯8</a></li>
+                            <li><a href="">行业资讯9</a></li>
+                            <li><a href="">行业资讯10</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -498,10 +555,112 @@
 </section>
 <!--/新闻列表-->
 <!--合作伙伴-->
-<section id="partners"></section>
+<section id="partners" class="hidden-xs">
+    <div class="container">
+        <h2>合作伙伴</h2>
+        <ul class="partners-list clearfix">
+            <li><a href="" class="icon-uniE930"></a></li>
+            <li><a href="" class="icon-uniE92F"></a></li>
+            <li><a href="" class="icon-uniE92E"></a></li>
+            <li><a href="" class="icon-uniE92A"></a></li>
+            <li><a href="" class="icon-uniE929"></a></li>
+            <li><a href="" class="icon-uniE931"></a></li>
+            <li><a href="" class="icon-uniE92C"></a></li>
+            <li><a href="" class="icon-uniE92B"></a></li>
+            <li><a href="" class="icon-uniE92D"></a></li>
+        </ul>
+    </div>
+
+</section>
 <!--/合作伙伴-->
 <!--脚注区域-->
-<section></section>
+<section>
+    <!-- Modal -->
+    <!--注册模块-->
+    <div class="modal fade" id="login-dialog" tabindex="-1" role="dialog" aria-labelledby="login-title">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="login-title">模块框标题</h4>
+                </div>
+                <div class="modal-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-10">
+                                <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+                            <div class="col-sm-10">
+                                <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Remember me
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<div class="col-sm-offset-2 col-sm-10">-->
+                                <!--<button type="submit" class="btn btn-default">Sign in</button>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Sign in</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--登录模块-->
+    <div class="modal fade" id="register-dialog" tabindex="-1" role="dialog" aria-labelledby="register-title">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="register-title">注册</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Email address</label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputFile">File input</label>
+                            <input type="file" id="exampleInputFile">
+                            <p class="help-block">Example block-level help text here.</p>
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Check me out
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <!--/脚注区域-->
 <script src="lib/jquery/jquery.js" type="text/javascript" charset="utf-8"></script>
 <script src="lib/bootstrap/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
