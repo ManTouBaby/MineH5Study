@@ -27,7 +27,7 @@ $(function () {
         if (widthCount >= windowWidth) {
             ulConstainer.css('width', widthCount).parent().css('overflow-x', 'scroll');
         } else {
-            ulConstainer.css('width', '100%');
+            ulConstainer.css('width', '100%').parent().css('overflow-x','hidden');
         }
 
         /*合作伙伴宽度适配响应*/
@@ -59,6 +59,21 @@ $(function () {
     $(".new-content-title>ul>li>a").on("click", function () {
         console.log($(this).data("title"));
         title.text($(this).data("title"));
+    })
+
+    /*Banner实现左右滑动*/
+    var touchSt;
+    var touchEnd;
+    var space = 50;
+    $('#main_ads').on('touchstart', function (event) {
+        touchSt = event.originalEvent.touches[0].screenX;
+        console.log(touchSt);
+    })
+    $('#main_ads').on('touchmove', function (event) {
+        touchEnd = event.originalEvent.touches[0].screenX;
+    })
+    $('#main_ads').on('touchend', function () {
+        if (Math.abs(touchEnd - touchSt) > space) $(this).carousel(touchEnd - touchSt > 0 ? 'prev' : 'next');
     })
 
 })

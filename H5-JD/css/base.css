@@ -1,0 +1,54 @@
+*, ::before, ::after {
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent; /*清除默认点击高亮效果*/
+    -webkit-box-sizing: border-box; /*表示从边框开始计算宽度*/
+}
+
+body {
+    font-size: 14px;
+    font-family: 'microsoft yahei', sans-serif; /*默认使用微软雅黑这个字体，没有这个字体的话使用手机默认字体*/
+    color: #333333;
+    background-color: #f5f5f5;
+}
+
+a {
+    text-decoration: none; /*去除下划线*/
+    color: #333333;
+}
+
+ul {
+    list-style: none; /*去除默认图标*/
+}
+
+input, textarea {
+    border: none;
+    resize: none;
+    outline: none; /*去除默认选中效果*/
+
+    -webkit-appearance: none; /*去除浏览器默认样式*/
+}
+
+/*清除浮动*/
+.clearfix::before, .clearfix::after {
+    content: "";
+    display: block;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.jd-layout {
+    min-width: 320px;
+    max-width: 640px;
+    margin: 0 auto;
+    position: relative;
+}
+
+[class^="icon"] {
+    background-image: url(../img/sprites.png);
+    background-repeat: no-repeat;
+    -webkit-background-size: 200px 200px;
+    background-size: 200px 200px;
+}

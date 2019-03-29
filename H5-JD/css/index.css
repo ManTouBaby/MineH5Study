@@ -1,0 +1,166 @@
+/*搜索栏部分*/
+.jd-search {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.search-container {
+    height: 40px;
+    background-color: rgba(201, 21, 35, .85);
+    position: relative;
+    z-index: 10;
+}
+
+.search-container > form {
+    width: 100%;
+    height: 40px;
+    padding-left: 75px;
+    padding-right: 55px;
+    padding-top: 5px;
+}
+
+.search-container > form > input {
+    width: 100%;
+    height: 30px;
+    border-radius: 15px;
+    padding-left: 35px;
+}
+
+.search-container > .icon-logo {
+    background-position: 0 -103px;
+    width: 60px;
+    height: 36px;
+    display: block;
+
+    position: absolute;
+    top: 4px;
+    left: 10px;
+}
+
+.search-container .icon-search {
+    background-position: -60px -109px;
+    width: 30px;
+    height: 30px;
+    display: block;
+
+    position: absolute;
+    left: 85px;
+    top: 11px;
+}
+
+.search-container > .login {
+    line-height: 40px;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 16px;
+
+    position: absolute;
+    top: 0;
+    right: 10px;
+}
+
+/*banner部分*/
+.jd-banner {
+    background-color: #ffbd94;
+    position: relative;
+}
+
+.banner-container {
+    overflow: hidden;
+}
+
+.banner-container > ul.banner-content {
+    width: 800%;
+}
+
+.banner-container > ul.banner-content > li {
+    display: block;
+    width: 12.5%;
+    float: left;
+}
+
+.banner-container > ul.banner-content > li > a > img {
+    display: block;
+    width: 100%;
+}
+
+.banner-container > ul.banner-tag {
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    margin-left: -54px;
+}
+
+.banner-container > ul.banner-tag > li {
+    float: left;
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #e0e0e0;
+}
+
+.banner-container > ul.banner-tag > li + li {
+    margin-left: 4px;
+}
+
+/*导航栏部分*/
+.jd-bar {
+    width: 100%;
+    height: 150px;
+    /*padding-top: 10px;*/
+    padding: 10px 3.125% 0;
+    border-bottom: 1px solid #c1c1c1;
+    background-color: #fff;
+}
+
+.jd-bar > .bar-container {
+    width: 100%;
+    height: 100%;
+}
+
+.jd-bar > .bar-container > ul {
+    width: 100%;
+    height: 100%;
+}
+
+.jd-bar > .bar-container > ul > li {
+    float: left;
+    width: 25%;
+    height: 69px;
+}
+
+.jd-bar > .bar-container > ul > li > a > img {
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+
+}
+
+.jd-bar > .bar-container > ul > li > a > p {
+    text-align: center;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+/*产品部分*/
+
+.product-box {
+    box-shadow: 0 0 1px 1px #e0e0e0;
+    background-color: #fff;
+    margin: 8px 5px 0px;
+}
+
+.product-box > .product-title {
+    height: 40px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.product-box > .product-title.no-bottom-border {
+    border: 0;
+}
+
+/*-----》掌上秒杀*/
