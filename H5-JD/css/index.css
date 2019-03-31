@@ -152,6 +152,7 @@
     box-shadow: 0 0 1px 1px #e0e0e0;
     background-color: #fff;
     margin: 8px 5px 0px;
+    position: relative;
 }
 
 .product-box > .product-title {
@@ -159,8 +160,125 @@
     border-bottom: 1px solid #e0e0e0;
 }
 
+.product-box > .product-title > h3 {
+    float: left;
+
+    color: #666666;
+    padding-left: 16px;
+    font: 400 14px/40px "微软雅黑";
+}
+
+.product-box > .product-title > h3::before {
+    content: "";
+    display: block;
+    width: 4px;
+    height: 18px;
+    background-color: #ff4f12;
+    position: absolute;
+    left: 6px;
+    top: 12px;
+}
+
+.product-box > .product-title > h5 {
+    float: left;
+
+    color: #ff4f12;
+    padding-left: 28px;
+    font: 400 14px/40px "微软雅黑";
+}
+
+.product-box > .product-title > h5::before {
+    content: "";
+    display: block;
+    width: 16px;
+    height: 20px;
+    background: url(../img/seckill-icon.png) no-repeat;
+    background-size: 16px 20px;
+    position: absolute;
+    left: 6px;
+    top: 10px;
+}
+
 .product-box > .product-title.no-bottom-border {
     border: 0;
 }
 
 /*-----》掌上秒杀*/
+.second-kil-time {
+    font: 400 14px/40px "微软雅黑";
+    position: absolute;
+    left: 94px;
+    top: 0px;
+}
+
+.second-kil-time > .value {
+    background-color: #e1e1e1;
+    padding: 0px 3px;
+}
+
+.second-kill-more {
+    float: right;
+    padding-right: 8px;
+    font: 400 14px/40px "微软雅黑";
+}
+
+.second-kill-more span {
+    font: 400 16px/40px "宋体";
+    margin-left: 4px;
+}
+
+.second-kill-content {
+    padding: 8px 0;
+}
+
+.second-kill-content > ul > li {
+    float: left;
+    display: block;
+    width: 33.3%;
+}
+
+.second-kill-content > ul > li + li > a div.second-kil-content-img {
+    border-left: #e1e1e1 solid 1px;
+    display: block;
+}
+
+.second-kill-content > ul > li > a img {
+    width: 64%;
+    display: block;
+    margin: 0 auto;
+}
+
+.second-kill-content > ul > li > a p {
+    text-align: center;
+    font: 400 12px/12px "微软雅黑";
+}
+
+.second-kill-content > ul > li > a p.now-price {
+    margin-top: 8px;
+    color: #ff4f12;
+}
+
+.second-kill-content > ul > li > a p.old-price {
+    text-decoration: line-through;
+    color: #888888;
+    margin-top: 4px;
+}
+
+/*超值购*/
+.bargain-buy-left, .bargain-buy-right, .hot-active-left, .hot-active-right {
+    width: 50%;
+}
+
+.bargain-buy-left img, .bargain-buy-right img, .hot-active-left img, .hot-active-right img {
+    width: 100%;
+}
+
+.bargain-buy-left img {
+    border-right: #e1e1e1 1px solid;
+}
+.hot-active-right img{
+    border-left: #e1e1e1 1px solid;
+}
+.bargain-buy-right.bargain-buy-rb img, .hot-active-left.hot-active-lb img {
+    border-top: #e1e1e1 1px solid;
+}

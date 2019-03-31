@@ -5,11 +5,16 @@
     -webkit-box-sizing: border-box; /*表示从边框开始计算宽度*/
 }
 
+img { /*  去掉图片低测默认的3像素空白缝隙*/
+    border: 0;
+    vertical-align: middle;
+}
+
 body {
     font-size: 14px;
     font-family: 'microsoft yahei', sans-serif; /*默认使用微软雅黑这个字体，没有这个字体的话使用手机默认字体*/
     color: #333333;
-    background-color: #f5f5f5;
+    background-color: #fff;
 }
 
 a {
@@ -35,20 +40,75 @@ input, textarea {
     display: block;
 }
 
-.clearfix {
+.clearfix::after {
     clear: both;
 }
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
 
 .jd-layout {
     min-width: 320px;
     max-width: 640px;
     margin: 0 auto;
     position: relative;
+    background-color: #f5f5f5;
 }
 
 [class^="icon"] {
-    background-image: url(../img/sprites.png);
-    background-repeat: no-repeat;
+    background: url(../img/sprites.png) no-repeat;
     -webkit-background-size: 200px 200px;
     background-size: 200px 200px;
+}
+
+/*页面toolbar*/
+.page-header {
+    width: 100%;
+    height: 46px;
+    background-color: #f5f5f5;
+    min-width: 320px;
+    max-width: 640px;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+.page-header > .icon-back-img, .page-header > .icon-menu-img {
+    height: 20px;
+    width: 20px;
+    margin: 13px;
+    position: absolute;
+    top: 0;
+}
+
+.page-header > .icon-back-img {
+    left: 0;
+    background-position: -20px 0;
+}
+
+.page-header > .icon-menu-img {
+    right: 0;
+    background-position: -60px 0;
+}
+
+.page-title {
+    text-align: center;
+    font: 400 18px/46px "微软雅黑";
+    color: #111;
+}
+
+.page-main {
+    width: 100%;
+    position: relative;
+    margin-top: 45px;
+    top: 0;
+    left: 0;
 }
