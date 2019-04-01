@@ -1,3 +1,16 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+
+.jd-layout {
+    height: 100%;
+}
+
+.page-main {
+    padding-bottom: 62px;
+}
+
 .safe-notify {
     width: 100%;
     font: 15px/32px "微软雅黑";
@@ -127,12 +140,35 @@
     float: left;
 }
 
-.ctp-item-count > .count {
+.ctp-item-count > form > .count {
     display: block;
     width: 30px;
     height: 18px;
-    text-align: center;
+    text-align: right;
     float: left;
     border-top: #e1e1e1 solid 1px;
     border-bottom: #e1e1e1 solid 1px;
+}
+
+/*支付页面底部按钮*/
+.ctp-pay-container > .ctp-pay-left {
+    height: 62px;
+    width: 75%;
+    background: rgba(0, 0, 0, .8);
+}
+
+.ctp-pay-container > .ctp-pay-right {
+    height: 62px;
+    width: 25%;
+    background: #d8505c;
+}
+
+.ctp-pay-btn {
+    margin-top: 21px;
+}
+
+.ctp-pay-label {
+    color: #FFFFFF;
+    margin-left: 4px;
+    line-height: 62px;
 }

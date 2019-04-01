@@ -52,7 +52,6 @@ input, textarea {
     float: right;
 }
 
-
 .jd-layout {
     min-width: 320px;
     max-width: 640px;
@@ -75,7 +74,7 @@ input, textarea {
     min-width: 320px;
     max-width: 640px;
 
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     z-index: 999;
@@ -107,8 +106,23 @@ input, textarea {
 
 .page-main {
     width: 100%;
-    position: relative;
-    margin-top: 45px;
+    height: 100%;
+    overflow: scroll;
+    padding-top: 45px;
+    position: absolute;
     top: 0;
     left: 0;
+}
+
+.page-main::-webkit-scrollbar {
+    display: none;
+}
+
+.page-footer {
+    width: 100%;
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 999;
 }
