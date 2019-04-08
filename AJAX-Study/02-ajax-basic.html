@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX 的快速上手（接收响应）</title>
+</head>
+<body>
+<script>
+    var xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+        console.log(this.readyState);
+        if (this.readyState == 4) {
+            console.log(this.responseText);
+            var json = this.responseText;
+            var result = JSON.parse(json);
+
+            var data = result.data;
+            var forecast = data.forecast;
+            for (var i = 0; i < forecast.length; i++) {
+                // var p = document.createElement('p');
+                // p.text = forecast[i].week + '  ' + forecast[i].low + ' ' + forecast[i].high;
+                document.write(forecast[i].week + '  ' + forecast[i].low + ' ' + forecast[i].high+"<br>");
+            }
+        }
+    }
+    xhr.open("get", "http://t.weather.sojson.com/api/weather/city/101030100");
+    xhr.send();
+
+</script>
+</body>
+</html>

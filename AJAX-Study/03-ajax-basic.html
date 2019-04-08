@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>readyState</title>
+</head>
+<body>
+    <script>
+        var xhr = new XMLHttpRequest();
+        xhr.open("get","http://t.weather.sojson.com/api/weather/city/101030100");
+        xhr.send();
+        xhr.addEventListener("readystatechange",function () {
+            if (this.readyState!=4)return;
+            console.log(this.responseText);
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX 快速上手</title>
+</head>
+<body>
+<script>
+    //AJAX 是一套API核心提供的类型：XMLHttpRequest
+    var xhr = new XMLHttpRequest();
+    xhr.open("get", "http://t.weather.sojson.com/api/weather/city/101030100")
+    xhr.send();
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>加载完成</title>
+    <script>
+        var xhr = new XMLHttpRequest()
+        xhr.open("get", "http://t.weather.sojson.com/api/weather/city/101030100");
+        xhr.send();
+        xhr.onload = function () {
+            console.log(this.readyState);
+            console.log(this.responseText);
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>
