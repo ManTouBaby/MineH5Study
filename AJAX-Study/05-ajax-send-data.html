@@ -9,7 +9,7 @@
 <div id="content">
 </div>
 <ul id="temp-list"></ul>
-<script id="test" type="text/html">
+<!--<script id="test" type="text/html">
     <h1>{{title}}</h1>
     <ul>
         {{each list}}
@@ -25,8 +25,8 @@
     };
     var html = template('test', data);
     document.getElementById('content').innerHTML = html;
-</script>
-<!--<script id="tmpl" type="text/html">
+</script>-->
+<script id="tmpl" type="text/html">
     {{each tempdata}}
     <li>
         <p>{{$value.ymd}}</p>
@@ -48,11 +48,8 @@
         console.log(content)
         document.getElementById("temp-list").innerHTML = html;
     }
-</script>-->
+</script>
 
-<ul id="temp-container">
-
-</ul>
 <!--
 1、选择模版引擎
 2、下载模版引擎JS文件

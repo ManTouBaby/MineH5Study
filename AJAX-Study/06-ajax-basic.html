@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AJAX的封装</title>
+</head>
+<body>
+<script>
+    function ajax(method, url, params) {
+        method = method.toUpperCase();
+        var xhr = new XMLHttpRequest();
+        if (typeof params === 'object') {
+            var temp = [];
+            for (key in params) {
+                var value = params[key];
+                temp.push(key + '=' + value);
+            }
+            params = temp.join('&');
+        }
+
+        console.log(params);
+        if (method === 'get') {
+            url += '?' + params;
+        }
+        if (method === 'post') {
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        }
+        xhr.open(method, url);
+        xhr.send(params);
+    }
+
+    // ajax('post','post.php','key1=value1');
+</script>
+</body>
+</html>
