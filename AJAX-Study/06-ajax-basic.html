@@ -11,7 +11,7 @@
         var xhr = new XMLHttpRequest();
         if (typeof params === 'object') {
             var temp = [];
-            for (key in params) {
+            for (var key in params) {
                 var value = params[key];
                 temp.push(key + '=' + value);
             }
