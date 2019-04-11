@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jquery 中的AJAX</title>
+</head>
+<body>
+<script src="lib/jquery/jquery.js"></script>
+<script>
+    /*调用方式一*/
+    $.ajax("http://t.weather.sojson.com/api/weather/city/101030100",{
+        type:'get',
+        success:function (res) {
+            console.log(res)
+        }
+    })
+    /*调用方式二*/
+    // $.ajax({
+    //     url: "",
+    //     type: "get",
+    //     success: function (res) {
+    //         console.log(res);
+    //     }
+    // })
+    /*调用方式三*/
+    // $.ajax({
+    //     url: "",
+    //     type: 'get',
+    //     data: {id: 1, name: '张三'},//如果是get请求的话，参数加到url后面，如果是post请求则添加到send里面
+    //     success: function (res) {
+    //         console.log(res);
+    //     }
+    // })
+    /*调用方式四*/
+    // $.ajax({
+    //     url: "",
+    //     type: 'get',
+    //     dataType:'json',//设置响应体，如果不设置的话会根据服务端放回的contentType来决定结果的数据类型
+    //     data: {id: 1, name: '张三'},//如果是get请求的话，参数加到url后面，如果是post请求则添加到send里面
+    //     success: function (res) {
+    //         console.log(res);
+    //     }
+    // })
+    /*调用方式五*/
+    $.ajax({
+        url: "",
+        type: 'get',
+        dataType:'json',//设置响应体，如果不设置的话会根据服务端放回的contentType来决定结果的数据类型
+        data: {id: 1, name: '张三'},//如果是get请求的话，参数加到url后面，如果是post请求则添加到send里面
+        success: function (res) {
+            console.log(res);
+        },
+        error:function (xhr) {
+            console.log(xhr);
+        },
+        complete:function (xhr) {
+            console.log(xhr);
+        }
+    })
+</script>
+</body>
+</html>
