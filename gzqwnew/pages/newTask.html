@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>区域等级响应</title>
+
+	<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../css/general.css" />
+		<!-- dataTables -->
+		<link rel="stylesheet" type="text/css" href="../plugins/bootstrap-table/bootstrap-table.css">
+		<!-- layer -->
+		<link rel="stylesheet" type="text/css" href="../plugins/layer/theme/default/layer.css">
+		
+		
+		<link rel="stylesheet" href="../plugins/ivew/dist/styles/iview.css" />
+		<link rel="stylesheet" href="../plugins/ivew/dist/styles/iview-reset.css" />
+		<link rel="stylesheet" type="text/css" href="../css/xCommon.css" />
+		
+		<link rel="stylesheet" type="text/css" href="http://10.41.219.142/arcgis_js_api/library/3.12/3.12/dijit/themes/tundra/tundra.css" />
+		<link rel="stylesheet" type="text/css" href="http://10.41.219.142/arcgis_js_api/library/3.12/3.12/esri/css/esri.css" />
+		<link rel="stylesheet" href="../css/baseinfo/barrierMap/map.css" />
+		<style>
+			.box-title-tab {
+				padding: 0 15px !important;
+				
+			}
+			
+			.box-title-tab .tab-item {
+				float: left;
+				display: inline-block;
+				width: auto;
+				height: 40px;
+				padding: 0 20px;
+				border-right: 1px solid #f4f4f4;
+				border-bottom: 2px solid transparent;
+				font-size: 13px;
+				line-height: 36px;
+				color: #aaa;
+			}
+			.box-title-tab .tab-item:hover,
+			.box-title-tab .tab-item.active {
+				border-bottom-color: #3c8dbc;
+    			color: #070707;
+			}
+			.box-title-tab .tab-item .fa {
+				margin-left: 15px;
+			}
+			.box-tab .box-tab-content {
+				display: none;
+			}
+			.box-tab .box-tab-content.active {
+				display: block !important;
+			}
+			
+			.map-box {
+				position: relative;
+				display: block;
+				width: 100%;
+				height:760px;
+			}
+			
+			.map-toolbar {
+				position: absolute;
+				top: 20px;
+				right: 20px;
+				display: block;
+				width: 300px;
+			}
+			
+		</style>
+
+		<script type="text/javascript" src="../plugins/vue/dist/vue.js"></script>
+		<script type="text/javascript" src="../plugins/ivew/dist/iview.js"></script>
+		<style>
+			.halfw {
+				width: 60%;
+				margin: 0 auto;
+			}
+			.member-select-box {
+				position: relative;
+				width: calc(100% - 100px);
+				height: 200px;
+				margin-top: 10px;
+				margin-bottom: 15px;
+				margin-left: 100px;
+				background: #DEDEDE;
+				padding: 10px;
+			}
+			.member-select-box .content {
+				
+			}
+			.member-select-box:before{
+				position: absolute;
+				top: -12px;
+				right: 40px;
+				display: block;
+				content: '';
+				border-left: 16px solid #fff;
+				border-right: 16px solid #fff;
+				border-bottom: 12px solid #DEDEDE;
+			}
+			
+			.selected-member-container {
+				float: left;
+				position: relative;
+				display: inline-block;
+				width: calc(100% - 100px);
+				height: auto;
+				min-height: 34px;
+			}
+			
+			.member-tag {
+				display: inline-block;
+				padding: 3px 10px;
+				color: #FFF3F3;
+				background-color: #008749;
+				border-radius: 3px;
+				font-size: 14px;
+				line-height: 20px;
+				margin: 0 5px 5px 0;
+				cursor: pointer;
+			}
+			
+		</style>
+	</head>
+	<body class="innerPage">
+		<div id="main">
+			<section class="content-header">
+				<h1>
+					动态勤务
+					<!--<small>路面巡逻防控组报备</small>-->
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+					<li class="active">新建任务</li>
+				</ol>
+			</section>
+			<section class="content">
+				<div class="row">
+					<div class="col-md-12" v-bind:class="{'col-md-6': showMap}">
+						<div class="box box-primary" >
+							<div class="box-header with-border">
+								<h3 class="box-title">新建任务</h3>
+							</div>
+							<div class="box-body"  v-bind:class="{'halfw': !showMap}">
+								<i-form :label-width="120">
+									<form-item label="任务名称">
+										<i-input v-model="taskName"></i-input>
+									</form-item>
+									<form-item label="任务地点">
+										<input class="hidden" id="pointInfo" v-model="pointInfo" />
+										<input class="hidden" id="addressType" v-model="addressType" />
+										<i-input >
+											<i-button slot="append" icon="location" @click="drawMap">标绘</i-button>
+										</i-input>
+									</form-item>
+									<form-item label="所属单位">
+										<Cascader :data="gzJigouData"  :load-data="loadData"  v-model="mainUnitList"  change-on-select @on-change="setMainUnit"></Cascader>
+									</form-item>
+									<!--<Row :gutter="15">
+										<i-col span="12">
+											<form-item label="所属单位">
+												<Cascader :data="gzJigouData"  :load-data="loadData"  v-model="mainUnitList"  change-on-select @on-change="setMainUnit"></Cascader>
+											</form-item>
+										</i-col>
+										<i-col span="12">
+											<form-item label="工作单位">
+												<Cascader :data="gzJigouData"  :load-data="loadData"  v-model="xlDeptList"  change-on-select @on-change="setXlDept"></Cascader>
+											</form-item>
+										</i-col>
+									</Row>-->
+									<Row :gutter="15">
+										<i-col span="12">
+											<form-item label="任务开始时间">
+												<Date-Picker type="datetime" format="yyyy-MM-dd HH：mm" v-model="watchBegin" style="width:100%"></Date-Picker>
+											</form-item>
+										</i-col>
+										<i-col span="12">
+											<form-item label="任务结束时间">
+												<Date-Picker type="datetime" format="yyyy-MM-dd HH：mm" v-model="watchEnd" style="width:100%"></Date-Picker>
+											</form-item>
+										</i-col>
+									</Row>
+									
+									
+									
+									
+									
+									<form-item label="任务内容">
+										<i-input type="textarea" v-model="remark" :autosize="{minRows: 5,maxRows: 5}"></i-input>
+									</form-item>
+									
+									<form-item label="任务成员">
+										<div class="selected-member-container" v-if="showSelectMember">
+											<template  v-for="memberItem in selectedMemberList">
+												<tag type="border" closable color="green" @on-close="deleteMember(memberItem)">{{memberItem.name}}</tag>
+											</template>
+										</div>
+										<i-button type="primary" icon="plus-round" @click="openMenberSelecter">添加成员</i-button>
+									</form-item>
+									
+									<div class="member-select-box" v-if="isOpenTransfer">
+										<Row :gutter="15">
+											<i-col span="8">
+												<form-item label="选择单位">
+													<Cascader :data="gzJigouData" size="large" :load-data="loadData" v-model="defaultGzJigou" change-on-select @on-change="onDeparmentCascaderChangeHandler"></Cascader>
+												</form-item>
+											</i-col>
+											<i-col span="16">
+												<div class="report-policeContainer">
+													<template v-for="item in memberList">
+														<span class="member-tag" @click="selectAMember(item)">{{item.name}}</span>
+													</template>
+												</div>
+											</i-col>
+										</Row>
+										
+									
+									
+									</div>
+									
+									
+									
+									<div style="padding:10px 0; text-align: center;">
+										<i-button type="info" style="width:100px;" @click="saveNewTask()">保存</i-button>
+									</div>
+									
+								</i-form>
+							</div>
+						</div>
+					</div>
+				
+					<div class="col-md-6" v-if="showMap" >
+						<div class="box"  id="mainWindow" data-dojo-type="dijit/layout/BorderContainer"
+							data-dojo-props="design:'headline', gutters:'false'">
+						<div class="box box-danger">
+							<div class="box-header with-border">
+								<h3 class="box-title">地图标绘</h3>
+								<div style="float: right;">
+								<i-button type="primary" onclick="startCommonDraw('point');" >点</i-button>
+								<i-button type="primary" onclick="startCommonDraw('polyline');"> 线</i-button>
+								<i-button type="primary" onclick="startCommonDraw('polygon');">面</i-button>
+								<i-button type="primary" onclick="savePoint()">完成标绘</i-button>
+								<i-button type="primary" onclick="resizeMap()" >初始化</i-button>
+								</div>
+							</div>
+						</div>	
+							<div class="box-body" style="position: relative;">
+								<div id="map" style="width: 100%;height:500px;">
+		 						</div>
+					</div>
+					</div>
+					</div>
+					
+				</div>
+			</section>
+		</div>
+		
+		<select id="symbol" style="display: none">
+			<option value="">--- Select Symbol ---</option>
+		</select>
+		
+		<script src="../plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../plugins/bootstrap/js/bootstrap.js"></script>
+		<script type="text/javascript" src="../plugins/layer/layer.js"></script>
+		<script type="text/javascript" src="../js/common/common.js" ></script>
+		<script type="text/javascript" src="../js/newTask-vue.js" ></script>
+		
+		<script type="text/javascript" src="http://10.235.40.135:10000/arcgis_js_api/library/3.14/3.14/init.js"></script>
+		<!--<script type="text/javascript" src="http://10.235.180.170:5080/PGIS_S_TileMapServer/CCFPGISLayer2.0.js"></script>-->
+		<script type="text/javascript" src="http://10.235.180.170:5080/PGIS_S_TileMapServer/CCFPGISLayer.js"></script>
+		<script type="text/javascript" src="../js/baseinfo/barrierMap/util_ds.js"></script>
+		<script type="text/javascript" src="../js/newTaskMap/taskMap.js"></script>
+	</body>
+</html>

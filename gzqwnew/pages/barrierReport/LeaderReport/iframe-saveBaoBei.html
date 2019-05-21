@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/font_awesome/css/font-awesome.min.css" />
+		
+		<style>
+			html, body {
+				width: 100%;
+				height: 100%;
+			}
+			.table-box {
+				position: relative;
+				display: block;
+				width: 100%;
+				height: 100%;
+				padding: 15px;
+				padding-bottom: 80px;
+			}
+			.table-box>.content {
+				display: block;
+				width: 100%;
+				height: 100%;
+				overflow-y: auto;
+				overflow-x: hidden;
+			}
+			.table-box>.toolbar {
+				display: block;
+				width: 100%;
+				height: 80px;
+				text-align: center;
+			}
+			.table-box th, .table-box td {
+				text-align: center;
+			}
+			.table-box th {
+				padding: 10px 0;
+				background-color: #65c5fc;
+				font-size: 16px;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div class="table-box">
+			<div class="content">
+				<table class="table table-bordered table-striped">
+					<tr>
+						<th>日期</th>
+						<th>值班领导</th>
+						<th>值班主任</th>
+						<th>值班班次</th>
+					</tr>
+					<tr>
+						<td>3月5日</td>
+						<td>张三</td>
+						<td>李四</td>
+						<td>8:30 - 20:30</td>
+					</tr>
+					<tr>
+						<td>3月6日</td>
+						<td>张三</td>
+						<td>李四</td>
+						<td>8:30 - 20:30</td>
+					</tr>
+					<tr>
+						<td>3月7日</td>
+						<td>张三</td>
+						<td>李四</td>
+						<td>8:30 - 20:30</td>
+					</tr>
+					<tr>
+						<td>3月8日</td>
+						<td>张三</td>
+						<td>李四</td>
+						<td>8:30 - 20:30</td>
+					</tr>
+					<tr>
+						<td>3月9日</td>
+						<td>张三</td>
+						<td>李四</td>
+						<td>8:30 - 20:30</td>
+					</tr>
+					<tr>
+						<td>3月10日</td>
+						<td>张三</td>
+						<td>李四</td>
+						<td>8:30 - 20:30</td>
+					</tr>
+					<tr>
+						<td>3月11日</td>
+						<td>张三</td>
+						<td>李四</td>
+						<td>8:30 - 20:30</td>
+					</tr>
+				</table>
+			</div>
+			<div class="toolbar">
+				<button class="btn btn-info">生成报表</button>
+				<button class="btn btn-success">保存报备</button>
+				<button class="btn btn-default" onclick="onCancelButtonClickHandler()">取消</button>
+			</div>
+		</div>
+		<!-- jQuery -->
+		<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../../../plugins/bootstrap/js/bootstrap.js"></script>
+		
+		<script>
+			$(function(){
+				
+			})
+			function onCancelButtonClickHandler(){
+				if(parent.layer){
+					parent.layer.closeAll('iframe'); //关闭所有的iframe层
+				}
+			}
+		</script>
+		
+	</body>
+</html>

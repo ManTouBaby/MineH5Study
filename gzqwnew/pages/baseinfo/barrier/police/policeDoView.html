@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../../../css/general.css" />
+
+	</head>
+
+	<body class="innerPage">
+		<div>
+			<section class="content-header">
+				<h1>
+					基础信息管理
+					<small>警员个人信息详情</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+					<li>
+						<a href="#">基础信息管理</a>
+					</li>
+					<li>
+						<a href="#">警员列表</a>
+					</li>
+					<li class="active">警员个人信息详情</li>
+				</ol>
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+				<!-- Default box -->
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">警员基础信息</h3>
+					</div>
+					<div class="box-body">
+						<div class="row">
+								<div class="col-md-4">
+									<label>警员名称</label>
+									<input type="text" class="form-control" value="张三" >
+								</div>			
+								<div class="col-md-4">
+									<label>警号</label>
+									<input type="text" class="form-control" value="003" >
+								</div>
+								<div class="col-md-4">
+									<label>所属单位</label>
+									<input type="text" class="form-control" value="越秀分局" >
+								</div>
+							</div>
+							
+						<div class="row">	
+								<div class="col-md-4">
+									<div class="form-group">
+										<label>所属派出所</label>
+										<input type="text" class="form-control" id="xldeptId" value="北京派出所">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<label>创建时间</label>
+									<input type="text" class="form-control" value="2017-01-01 10:00" >
+								</div>
+								<!--<div class="col-md-4">
+									<label>标签</label>
+									<input type="text" class="form-control" value="年轻,吸烟" >
+								</div>-->
+						</div>
+					</div>
+				</div>
+				
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title"><a href="#" onclick="showBQPage()">标签管理</a></h3>
+					</div>
+					<div class="box-body" hidden="hidden" id="BQinfo">
+						<div class="row">
+							<div class="col-md-6">
+								<label>标签库</label>
+								<div style="height:300px" id="allObjectContainer">
+									<div class="bg-green objectItem objectRemove">年长</div>
+									<div class="bg-green objectItem objectRemove">近退休</div>
+									<div class="bg-green objectItem objectRemove">经验丰富</div>
+									<div class="bg-green objectItem objectRemove">配枪</div>
+									<div class="bg-green objectItem objectRemove">民警</div>
+									<div class="bg-green objectItem objectRemove">辅警</div>
+									<div class="bg-green objectItem objectRemove">特警</div>
+									<div class="bg-green objectItem objectRemove">搏击</div>
+									<div class="bg-green objectItem objectRemove">狙击</div>
+
+								</div>
+							</div>
+							<div class="col-md-6" style="height: 300px;">
+								<label>该警员拥有标签</label>
+								<div id="tagObjectContainer" style="width:100%;height:300px;">
+									<div class="bg-green objectItem ">
+										年少
+										<span class="pull-right delButton">
+											<a href="#" onclick="delObject(this)">
+												<i class="fa fa-remove" style="color: #fff;"></i>
+											</a>
+										</span>
+									</div>
+									<div class="bg-green objectItem">
+										新入职
+										<span class="pull-right delButton">
+											<a href="#" onclick="delObject(this)">
+												<i class="fa fa-remove" style="color: #fff;"></i>
+											</a>
+										</span>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			
+			
+				<div class="col-md-12" style="text-align: center;">
+					<button class="btn btn-success">保存</button>
+					<button class="btn btn-danger" onclick="window.history.go(-1)">返回</button>
+				</div>
+			</section>
+			<!-- /.content -->
+		</div>
+		<br><br>
+		<!-- /.content-wrapper -->
+		<!-- jQuery -->
+		<script src="../../../../plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../../../../plugins/bootstrap/js/bootstrap.js"></script>
+		<!-- SlimScroll -->
+		<script type="text/javascript" src="../../../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+		<!-- FastClick -->
+		<script type="text/javascript" src="../../../../plugins/fastclick/fastclick.min.js"></script>
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="../../../../plugins/AdminLTE/js/adminlte.js"></script>
+		<!-- utilJS -->
+		<script type="text/javascript" src="../../../../js/util.js"></script>
+		<!-- easyUILoader -->
+		<script type="text/javascript" src="../../../../plugins/easyui/easyloader.js"></script>
+
+			<script>
+			$(document).ready(function() {
+				easyloader.load(['draggable', 'droppable'], function() {
+					$('.objectRemove').draggable({
+						revert: true,
+						proxy: 'clone',
+						onStartDrag: function() {
+							$(this).draggable('options').cursor = 'not-allowed';
+							$(this).draggable('proxy').css('z-index', 999);
+						},
+						onStopDrag: function() {
+							$(this).draggable('options').cursor = 'move';
+						}
+					});
+					$('#tagObjectContainer').droppable({
+						onDragEnter: function(e, source) {
+							$(source).draggable('options').cursor = 'auto';
+						},
+						onDragLeave: function(e, source) {
+							$(source).draggable('options').cursor = 'not-allowed';
+						},
+						onDrop: function(e, source) {
+							$(e.target).append(source)
+						}
+					});
+				});
+				easyloader.locale = "zh_CN";
+			});
+
+			function delObject(obj) {
+				var delObj = $(obj).parents(".objectItem").clone()
+				$(delObj).find(".delButton").remove();
+				$("#allObjectContainer").append(delObj);
+				easyloader.load(['draggable', 'droppable'], function() {
+					$(delObj).draggable({
+						revert: true,
+						proxy: 'clone',
+						onStartDrag: function() {
+							$(this).draggable('options').cursor = 'not-allowed';
+							$(this).draggable('proxy').css('z-index', 999);
+						},
+						onStopDrag: function() {
+							$(this).draggable('options').cursor = 'move';
+						}
+					});
+				})
+				$(obj).parents(".objectItem").remove();
+			}
+		</script>
+
+				 <!--  <SCRIPT LANGUAGE="javascript">
+					window.open 弹出新窗口的命令； 
+					'page.html' 弹出窗口的文件名； 
+					'newwindow' 弹出窗口的名字（不是文件名），非必须，可用空''代替； 
+					height=100 窗口高度； 
+					width=400 窗口宽度； 
+					top=0 窗口距离屏幕上方的象素值； 
+					left=0 窗口距离屏幕左侧的象素值； 
+					toolbar=no 是否显示工具栏，yes为显示； 
+					menubar，scrollbars 表示菜单栏和滚动栏。 
+					resizable=no 是否允许改变窗口大小，yes为允许； 
+					location=no 是否显示地址栏，yes为允许； 
+					status=no 是否显示状态栏内的信息（通常是文件已经打开），yes为允许； 
+				</SCRIPT> -->
+			
+		<script>
+			function showBQPage(){
+			/*	alert("1")*/
+				/*window.open('policeList.html', "top=350","newwindow", "height=100, width=400, toolbar=no,menubar=no, scrollbars=no, resizable=no, location=no, status=no")*/
+				$("#BQinfo").removeAttr("hidden")
+			
+			}
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,1190 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+		<link rel="stylesheet" type="text/css" href="../../../plugins/layer/theme/default/layer.css" />
+		<link rel="stylesheet" type="text/css" href="../../../plugins/layer/theme/default/layer.css" />
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../../css/general.css" />
+		<!-- ReportCSS -->
+		<link rel="stylesheet" type="text/css" href="../../../css/barrierReport/barrierReport.css" />
+		
+		<link rel="stylesheet" href="../../../plugins/ivew/dist/styles/iview.css" />
+		<style>
+			.peopleItem {
+				font-weight: normal !important;
+			}
+			.report-table>tr:first-child  th {
+				width: 12.5%;
+			}
+			.report-table>tr:first-child  th:first-child {
+				width: calc(12.5% - 65px);
+			}
+			
+			.box-title-tab {
+				padding: 0 15px !important;
+				
+			}
+			
+			.box-title-tab .tab-item {
+				float: left;
+				display: inline-block;
+				width: auto;
+				height: 40px;
+				padding: 0 20px;
+				border-right: 1px solid #f4f4f4;
+				border-bottom: 2px solid transparent;
+				font-size: 13px;
+				line-height: 36px;
+				color: #aaa;
+			}
+			.box-title-tab .tab-item:hover,
+			.box-title-tab .tab-item.active {
+				border-bottom-color: #3c8dbc;
+    			color: #070707;
+			}
+			.box-title-tab .tab-item .fa {
+				margin-left: 15px;
+			}
+			.box-tab .box-tab-content {
+				display: none;
+			}
+			.box-tab .box-tab-content.active {
+				display: block !important;
+			}
+			
+			.reportedPolice  {
+				padding:  0;
+				margin:5px;
+			}
+			.reportedPolice .policeName {
+				display: inline-block;
+				padding: 0 5px;
+				cursor: pointer;
+			}
+			
+			.reportedPolice .label-icon {
+				display: none;
+				width: 26px;
+				height: 26px;
+				text-align: center;
+				vertical-align: middle;
+				line-height: 24px;
+				cursor: pointer;
+			}
+			.label-icon.remove {
+				display: inline-block;
+			}
+			.label-icon.leader {
+				display: inline-block;
+			}
+			.label-icon.equipment {
+				display: inline-block;
+				font-size: 16px;
+			}
+			
+		</style>
+		
+		<script type="text/javascript" src="../../../plugins/vue/dist/vue.js"></script>
+		<script type="text/javascript" src="../../../plugins/ivew/dist/iview.js"></script>
+		
+	</head>
+
+	<body class="innerPage">
+		<div id="main">
+			<section class="content-header">
+				<h1>
+					岗位报备
+					<small>路面巡逻防控组报备</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+					<li>
+						<a href="#">岗位报备</a>
+					</li>
+
+					<li class="active">路面巡逻防控组报备</li>
+				</ol>
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+				<div class="row">
+					<div class="col-md-2">
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">选择岗位</h3>
+							</div>
+							<div class="box-body">
+								<div class="row">
+									<!--<div class="col-md-12">
+										<div class="form-group">
+											<label>选择岗位</label>
+											<input type="text" class="form-control" />
+										</div>
+									</div>-->
+									<div class="col-md-12">
+										<div class="form-group">
+											<label>搜索岗位</label>
+											<div class="input-group ">
+												<input type="text" class="form-control" placeholder="请输入搜索名称">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-info btn-flat">搜索</button>
+												</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<label>搜索标签</label>
+											<div class="input-group ">
+												<input type="text" class="form-control" placeholder="请输入搜索名称">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-info btn-flat">搜索</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+							</div>
+								
+							
+						</div>
+						
+						
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">岗位列表</h3>
+							</div>
+							<div class="box-body">
+								<Tree :data="postListData"></Tree>
+							</div>
+						</div>
+					
+					
+					</div>
+
+					<div class="col-md-10">
+						
+						
+						<div class="box box-primary box-tab">
+							<div class="box-header with-border box-title-tab">
+								<a class="box-title tab-item active">选择人员</a>
+								<a class="box-title tab-item">选择车辆</a>
+								<a class="box-title tab-item">选择装备</a>
+							</div>
+							<div class="box-body">
+								<!-- 选择人员 -->
+								<div class="row box-tab-content active">
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>人员所属单位</label>
+											<!--<input type="text" id="objectUnit" value="广州市公安局" />-->
+											<Cascader :data="departmentListData" v-model="value1" change-on-select filterable></Cascader>
+										</div>
+										<div class="form-group">
+											<label>搜索</label>
+											<div class="input-group ">
+												<input type="text" class="form-control" placeholder="请输入搜索名称">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-info btn-flat">搜索</button>
+												</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label>根据标签搜索</label>
+											<div class="input-group ">
+												<input type="text" class="form-control" placeholder="请输入标签名称">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-primary btn-flat">搜索</button>
+												</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>历史排班人员</label>
+											<div class="report-policeContainer">
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">张三</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">王五</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">赵六</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">柳十</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">石东南</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">吴忠国</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>人员列表</label>
+											<div class="report-policeContainer">
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">张三</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">李四</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">王五</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">赵六</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">张三</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">李四</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">王五</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">赵六</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">张三三</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">李四三</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">王五三</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem">
+													<span class="name">赵六三</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- 选择车辆 -->
+								<div class="row box-tab-content">
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>车辆所属单位</label>
+											<!--<input type="text" id="objectUnit" value="广州市公安局" />-->
+											<Cascader :data="departmentListData" v-model="value2" change-on-select filterable></Cascader>
+										</div>
+										<div class="form-group">
+											<label>搜索</label>
+											<div class="input-group ">
+												<input type="text" class="form-control" placeholder="请输入搜索名称">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-info btn-flat">搜索</button>
+												</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label>根据标签搜索</label>
+											<div class="input-group ">
+												<input type="text" class="form-control" placeholder="请输入标签名称">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-primary btn-flat">搜索</button>
+												</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>历史使用车辆</label>
+											<div class="report-policeContainer">
+												<div class="report-police bg-gray-light peopleItem" style="width:90px;">
+													<span class="name">粤A1234</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem" style="width:90px;">
+													<span class="name">粤A1234</span>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>车辆列表</label>
+											<div class="report-policeContainer">
+												<div class="report-police bg-gray-light peopleItem" style="width:90px;">
+													<span class="name">粤A1234</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem" style="width:90px;">
+													<span class="name">粤A1234</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- 选择装备 -->
+								<div class="row box-tab-content">
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>装备所属单位</label>
+											<!--<input type="text" id="objectUnit" value="广州市公安局" />-->
+											<Cascader :data="departmentListData" v-model="value3" change-on-select filterable></Cascader>
+										</div>
+										<div class="form-group">
+											<label>搜索</label>
+											<div class="input-group ">
+												<input type="text" class="form-control" placeholder="请输入搜索名称">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-info btn-flat">搜索</button>
+												</span>
+											</div>
+										</div>
+										<div class="form-group">
+											<label>根据标签搜索</label>
+											<div class="input-group ">
+												<input type="text" class="form-control" placeholder="请输入标签名称">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-primary btn-flat">搜索</button>
+												</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>历史使用装备</label>
+											<div class="report-policeContainer">
+												<div class="report-police bg-gray-light peopleItem" style="width:90px;">
+													<span class="name">GPS1</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem" style="width:90px;">
+													<span class="name">GPS2</span>
+												</div>
+												
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>装备列表</label>
+											<div class="report-policeContainer">
+												<div class="report-police bg-gray-light peopleItem" style="width:90px;">
+													<span class="name">GPS1</span>
+												</div>
+												<div class="report-police bg-gray-light peopleItem" style="width:90px;">
+													<span class="name">GPS2</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								
+							</div>
+						</div>
+						
+						<div class="box box-warning" id="reportBox">
+							<div class="box-header with-border">
+								<h3 class="box-title">报备</h3>
+								<button class="btn btn-success pull-right" style="margin: 0 5px;">保存报备</button>
+								<button class="btn btn-primary pull-right" style="margin: 0 5px;">批量报备</button>
+								<button class="btn btn-default pull-right" style="margin: 0 60px 0 5px;" onclick="nextWeek()">下一周</button>
+								<button class="btn btn-default pull-right" style="margin: 0 5px;" onclick="prevWeek()">上一周</button>
+								
+							
+							</div>
+							<div id="week-container" class="box-body">
+								<table class="report-table">
+									<tr>
+										<th>岗位名称</th>
+										<th style="width: 65px;">班次时间</th>
+										<th class="headerDate">
+											10月23日&nbsp;周一
+										</th>
+										<th class="headerDate">
+											10月24日&nbsp;周二
+										</th>
+										<th class="headerDate">
+											10月25日&nbsp;周三
+										</th>
+										<th class="headerDate">
+											10月26日&nbsp;周四
+										</th>
+										<th class="headerDate">
+											10月27日&nbsp;周五
+										</th>
+										<th class="headerDate">
+											10月28日&nbsp;周六
+										</th>
+										<th class="headerDate">
+											10月29日&nbsp;周日
+										</th>
+									</tr>
+									<tr class="report-duty">
+										<th rowspan="2">北京A1001</th>
+										<th>08:30<br>-<br>10:30</th>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+									</tr>
+									<tr class="report-duty">
+										<th>08:30<br>-<br>10:30</th>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+									</tr>
+									<tr class="report-duty">
+										<th rowspan="1">北京A1003</th>
+										<th>08:30<br>-<br>10:30</th>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+									</tr>
+									
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- /.content -->
+		</div>
+		<br><br>
+		<!-- /.content-wrapper -->
+		<!-- jQuery -->
+		<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../../../plugins/bootstrap/js/bootstrap.js"></script>
+		<script src="../../../plugins/layer/layer.js"></script>
+		<script src="../../../plugins/layer/layer.js"></script>
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="../../../plugins/AdminLTE/js/adminlte.js"></script>
+		<!-- utilJS -->
+		<script type="text/javascript" src="../../../js/util.js"></script>
+		<!-- easyUILoader -->
+		<script type="text/javascript" src="../../../plugins/easyui/easyloader.js"></script>
+
+
+		<script>
+			var memberCopyMode = false;
+			var dateCopyMode = false;
+		</script>
+
+		<script>
+			var reportingDiv = [];
+			var polices = ['张三', '李四', '王五', '赵六']
+			var loadingDiv = $('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>')
+
+			$(document).ready(function() {
+				easyloader.load('combotree', function() {
+					/*$('#objectUnit').combotree({
+						width: '100%',
+						height: 33,
+						data: treeData
+					});*/
+					/*$('#vehicleObjectUnit').combotree({
+						width: '100%',
+						height: 33,
+						data: treeData
+					});*/
+//					$("#objectUnit").combotree('tree').tree("collapseAll");
+//					$("#vehicleObjectUnit").combotree('tree').tree("collapseAll");
+				});
+				easyloader.load(['draggable', 'droppable'], function() {
+					
+					$('.teamMemberContainer').droppable({
+						onDragEnter: function(e, source) {
+							if(e.which == 3){
+								e.stopPropagation();
+								e.preventDefault();
+							}
+							$(source).draggable('options').cursor = 'auto';
+						},
+						onDragLeave: function(e, source) {
+							$(source).draggable('options').cursor = 'not-allowed';
+						},
+						onDrop: function(e, source) {
+//							e.stopPropagation();
+							var policeName = $(source).find(".policeName").html()
+//							var appendDiv = $("<div class='reportedPolice'><span class='policeName'>" + policeName + "</span><i class='pull-right fa fa-remove removeButton' style='color: #FFF;'></i></div>")
+							var appendDiv = createReportPoliceItem({policeName: policeName, isLeader: true, hasEquipment:true});
+							$(e.target).append(appendDiv);
+							addReportPoliceItemChildEvent(appendDiv);
+							makeDraggable($(e.target).find(".reportedPolice"))
+//							makeDelButton($(appendDiv).find(".removeButton"))
+							source.remove()
+						}
+					});
+				});
+				easyloader.locale = "zh_CN";
+
+				/*$(".peopleItem").click(function(e) {
+					if(reportingDiv && reportingDiv.length>0) {
+						var policeName;
+						if($(e.target).find(".name").html()) {
+							policeName = $(e.target).find(".name").html();
+						} else {
+							policeName = $(e.target).html()
+						}
+						reportPeople(policeName);
+					}
+				})*/
+				
+				$(".peopleItem").click(function(e) {
+					
+					if(reportingDiv.length == 0){
+						//未选中日期时， 变成人员多选状态
+						$(this).toggleClass("selected");
+						
+						if($(this).hasClass("selected")){
+							memberSelectedList.push($(this).find(".name").text());
+						}else{
+							memberSelectedList.splice($.inArray($(this).find(".name").text(), memberSelectedList), 1);
+						}
+						memberCopyMode = true;
+					}else {
+						if(reportingDiv && reportingDiv.length>0) {
+							var policeName;
+							if($(e.target).find(".name").html()) {
+								policeName = $(e.target).find(".name").html();
+							} else {
+								policeName = $(e.target).html()
+							}
+							reportPeople(policeName);
+							dateCopyMode = true;
+						}
+						
+					}
+					
+				});
+				
+				
+				$(document).keyup(function(e){
+					if(e.ctrlKey==1 && e.keyCode == 67){
+						console.log("你按下了Ctrl+C");
+						copyData();
+						
+					}
+					if(e.ctrlKey==1 && e.keyCode == 86){
+						console.log("你按下了Ctrl+V");
+						pasteDate();
+					}
+				})
+				
+				
+				
+				
+				
+				bindEvents();
+			})
+			
+			
+			
+			
+			
+			function createReportPoliceItem(params){
+				var policeName = "---",
+					leader = "",
+					equipment = "";
+				if(params){
+					policeName = params.policeName;
+					if(params.isLeader){
+						leader = "leader";
+					}else{
+						leader = "member";
+					}
+					if(params.hasEquipment){
+						equipment = "equipment";
+					}
+				}
+				
+				var htm = '<div class="reportedPolice">'
+				+'<span class="label-icon '+ leader +'"><i class="fa fa-flag"></i></span>'
+				+'<span class="policeName">'+ policeName +'</span>'
+				+'<span class="label-icon '+ equipment +'"><i class="fa fa-mobile"></i></span>'
+				+'<span class="label-icon remove"><i class="fa fa-remove removeButton"></i></span>'
+				+'</div>';
+				
+				
+				return $(htm);
+			}
+			
+			
+			function addReportPoliceItemChildEvent(itemObj){
+				if(itemObj){
+//					$(itemObj).find(".label-icon").bind("mousedown", function(e){
+					$(itemObj).find(".label-icon").bind("mouseover", function(e){
+						e.preventDefault();
+						e.stopPropagation();
+						
+						if($(this).hasClass("remove")){
+//							$(this).parents(".reportedPolice").remove();
+						}else if($(this).hasClass("leader")){
+							layer.tips('我是组长', this,{
+							  tips: [4, '#78BA32']
+							});
+						}else if($(this).hasClass("equipment")){
+							var equipmentTxt = '<div class="layerTipsContent">'
+							+'<div class="layerTipsContent-line">装备名称：手台A1001</div>'
+							+'<div class="layerTipsContent-line">装备类型：手台</div>'
+							+'</div>';
+							layer.tips(equipmentTxt, this,{
+							  tips: [1, '#78BA32']
+							});
+							
+						}
+					});
+					$(itemObj).find(".label-icon").bind("mouseout", function(e){
+						e.preventDefault();
+						e.stopPropagation();
+						
+						if($(this).hasClass("remove")){
+//							$(this).parents(".reportedPolice").remove();
+						}else if($(this).hasClass("leader")){
+							layer.closeAll();
+						}else if($(this).hasClass("equipment")){
+							layer.closeAll();
+							
+						}
+					});
+					$(itemObj).find(".label-icon").bind("mousedown", function(e){
+						e.preventDefault();
+						e.stopPropagation();
+						if($(this).hasClass("remove")){
+							$(this).parents(".reportedPolice").remove();
+						}
+					});
+//					$(itemObj).find(".policeName").bind("mousedown", function(e){
+					$(itemObj).find(".policeName").bind("mouseover", function(e){
+						var policeNameTxt = '<div class="layerTipsContent">'
+							+'<div class="layerTipsContent-line">警员姓名：'+ $(this).text() +'</div>'
+							+'<div class="layerTipsContent-line">警员编号：123456</div>'
+							+'</div>';
+							layer.tips(policeNameTxt, this,{
+							  tips: [1, '#78BA32']
+							});
+					});
+					$(itemObj).find(".policeName").bind("mouseout", function(e){
+						layer.closeAll();
+					});
+					$(itemObj).bind("contextmenu", function(e){
+						return false;
+					})
+					
+				}
+			}
+			
+			
+			function copyData2(){
+				if(memberCopyMode && !dateCopyMode){
+//					alert(memberSelectedList.length);
+//					layer.msg("已复制");
+					
+					
+				}else if(dateCopyMode && !memberCopyMode){
+//					alert(reportingDiv.length);
+					if(reportingDiv.length==1){
+						layer.msg("已复制");
+					}else{
+						layer.msg("只能复制一天的");
+					}
+					
+					clearReportingDiv();
+					
+				}else{
+					
+				}
+			}
+			function copyData(){
+				if(dateCopyMode){
+//					alert(reportingDiv.length);
+					if(reportingDiv.length==1){
+						var obj = $(reportingDiv[0]);
+						
+						if(obj.children().length==0){
+							layer.msg("内容为空, 复制失败");
+						}else{
+							copyContent = null;
+							copyContent = obj.clone();
+							layer.msg("已复制");
+						}
+					}else{
+						layer.msg("只能复制一个班次");
+					}
+					clearReportingDiv();
+					
+				}
+			}
+			function pasteDate(){
+				if(dateCopyMode){
+					if(!copyContent) return;
+					for(var i=0; i<reportingDiv.length; i++){
+						var obj = $(reportingDiv[i]);
+						var tempCopy = $(copyContent);
+						obj.append(tempCopy.html());
+					}
+					
+					clearReportingDiv();
+					
+				}
+			}
+			
+			var copyContent;
+			var memberSelectedList = [];
+//			var reportingDiv = [];
+			
+			
+			function bindEvents(){
+				$('.teamMemberContainer').bind("click",function() {
+					if(memberSelectedList.length == 0){
+						if($(this).hasClass("reportingLeaderContainer")){
+							reportingDiv.splice($.inArray(this, reportingDiv), 1);
+							$(this).removeClass("reportingLeaderContainer");
+						}else{
+							reportingDiv.push(this);
+							$(this).addClass("reportingLeaderContainer");
+						}
+						dateCopyMode = true;
+					}else{
+						for(var i=0; i<memberSelectedList.length; i++){
+							reportingDiv.push(this);
+							var policeName = memberSelectedList[i];
+							reportPeople(policeName);
+						}
+						memberSelectedList = [];
+						$(".peopleItem").removeClass("selected");
+						memberCopyMode = false;
+						dateCopyMode = false;
+					}
+					
+				});
+			}
+			
+
+			/*function reportPeople(policeName) {
+				if(reportingDiv) {
+					var appendDiv = $("<div class='reportedPolice'><span class='policeName'>" + policeName + "</span><i class='pull-right fa fa-remove removeButton' style='color: #FFF;'></i></div>")
+					var a = $(reportingDiv).append(appendDiv);
+				}
+				makeDraggable($(reportingDiv).find(".reportedPolice"))
+				makeDelButton($(appendDiv).find(".removeButton"))
+			}*/
+			
+			
+			function reportPeople(policeName) {
+				if(reportingDiv && reportingDiv.length>0) {
+					for(var i=0; i<reportingDiv.length; i++){
+//						var appendDiv = $("<div class='reportedPolice'><span class='policeName'>" + policeName + "</span><i class='pull-right fa fa-remove removeButton' style='color: #FFF;'></i></div>");
+						var appendDiv = createReportPoliceItem({policeName: policeName, isLeader: false, hasEquipment:false});
+						
+						var a = $(reportingDiv[i]).append(appendDiv);
+						addReportPoliceItemChildEvent(appendDiv);
+						makeDraggable(appendDiv);
+//						makeDelButton(appendDiv.find(".removeButton"));
+					}
+				}
+				makeDraggable();
+//				makeDelButton();
+				clearReportingDiv();
+			}
+			function clearReportingDiv(){
+				if(reportingDiv){
+					for(var j=0; j<reportingDiv.length; j++){
+						var obj = $(reportingDiv[j]);
+						obj.removeClass("reportingLeaderContainer");
+					}
+					reportingDiv = [];
+					dateCopyMode = false;
+				}
+			}
+
+			function makeDraggable(obj) {
+				$(obj).draggable({
+					revert: true,
+					onStartDrag: function() {
+						$(this).draggable('options').cursor = 'not-allowed';
+						$(this).css('z-index', 999);
+					},
+					onStopDrag: function() {
+						$(this).draggable('options').cursor = 'move';
+					}
+				});
+			}
+
+			function makeDelButton(obj) {
+				$(obj).mousedown(function() {
+					$(obj).parent().remove()
+				})
+			}
+
+			function createReport() {
+				var loadingDivc = loadingDiv.clone()
+				$("#reportBox").append(loadingDivc);
+				setTimeout(function() {
+					$(".teamLeaderContainer").each(function() {
+						var ii = Math.floor(Math.random() * 4)
+//						var appendDiv = $("<div class='reportedPolice'><span class='policeName'>" + polices[ii] + "</span><i class='pull-right fa fa-remove removeButton' style='color: #FFF;'></i></div>")
+						var appendDiv = createReportPoliceItem({policeName: policeName, isLeader: true, hasEquipment:true});
+						$(this).append(appendDiv);
+						addReportPoliceItemChildEvent(appendDiv);
+						makeDraggable($(appendDiv));
+//						makeDelButton($(appendDiv).find(".removeButton"))
+					})
+					$(".teamMemberContainer").each(function() {
+						var num = Math.floor(Math.random() * 2) + 1
+						for(var i = 0; i < num; i++) {
+							var ii = Math.floor(Math.random() * 4)
+//							var appendDiv = $("<div class='reportedPolice'><span class='policeName'>" + polices[ii] + "</span><i class='pull-right fa fa-remove removeButton' style='color: #FFF;'></i></div>")
+							var appendDiv = createReportPoliceItem({policeName: policeName, isLeader: true, hasEquipment:true});
+							$(this).append(appendDiv);
+							addReportPoliceItemChildEvent(appendDiv);
+							makeDraggable($(appendDiv));
+//							makeDelButton($(appendDiv).find(".removeButton"))
+						}
+					})
+					$("#reportBox").find(".overlay").remove()
+				}, 800)
+
+			}
+			var treeData = [{
+				id: 1,
+				text: '广州市公安局',
+				children: [{
+					id: 11,
+					text: '越秀分局',
+					children: [{
+						id: 111,
+						text: '北京派出所'
+					}]
+				}, {
+					id: 12,
+					text: '天河分局',
+					children: [{
+						id: 121,
+						text: '五山派出所'
+					}]
+				}, {
+					id: 13,
+					text: '番禺分局',
+					children: [{
+						id: 131,
+						text: '市桥派出所'
+					}]
+				}]
+			}]
+		</script>
+		
+		<script>
+			function createWeek(arrWeek, arrCurJW){
+				var tableObj = $('<table class="report-table"></table>');
+				var thObj = $('<tr></tr>');
+				thObj.append('<th>岗位名称</th><th style="width: 65px;">班次时间</th>');
+				tableObj.append(thObj);
+				for(var i=0; i<arrWeek.length; i++ ){
+					thObj.append('<th class="headerDate">'+arrWeek[i]+'</th>');
+				}
+				
+				for(var j=0; j<arrCurJW.length; j++){
+					var jwObj = arrCurJW[j];
+					var jwName = jwObj.name;
+					var jwBc = jwObj.bc;
+					
+					if(jwBc.length>1){
+						for(var jj=0; jj<jwBc.length; jj++){
+							var trObj = $('<tr class="report-duty"></tr>');
+							tableObj.append(trObj);
+							if(jj==0){
+								trObj.append('<th rowspan="'+ jwBc.length +'">'+ jwName +'</th>');
+							}
+							trObj.append('<th>'+ jwBc[jj] +'</th>');
+							for(var i=0; i<arrWeek.length; i++ ){
+								trObj.append('<td class="report-table-policeContainer"><div class="teamMemberContainer"></div></td>');
+							}
+						}
+						
+					}else{
+						var trObj = $('<tr class="report-duty"></tr>');
+						tableObj.append(trObj);
+						trObj.append('<th>'+ jwName +'</th>');
+						trObj.append('<th>'+ jwBc[0] +'</th>');
+						for(var i=0; i<arrWeek.length; i++ ){
+							trObj.append('<td class="report-table-policeContainer"><div class="teamMemberContainer"></div></td>');
+						}
+					}
+					
+				}
+				
+				return tableObj;
+			}
+			var currentFirstDate;
+			var formatDate = function(date) {              
+				var year = date.getFullYear() + '年';        
+				var month = (date.getMonth() + 1) + '月';        
+				var day = date.getDate() + '日';        
+//				var week = '(' + ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'][date.getDay()] + ')';         
+				var week = ['周日', '周一', '周二', '周三', '周四', '周五', '周六'][date.getDay()];         
+//				return year + month + day + ' ' + week;      
+				return month + day + ' ' + week;   
+			};      
+			var addDate = function(date, n) {           
+				date.setDate(date.getDate() + n);
+				return date;      
+			};      
+			var setDate = function(date) {              
+				var week = date.getDay() - 1;
+				date = addDate(date, week * -1);
+				currentFirstDate = new Date(date);
+				var arrWeek=[];         
+				for(var i = 0; i < 7; i++) {                  
+					arrWeek.push(formatDate(i == 0 ? date : addDate(date, 1)));        
+				}
+				var arrCurJW = getCurrentGangwei();
+				$("#week-container").empty().append(createWeek(arrWeek, arrCurJW));  
+				bindEvents();        
+			};  
+			
+			function getCurrentGangwei(){
+				var arrCurJW = [];
+				$("#week-container .report-table tr.report-duty").each(function(index, element){
+					
+					if($(this).find("th").length == 2){
+						var obj = {name: "", bc: []};
+						arrCurJW.push(obj);
+						
+						obj.name = $(this).find("th").eq(0).text();
+						obj.bc.push($(this).find("th").eq(1).html());
+					}
+					else if($(this).find("th").length == 1) {
+						var obj2 = arrCurJW[arrCurJW.length -1];
+						obj2.bc.push($(this).find("th").eq(0).html());
+					}
+				});
+				return arrCurJW;
+			}
+			
+			function prevWeek(){
+				setDate(addDate(currentFirstDate,-7));
+			}
+			function nextWeek(){
+				setDate(addDate(currentFirstDate,7));
+			}
+			
+			$(document).ready(function(){
+				debugger
+				setDate(new Date());
+			})
+		</script>
+	
+	
+		<script>
+			new Vue({
+				el: '#main',
+				data: function(){
+					return {
+		                value1: ['beijing', 'all'],
+		                value2: ['beijing', 'all'],
+		                value3: ['beijing', 'all'],
+		                departmentListData: [{
+		                    value: 'beijing',
+		                    label: '广州市公安局',
+		                    children: [
+		                        {
+		                            value: 'gugong',
+		                            label: '天河分局',
+		                            children: [
+				                        {
+				                            value: 'all',
+				                            label: '全部'
+				                        },
+				                        {
+				                            value: 'gugong',
+				                            label: '特勤大队'
+				                        },
+				                        {
+				                            value: 'tiantan',
+				                            label: '政工办'
+				                        }
+				                    ]
+		                        },
+		                        {
+		                            value: 'tiantan',
+		                            label: '越秀分局'
+		                        },
+		                        {
+		                            value: 'wangfujing',
+		                            label: '白云分局'
+		                        }
+		                    ]
+		                }],
+		            
+		            	postListData : [
+	                    {
+	                        title: '常态岗位',
+	                        expand: true,
+	                        children: [
+	                            {
+	                                title: '路面巡逻',
+	                                expand: true,
+	                                children: [
+	                                    {
+	                                        title: '巡组北京A1001'
+	                                    },
+	                                    {
+	                                        title: '巡组北京A1002'
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                title: '卡口',
+	                                expand: true,
+	                                children: [
+	                                    {
+	                                        title: '卡口机场A001'
+	                                    },
+	                                    {
+	                                        title: '卡口机场A002'
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    },{
+	                        title: '专项岗位',
+	                        expand: true,
+	                        children: [
+	                            {
+	                                title: '路面巡逻',
+	                                expand: true,
+	                                children: [
+	                                    {
+	                                        title: '巡组北京A1001'
+	                                    },
+	                                    {
+	                                        title: '巡组北京A1002'
+	                                    }
+	                                ]
+	                            },
+	                            {
+	                                title: '卡口',
+	                                expand: true,
+	                                children: [
+	                                    {
+	                                        title: '卡口机场A001'
+	                                    },
+	                                    {
+	                                        title: '卡口机场A002'
+	                                    }
+	                                ]
+	                            }
+	                        ]
+	                    }]
+					
+					}
+				}
+			})
+		</script>
+	
+		<script>
+			$(document).ready(function(){
+				$(".box-title-tab .tab-item").click(function(){
+					$(this).addClass("active").siblings().removeClass("active");
+					$(this).parents(".box-tab").find(".box-tab-content").eq($(this).index()).addClass("active").siblings().removeClass("active");
+				});
+			})
+		</script>
+	
+	</body>
+
+</html>

@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../css/general.css" />
+		<style>
+			td, th {
+				text-align: center;
+				vertical-align: middle;
+				border-color: #e4e4e4;
+			}
+		</style>
+
+	</head>
+
+	<body class="innerPage">
+		<div>
+			<section class="content-header">
+				<h1>
+					岗位信息统计
+					<small>统计分析</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+					<li>
+						<a href="#">统计分析</a>
+					</li>
+					<li class="active">岗位信息统计</li>
+				</ol>
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+
+				<!-- Default box -->
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">搜索条件</h3>
+
+						<div class="box-tools pull-right">
+							<button type="button" class="btn btn-box-tool" data-widget="collapse" title="折叠">
+              					<i class="fa fa-minus"></i></button>
+						</div>
+					</div>
+					<div class="box-body">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>岗位信息名称</label>
+									<input type="text" class="form-control" placeholder="岗位信息名称">
+								</div>
+								<div class="form-group">
+									<label>岗位类型</label>
+									<input type="text" class="form-control" placeholder="岗位信息类型">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>所属单位</label>
+									<input type="text" class="form-control" id="deptId">
+								</div>
+								<div class="form-group">
+									<label>责任(巡逻)单位</label>
+									<input type="text" class="form-control" id="xldeptId">
+								</div>
+
+							</div>
+							<div class="col-md-12" style="text-align: center;">
+								<button class="btn btn-primary">搜索</button>
+								<button class="btn btn-info">导出</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">岗位信息列表</h3>
+					</div>
+					<div class="box-body">
+						<table id="table" class="table table-bordered" >
+							<thead>
+								<tr>
+									<th rowspan="2" style="vertical-align: middle;">
+										单位
+									</th>
+									<th colspan="3">
+										路面防控
+									</th>
+									<th colspan="3">
+										卡点
+									</th>
+									<th colspan="3">
+										社区防控
+									</th>
+									<th colspan="3">
+										视频监控
+									</th>
+									<th colspan="3">
+										重点目标
+									</th>
+									<th rowspan="3">
+										总数
+									</th>
+								</tr>
+								<tr>
+									<th>
+										采集数
+									</th>
+									<th>
+										采集率
+									</th>
+									<th>
+										总数
+									</th>
+									<th>
+										采集数
+									</th>
+									<th>
+										采集率
+									</th>
+									<th>
+										总数
+									</th>
+									<th>
+										采集数
+									</th>
+									<th>
+										采集率
+									</th>
+									<th>
+										总数
+									</th>
+									<th>
+										采集数
+									</th>
+									<th>
+										采集率
+									</th>
+									<th>
+										总数
+									</th>
+									<th>
+										采集数
+									</th>
+									<th>
+										采集率
+									</th>
+									<th>
+										总数
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>越秀分局</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>150</td>
+								</tr>
+								<tr>
+									<td>天河分局</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>150</td>
+								</tr>
+								<tr>
+									<td>黄埔分局</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>150</td>
+								</tr>
+								<tr>
+									<td>荔湾分局</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>150</td>
+								</tr>
+								<tr>
+									<td>海珠分局</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>3</td>
+									<td>10%</td>
+									<td>30</td>
+									<td>150</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			</section>
+			<!-- /.content -->
+			<div id="container" align="left" style="min-width:200px;height:400px" class="col-md-6">
+		</div>
+		<!-- /.content-wrapper -->
+		<!-- jQuery -->
+		<script src="../../plugins/jquery/jquery-3.2.1.js"></script>
+
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../../plugins/bootstrap/js/bootstrap.js"></script>
+
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="../../plugins/AdminLTE/js/adminlte.js"></script>
+
+		<!-- utilJS -->
+		<script type="text/javascript" src="../../js/util.js"></script>
+
+		<!-- easyUILoader -->
+		<script type="text/javascript" src="../../plugins/easyui/easyloader.js"></script>
+
+		<!-- SlimScroll -->
+		<script type="text/javascript" src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+		<!-- FastClick -->
+		<script type="text/javascript" src="../../plugins/fastclick/fastclick.min.js"></script>
+
+		<!-- dataTable -->
+		<script type="text/javascript" src="../../plugins/bootstrap-table/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../plugins/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>
+
+		<!--highcharts-->
+		<script type="text/jscript" src="../../plugins/highcharts/highcharts.js"></script>
+
+		<script>
+			$(document).ready(function() {
+				var colors = Highcharts.getOptions().colors,
+					categories = ['越秀', ' 天河', '  荔湾', '海珠', '黄埔'],
+					data = [{
+						y: 25,
+						color: colors[0],
+						drilldown: {
+							name: '越秀区',
+							categories: ['路面', '卡点', '视频', '重点目标','社区'],
+							data: [10, 10, 10, 10, 10],
+							color: colors[0]
+						}
+					}, {
+						y: 20,
+						color: colors[1],
+						drilldown: {
+							name: '天河区',
+							categories: ['路面', '卡点', '视频', '重点目标','社区'],
+							data: [10, 10, 10, 10, 10],
+							color: colors[1]
+						}
+					}, {
+						y: 25,
+						color: colors[2],
+						drilldown: {
+							name: '荔湾区',
+							categories: ['路面', '卡点', '视频', '重点目标','社区'],
+							data: [10, 10, 10, 10, 10],
+							color: colors[2]
+						}
+					}, {
+						y: 15,
+						color: colors[3],
+						drilldown: {
+							name: '海珠区',
+							categories: ['路面', '卡点', '视频', '重点目标','社区'],
+							data: [10, 10, 10, 10, 10],
+							color: colors[3]
+						}
+					}, {
+						y: 15,
+						color: colors[4],
+						drilldown: {
+							name: '黄埔区',
+							categories: ['路面', '卡点', '视频', '重点目标','社区'],
+							data: [10, 10, 10, 10, 10],
+							color: colors[4]
+						}
+					}],
+					browserData = [],
+					versionsData = [],
+					i,
+					j,
+					dataLen = data.length,
+					cdrillDataLen,
+					brightness;
+				// 构建数据数组
+				for(i = 0; i < dataLen; i += 1) {
+					// 添加浏览器数据
+					browserData.push({
+						name: categories[i],
+						y: data[i].y,
+						color: data[i].color
+					});
+					// 添加版本数据
+					drillDataLen = data[i].drilldown.data.length;
+					for(j = 0; j < drillDataLen; j += 1) {
+						brightness = 0.2 - (j / drillDataLen) / 5;
+						versionsData.push({
+							name: data[i].drilldown.categories[j],
+							y: data[i].drilldown.data[j],
+							color: Highcharts.Color(data[i].color).brighten(brightness).get()
+						});
+					}
+				}
+				// 创建图表
+				$('#container').highcharts({
+					chart: {
+						type: 'pie'
+					},
+					title: {
+						text: '全市岗位信息分布'
+					},
+					subtitle: {
+						text: '各区岗位信息汇总'
+					},
+					yAxis: {
+						title: {
+							text: '总百分比'
+						}
+					},
+					plotOptions: {
+						pie: {
+							shadow: false,
+							center: ['50%', '50%']
+						}
+					},
+					tooltip: {
+						valueSuffix: '%'
+					},
+					series: [{
+						name: '浏览器',
+						data: browserData,
+						size: '60%',
+						dataLabels: {
+							formatter: function() {
+								return this.y > 5 ? this.point.name : null;
+							},
+							color: 'white',
+							distance: -30
+						}
+					}, {
+						name: '百分比',
+						data: versionsData,
+						size: '80%',
+						innerSize: '60%',
+						/* dataLabels: {
+						     formatter: function () {
+						         // 大于1则显示
+						         return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
+						     }
+						 }*/
+					}]
+				});
+			});
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>动态勤务管理云应用</title>
+
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../../css/general.css" />
+		<!-- dataTables -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/bootstrap-table/bootstrap-table.css">
+
+</head>
+<body class="innerPage">
+	<div>
+		<section class="content-header">
+			<h1>
+				岗位模板管理 <small>系统管理</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="#" onclick="window.parent.toIndex()"><i
+						class="fa fa-dashboard"></i>首页</a></li>
+				<li><a href="#"
+					onclick="toPage('/system/UserAdmin/toPersonalAdmin.do')"><i
+						class="fa fa-clipboard"></i>基础信息管理</a></li>
+				<li class="active">岗位模板管理</li>
+			</ol>
+		</section>
+
+		<!-- Main content -->
+		<section class="content">
+			<div class="row" id="barrierMouldInfo">
+				<div class="col-sm-3">
+					<div class="box" id="mainTreeBox">
+						<div class="box-header with-border">
+							<h3 class="box-title">岗位模板列表</h3>
+							<div class= "pull-right">
+								<button class="btn btn-success btn-xs" onclick="doNewRoot(true)">增加根节点</button>
+								<button class="btn btn-success btn-xs" onclick="doNewRoot(false)">增加子节点</button>
+								<button class="btn btn-danger btn-xs" onclick="doDelConfirm()">删除</button>
+							</div>
+						</div>
+						<div class="box-body">
+							<ul id="mainTree" class="easyui-tree"></ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-9" id="detailContainer" style="display:none">
+					<form id="mainForm">
+						<div class="box" id="detailInfoBox" >
+							<div class="box-header with-border">
+								<h3 class="box-title">岗位模板详细</h3>
+								<div class="box-tools pull-right">
+									<!--<button type="button" class="btn btn-box-tool"
+										onClick="toggleThisBox(this)" id="serarchBoxToggleButton">
+										<i class="fa fa-minus"></i>
+									</button>-->
+								</div>
+							</div>
+							<div class="box-body">
+								<div class="rows">
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label>岗位模板值</label> 
+											<input type="text" class="form-control" placeholder="岗位模板值" id="mouldValue" validate="validate:true" name="barriermould.mouldValue"> 
+											<input type="hidden" id="mouldId" name="barriermould.id">
+											<input type="hidden" id="iftail" name="barriermould.iftail">
+											<input type="hidden" id="parentId" name="barriermould.parentId">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label>岗位模板名称</label>
+											<input type="text" class="form-control" placeholder="岗位模板名称" id="mouldName" validate="validate:true" name="barriermould.mouldName">
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<label>岗位模板描述</label> 
+											<input type="text" class="form-control" placeholder="岗位模板描述" id="remark" name="barriermould.remark">
+										</div>
+									</div>
+								</div>
+								</div>
+							</div>
+							
+							<div class="box" id="fieldInfoBox">
+							<div class="box-header with-border">
+								<h3 class="box-title">岗位模板字段详细(输入框)</h3>
+									<div class="box-tools pull-right">
+									<button type="button" id="addIBtn" class="btn btn-xs btn-success"
+										onclick="doAddField(true)">增加</button>
+								</div>	
+							</div>
+							<div class="box-body">
+								<div class="fieldContainer">
+									
+								</div>
+							</div>
+						</div>
+						
+						<div class="box" id="fieldSselectInfoBox">
+							<div class="box-header with-border">
+								<h3 class="box-title">岗位模板字段详细(下拉框)</h3>
+									<div class="box-tools pull-right">
+									<button type="button" id="addSBtn" class="btn btn-xs btn-success"
+										onclick="doAddField(false)">增加</button>
+								</div>	
+							</div>
+							<div class="box-body">
+								<div class="fieldSelectContainer">
+									
+								</div>
+							</div>
+						</div>
+						
+						</form>
+					<div class="row">
+						<div class="col-sm-12">
+							<div style="text-align: center">
+								<button class="btn btn-success btn-sm" id="saveBtn" style=' width: 120px;'
+									onclick="doValidate()">保存</button>
+								<button class="btn btn-danger btn-sm" style="width: 120px"
+									onclick="clearContent()">取消</button>
+							</div>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- /.content -->
+	</div>
+	
+	
+	<!--*************************可编辑输入框 显示******************************** -->
+	<div id='inputfield' class="field" style='display: none'>
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="form-group">
+					<label>字段名称</label> <input type="text" class="form-control"
+						placeholder="字段名称" id="mouldValue" validate="validate:true"
+						name="barriermouldfield.fieldName">
+						<input type="hidden" name="barriermouldfield.id">
+						<input type="hidden" value="" name="barriermouldfield.fieldDicVal">
+						<input type="hidden" value="" name="barriermouldfield.fieldDicName">
+						<input type="hidden" value="I" name="barriermouldfield.fieldType">
+				</div>
+			</div>
+			<div class="col-sm-3">
+			<div class="form-group">
+				<label>是否搜索条件</label>
+				<input type="text" class="isquery form-control" id="isquery" name="barriermouldfield.ifquery"> 
+				<!--<input type="hidden" class="isqueryID" id="isqueryID"> 
+				<input type="hidden" class="isqueryName" id="isqueryNAME">-->
+			</div>
+			</div>
+			<div class="col-sm-3">
+				<div class="form-group">
+					<label>是否必填</label>
+					<input type="text" class="ifrequired form-control" id="ifrequired" name="barriermouldfield.ifrequired"> 
+				<!--	<input type="hidden" class="ifrequiredID" id="ifrequiredID"> 
+					<input type="hidden" class="ifrequiredName" id="ifrequiredNAME">-->
+				</div>
+			</div>
+			<div class="col-sm-1">
+				<div class="form-group">
+					<label>&nbsp;</label>
+					<button type="button" class="btn btn-danger form-control removeBotton" title="删除"
+						>
+						<i class="fa fa-close"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+ 	<!--*************************可编辑下拉框 显示******************************** -->
+	<div id='selectfield' class="field" style='display: none'>
+		<div class="row">
+			<div class="col-sm-3">
+				<div class="form-group">
+					<label>字段名称</label> 
+					<input type="text" class="form-control"
+						placeholder="字段名称" id="mouldValue" validate="validate:true"
+						name="barriermouldfield.fieldName">
+					<input type="hidden" value="" name="barriermouldfield.ifrequired">	
+					<input type="hidden" value="S" name="barriermouldfield.fieldType">
+					<input type="hidden" name="barriermouldfield.id">
+				</div>
+			</div>
+			<div class="col-sm-3">
+				<label>下拉类型</label>
+				<input type="text" class="selectType form-control" id="barrier" name="barriermouldfield.barrier"> 
+				<input type="hidden" class="selectTypeID" id="barrierID" name="barriermouldfield.fieldDicVal"> 
+				<input type="hidden" class="selectTypeName" id="barrierNAME" name="barriermouldfield.fieldDicName">
+			</div>
+			<div class="col-sm-3">
+				<div class="form-group">
+					<label>是否搜索条件</label>
+					<input type="text" class="isquery form-control" id="isquery" name="barriermouldfield.ifquery" > 
+					<!--<input type="hidden" class="isqueryID" id="isqueryID"> 
+					<input type="hidden" class="isqueryName" id="isqueryNAME">-->
+				</div>
+			</div>
+			<div class="col-sm-1">
+				<div class="form-group">
+					<label>&nbsp;</label>
+					<button type="button" class="btn btn-danger form-control removeBotton"
+						title="删除">
+						<i class="fa fa-close"></i>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div style="clear: both;"></div>
+	</div>
+	
+	<!-- jQuery -->
+		<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../../../plugins/bootstrap/js/bootstrap.js"></script>
+		<!-- SlimScroll -->
+		<script type="text/javascript" src="../../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+		<!-- FastClick -->
+		<script type="text/javascript" src="../../../plugins/fastclick/fastclick.min.js"></script>
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="../../../plugins/AdminLTE/js/adminlte.js"></script>
+		<!-- utilJS -->
+		<script type="text/javascript" src="../../../js/common/common.js"></script>
+		<script type="text/javascript" src="../../../js/util.js"></script>
+		<!-- dataTable -->
+		<script type="text/javascript" src="../../../plugins/bootstrap-table/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../../plugins/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>
+		
+		<script type="text/javascript" src="../../../plugins/tools/validate.js"></script>
+		<script type="text/javascript" src="../../../plugins/tools/TipsModal.js"></script>
+		<script type="text/javascript" src="../../../plugins/tools/jquery.extend.js"></script>
+		<script type="text/javascript" src="../../../plugins/vue/dist/vue.js"></script>
+		
+		<!-- easyUILoader -->
+		<script type="text/javascript" src="../../../plugins/easyui/easyloader.js"></script>
+		
+		<script type="text/javascript" src="../../../js/baseinfo/barrierMould/BarrierMouldAdmin.js"></script>
+	<script type="text/javascript">
+	</script>
+
+</body>
+
+</html>

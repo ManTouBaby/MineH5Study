@@ -1,0 +1,437 @@
+﻿﻿<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap.min.css" />
+		
+		<link rel="stylesheet" type="text/css" href="plugins/layer/theme/default/layer.css" />
+		
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		
+		<link rel="stylesheet" href="plugins/ivew/dist/styles/iview.css" />
+		
+		<!-- general -->
+		<link rel="stylesheet" href="css/general.css" />
+		
+		
+		<script type="text/javascript" src="plugins/vue/dist/vue.js"></script>
+		<script type="text/javascript" src="plugins/ivew/dist/iview.js"></script>
+		
+
+	</head>
+
+	<body class="hold-transition skin-blue sidebar-mini">
+		<div id="indexMain" class="wrapper">
+			<!-- 头部导航栏 -->
+			<header class="main-header">
+				<nav class="navbar navbar-static-top">
+					<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"></a>
+					<span class="bannerLogo">
+						<a href="#" onclick="iFrame2Page('welcomePage-new.html')" style="color: #fff;">
+							动态勤务管理云应用
+						</a>
+					</span>
+					<div class="navbar-custom-menu">
+						<ul class="nav navbar-nav">
+							<!-- 待办事项提示栏-->
+							<li class="dropdown tasks-menu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-flag-o"></i>
+									<span class="label label-danger">1</span>
+								</a>
+								<ul class="dropdown-menu">
+									<li class="header">您有1个巡组报备</li>
+									<li>
+										<ul class="menu">
+											<li>
+												<a href="#">
+													<i class="fa fa-bullseye text-aqua"></i> 北京A1001
+												</a>
+											</li>
+										</ul>
+									</li>
+									<li class="footer">
+										<a href="#">查看所有报备待办信息</a>
+									</li>
+								</ul>
+							</li>
+							<li class="dropdown user user-menu">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+									<i class="fa fa-user-circle" aria-hidden="true"></i>
+									<span class="hidden-xs">欢迎您, {{userName}}</span>
+								</a>
+								<ul class="dropdown-menu">
+									<!-- User image -->
+									<li class="user-header">
+										<p> {{userName}} </p>
+									</li>
+
+									<li class="user-footer">
+										<div class="pull-left">
+											<a href="#" class="btn btn-default btn-flat">修改基本信息</a>
+										</div>
+										<div class="pull-right">
+											<a href="#" class="btn btn-default btn-flat">修改密码</a>
+										</div>
+									</li>
+								</ul>
+							</li>
+							<!-- Control Sidebar Toggle Button -->
+							<li>
+								<a href="#" onclick="logout()"><i class="fa fa-sign-out"></i></a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</header>
+			<!-- ./头部导航栏 -->
+			<!-- =============================================== -->
+
+			<!-- 左部菜单栏 -->
+			<aside class="main-sidebar">
+				
+				<!--<section class="sidebar">
+					<ul class="sidebar-menu" data-widget="tree">
+						<li class="header">主菜单</li>
+						
+					</ul>
+				</section>
+				-->
+				
+				<section class="sidebar">
+					<ul class="sidebar-menu" data-widget="tree">
+						<li class="header">主菜单</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="fa fa-calendar"></i> <span>岗位报备</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<!--<li>
+									<a href="#" onclick="iFrame2Page('pages/barrierReport/LeaderReport/LeaderReport.html')"><i class="fa fa-circle-o"></i> 值班领导报备</a>
+								</li>-->
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/barrierReport/dailyReport/dutyLeaderReport.html')"><i class="fa fa-circle-o"></i> 值班领导报备</a>
+								</li>
+								<!--<li>
+									<a href="#" onclick="iFrame2Page('pages/barrierReport/roadDefenceReport/roadDefenceReport.html')"><i class="fa fa-circle-o"></i> 路面巡逻报备</a>
+								</li>-->
+								<!--<li>
+									<a href="#" onclick="iFrame2Page('pages/barrierReport/dailyReport/dailyPostReport.html')"><i class="fa fa-circle-o"></i>常态岗位报备</a>
+								</li>-->
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/barrierReport/dailyReport/dailyPostReport-new.html')"><i class="fa fa-circle-o"></i>常态岗位报备</a>
+								</li>
+								<!--<li>
+									<a href=""><i class="fa fa-circle-o"></i> 社区</a>
+								</li>
+								<li>
+									<a href=""><i class="fa fa-circle-o"></i> 重点目标</a>
+								</li>
+								<li>
+									<a href=""><i class="fa fa-circle-o"></i> 治安防控</a>
+								</li>-->
+								
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/barrierReportExport/reportBarrierExport.html')"><i class="fa fa-circle-o"></i>岗位报备导出</a>
+								</li>
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/barrierReport/specDutyReport/specDutyList.html')"><i class="fa fa-circle-o"></i>专项勤务报备</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="fa fa-search"></i> <span>岗位报备查询</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/barrierReportWatch/PeopleReport/policeList.html')"><i class="fa fa-circle-o"></i> 人员报备查询</a>
+								</li>
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/barrierReportWatch/barrierReport/barrierList.html')"><i class="fa fa-circle-o"></i> 岗位报备查询</a>
+								</li>
+								<li>
+								<!--	<a href="#" onclick="iFrame2Page('pages/barrierReportWatch/leaderReport/leaderReportWatch.html')"><i class="fa fa-circle-o"></i> 值班领导报备查询</a>
+								</li>
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/barrierReportWatch/roadDefenceWatch/roadDefenceReportWatch.html')"><i class="fa fa-circle-o"></i> 路面巡逻报备查询</a>
+								</li>
+								<li>
+									<a href=""><i class="fa fa-circle-o"></i> 卡点报备查询</a>
+								</li>
+								<li>
+									<a href=""><i class="fa fa-circle-o"></i> 社区报备查询</a>
+								</li>
+								<li>
+									<a href=""><i class="fa fa-circle-o"></i> 重点目标报备查询</a>
+								</li>
+								<li>
+									<a href=""><i class="fa fa-circle-o"></i> 治安防控报备查询</a>
+								</li>-->
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="fa fa-search"></i> <span>动态勤务</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/dynamicDuty-detail.html')"><i class="fa fa-circle-o"></i><span>动态勤务查询</span></a>
+								</li>
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/dynamicDuty.html')"><i class="fa fa-circle-o"></i><span>勤务监督</span></a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="fa fa-search"></i> <span>区域等级响应</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/barrierReportWatch/areaResponse/response.html')"><i class="fa fa-circle-o"></i>区域等级响应</a>
+								</li>
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/efficiencyAssess.html')"><i class="fa fa-circle-o"></i>能效评估</a>
+								</li>
+							</ul>
+						</li>
+						
+						<li class="treeview">
+							<a href="#">
+								<i class="fa fa-bar-chart"></i> <span>统计分析</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/statistics/reportStatistics-new.html')"><i class="fa fa-circle-o"></i> 报备警力统计</a>
+								</li>
+								<!--<li>
+									<a href="#" onclick="iFrame2Page('pages/statistics/barrierStatistics.html')"><i class="fa fa-circle-o"></i> 岗位信息统计</a>
+								</li>-->
+								<!--<li>
+									<a href="#" ><i class="fa fa-circle-o"></i> 实时警力分析</a>
+								</li>-->
+								<!--<li>
+									<a href="#" onclick="iFrame2Page('pages/statistics/dutyStatistics.html')"><i class="fa fa-circle-o"></i> 实时勤务</a>
+								</li>-->
+								<!--<li>
+									<a href=""><i class="fa fa-circle-o"></i> 警力同环比分析</a>
+								</li>
+-->
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="fa fa-clipboard"></i> <span>基础信息管理</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/baseinfo/barrierMould/barrierMouldAdmin.html')"><i class="fa fa-circle-o"></i> 岗位模板管理</a>
+								</li>
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/baseinfo/barrier/barrierAdmin.html')"><i class="fa fa-circle-o"></i> 岗位信息管理</a>
+								</li>
+								<!--<li>
+									<a href=""><i class="fa fa-circle-o"></i> 三道防线</a>
+								</li>
+								<li>
+									<a href=""><i class="fa fa-circle-o"></i> 社区防控网</a>
+								</li>
+								<li>
+									<a href=""><i class="fa fa-circle-o"></i> 重点目标防控网</a>
+								</li>
+								<li>
+									<a href=""><i class="fa fa-circle-o"></i> 视频监控室</a>
+								</li>-->
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/baseinfo/police/policeAdmin.html')"><i class="fa fa-circle-o"></i> 警员管理</a>
+								</li>
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/baseinfo/equipment/equipmentAdmin.html')"><i class="fa fa-circle-o"></i> 装备管理</a>
+								</li>
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/baseinfo/vehicle/vehicleAdmin.html')"><i class="fa fa-circle-o"></i> 车辆管理</a>
+								</li>
+								<li>
+									<a href="#" onclick="iFrame2Page('pages/baseinfo/unit/unitAdmin.html')"><i class="fa fa-circle-o"></i> 单位信息管理</a>
+								</li>
+							</ul>
+						</li>
+						<li class="treeview">
+							<a href="#">
+								<i class="fa fa-cogs"></i> <span>系统管理</span>
+								<span class="pull-right-container">
+									<i class="fa fa-angle-left pull-right"></i>
+								</span>
+							</a>
+							<ul class="treeview-menu">
+								<li>
+									<a href=""><i class="fa fa-circle-o"></i> 用户个人信息管理</a>
+								</li>
+								<li>
+									<a href=""><i class="fa fa-circle-o"></i> 用户管理</a>
+								</li>
+								<li>
+									<a href=""><i class="fa fa-circle-o"></i> 菜单管理</a>
+								</li>
+								<li>
+									<a href=""><i class="fa fa-circle-o"></i> 角色管理</a>
+								</li>
+								<li>
+									<a href=""><i class="fa fa-circle-o"></i> 角色权限管理</a>
+								</li>
+								<li>
+									<a href=""><i class="fa fa-circle-o"></i> 用户角色管理</a>
+								</li>
+
+							</ul>
+						</li>
+					</ul>
+				</section>
+			</aside>
+			<!-- ./左部菜单栏 -->
+			<!-- =============================================== -->
+
+			<!-- 主要内部iFrame -->
+			<div class="content-wrapper">
+				<iframe id="mainIFrame" style="width: 100%;height: 100%;" src="welcomePage-new.html" frameborder="no" border="0" marginwidth="0" marginheight="0" allowtransparency="yes"></iframe>
+			</div>
+			<!-- /.主要内部iFrame -->
+			<!-- 登出操作提示框 -->
+			<div class="modal fade" id="logoutModal">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  			<span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">登出确认</h4>
+						</div>
+						<div class="modal-body">
+							<p>您确定要登出系统吗？&hellip;</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" onclick="doLogout()">登出</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.登出操作提示框 -->
+		</div>
+		<!-- jQuery -->
+		<script src="plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="plugins/bootstrap/js/bootstrap.js"></script>
+		<!-- SlimScroll -->
+		<script type="text/javascript" src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+		<!-- FastClick -->
+		<script type="text/javascript" src="plugins/fastclick/fastclick.min.js"></script>
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="plugins/AdminLTE/js/adminlte.js"></script>
+		
+		<!-- layui -->
+		<script type="text/javascript" src="plugins/layer/layer.js"></script>
+		<!-- utilJS -->
+		<script type="text/javascript" src="js/common/common.js"></script>
+		<script type="text/javascript" src="js/util.js"></script>
+		<!-- PageJS -->
+		<script type="text/javascript" src="js/pageJS/indexJS.js"></script>
+		<!--<script type="text/javascript" src="js/stomp/stomp.js"></script>-->
+		<script type="text/javascript" src="js/stomp/sockjs-0.3.min.js"></script>
+		<script type="text/javascript">
+			
+				var ws = null;
+				var url = null;
+				var transports = [];
+				var userId = getCookieValue("loginName");
+				var deptId = getCookieValue("xdeptId");
+				window.onbeforeunload = function(){
+					if(ws!=null)
+						ws.close();
+				}
+				if('WebSocket' in window){
+						ws = new WebSocket("ws://10.235.180.164:9090/webSocketServer?userId="+ userId+"&deptId="+deptId);
+						if(ws != null){
+						ws.onopen = function(){
+							console.log("open");
+						};
+						ws.onclose = function(event){
+							console.log("close");
+						};
+						ws.onerror = function(){
+							console.log("error");
+							console.log(event);
+						};
+						ws.onmessage = function(event){
+							
+							console.log(event);
+							debugger;
+							if(event.data){
+								var dataList =  JSON.parse(event.data);
+								if(null!=dataList&&dataList.length!=0){
+									for(var i =0,iSize= dataList.length;i<iSize;i++){
+										var obj = dataList[i];
+										if("grade"==obj.queueName){
+											var descText = obj.stationName+"本周期等级勤务已设定为"+obj.grade+"<br>"+"执行周期为:"+obj.begin+"至"+obj.end;
+											
+											if(indexVue){
+												indexVue.$Notice.config({
+													top: 120
+												})
+												indexVue.$Notice.info({title: "等级勤务",desc:descText});
+											}
+										}
+									}
+								}
+								
+							}
+						};			
+					}	
+				}
+				
+				function setGrade(obj){
+					layer.open({
+						type:1,
+						title: '报备报表',
+						shadeClose: true,
+						shade: 0.8,
+						area: ['600px', '600px'],
+						content: "12312312"
+					})
+				}
+		</script>
+	</body>
+
+</html>

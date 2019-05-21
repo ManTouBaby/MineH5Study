@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>警力资源及勤务管理系统</title>
+<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../../css/general.css" />
+</head>
+<body class="innerPage">
+	<div>
+		<section class="content-header">
+			<h1>
+				单位架构管理 <small>基础信息管理</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li>
+					<a href="#" onclick="window.parent.toIndex()">
+						<i class="fa fa-home"></i>首页
+					</a>
+				</li>
+				<li>
+					<a href="#" onclick="toPage('/system/UserAdmin/toPersonalAdmin.do')">
+						<i class="fa fa-clipboard"></i>基础信息管理
+					</a>
+				</li>
+				<li class="active">单位架构管理</li>
+			</ol>
+		</section>
+		<!-- Main content -->
+		<section class="content">
+			<div class="row">
+				<div class="col-sm-4">
+					<div class="box box-primary">
+						<div class="box-header with-border">
+							<h3 class="box-title">单位组织结构树</h3>
+							<div class="box-tools pull-right">
+								<button type="button" class="btn btn-box-tool" onClick="toggleThisBox(this)" id="serarchBoxToggleButton">
+									<i class="fa fa-minus"></i>
+								</button>
+							</div>
+						</div>
+						<div class="box-body">
+							<div style="width: 100%; height: 700px; overflow: auto">
+								<div style="width: 100%; height: 100%" id="unitTree"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-8">
+					<div id="unitInfo">
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">单位组织信息</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" onClick="toggleThisBox(this)" id="serarchBoxToggleButton">
+										<i class="fa fa-minus"></i>
+									</button>
+								</div>
+							</div>
+							<div class="box-body">
+								<form id="watchingUnitForm">
+									<div class="rows">
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label>单位名称</label>
+												<input type="text" class="form-control" placeholder="请输入单位名称(必填)" 
+												 readonly="readonly" validate="validate:true" v-model="unitInfo.name">
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label>单位简称</label>
+												<input type="text" class="form-control" placeholder="请输入单位简称" v-model="unitInfo.shortName">
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label>单位全称</label>
+												<input type="text" class="form-control" placeholder="请输入单位全称" 
+													readonly="readonly" v-model="unitInfo.fullName">
+											</div>
+										</div>
+										<div style="clear: both"></div>
+									</div>
+									<div class="rows">
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label>单位组织机构代码</label>
+												<input type="text" class="form-control" placeholder="请输入单位组织机构代码(必填)"
+													readonly="readonly" validate="validate:true" v-model="unitInfo.id">
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label>单位类型</label>
+												<input id="unitInfoType" type="text" class="form-control" 
+												 readonly="readonly"	v-model="unitInfo.type">
+												<!--<input type="hidden" class="form-control" >-->
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label>单位地址</label>
+												<input type="text" class="form-control" placeholder="请输入单位单位地址" v-model="unitInfo.address">
+											</div>
+										</div>
+										<div style="clear: both"></div>
+									</div>
+									<div class="rows">
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label>单位电话</label>
+												<input type="text" class="form-control" placeholder="请输入单位电话" v-model="unitInfo.phone">
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label>单位联系人</label>
+												<input type="text" class="form-control" placeholder="请输入单位联系人" v-model="unitInfo.contacts">
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label>单位联系人电话</label>
+												<input type="text" class="form-control" placeholder="请输入联系人电话" v-model="unitInfo.contactsPhone">
+											</div>
+										</div>
+										<div style="clear: both"></div>
+									</div>
+									
+									<div class="rows">
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label>民警数量</label>
+												<input type="number" class="form-control" placeholder="请输入民警数量" v-model="unitInfo.mjCount">
+											</div>
+										</div>
+										<div class="col-sm-4">
+											<div class="form-group">
+												<label>辅警数量</label>
+												<input type="number" class="form-control" placeholder="请输入辅警数量" v-model="unitInfo.fjCount">
+											</div>
+										</div>
+										<div style="clear: both"></div>
+									</div>
+									
+									<div class="rows" style="text-align: center;">
+										<a class="btn btn-success btn-sm" style="width: 120px;" onclick="doUpdate()">修改</a>
+										<div style="clear: both"></div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- /.content -->
+	</div>
+	<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../../../plugins/bootstrap/js/bootstrap.js"></script>
+		<!-- SlimScroll -->
+		<script type="text/javascript" src="../../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+		<!-- FastClick -->
+		<script type="text/javascript" src="../../../plugins/fastclick/fastclick.min.js"></script>
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="../../../plugins/AdminLTE/js/adminlte.js"></script>
+		<!-- utilJS -->
+		<script type="text/javascript" src="../../../js/common/common.js" ></script>
+		<script type="text/javascript" src="../../../js/util.js"></script>
+		<!-- easyUILoader -->
+		<script type="text/javascript" src="../../../plugins/easyui/easyloader.js"></script>
+		<script type="text/javascript" src="../../../plugins/vue/dist/vue.js"></script>
+		<script type="text/javascript" src="../../../plugins/tools/validate.js"></script>
+		<script type="text/javascript" src="../../../plugins/tools/TipsModal.js"></script>
+		
+		<script type="text/javascript" src="../../../js/baseinfo/unit/unitAdmin.js"></script>
+</body>
+
+</html>

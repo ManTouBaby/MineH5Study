@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../../css/general.css" />
+		<!-- ReportCSS -->
+		<link rel="stylesheet" type="text/css" href="../../../css/barrierReport/barrierReport.css" />
+	</head>
+
+	<body class="innerPage">
+		<div>
+			<section class="content-header">
+				<h1>
+					岗位报备
+					<small>路面巡逻防控组报备</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+					<li>
+						<a href="#">岗位报备</a>
+					</li>
+
+					<li class="active">路面巡逻防控组报备</li>
+				</ol>
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+				<div class="row">
+					<div class="col-md-2">
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">选择人员</h3>
+							</div>
+							<div class="box-body">
+								<div>
+									<label>人员所属单位</label>
+									<input type="text" id="objectUnit" value="广州市公安局" />
+									<label>搜索</label>
+									<div class="input-group ">
+										<input type="text" class="form-control" placeholder="请输入搜索名称">
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-info btn-flat">搜索</button>
+										</span>
+									</div>
+									<label>根据标签搜索</label>
+									<div class="input-group ">
+										<input type="text" class="form-control" placeholder="请输入标签名称">
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-primary btn-flat">搜索</button>
+										</span>
+									</div>
+								</div>
+								<br>
+								<div class="report-policeContainer">
+									<div class="report-police bg-green peopleItem">
+										<span class="name">张三</span>
+									</div>
+									<div class="report-police bg-yellow peopleItem">
+										<span class="name">李四</span>
+									</div>
+									<div class="report-police bg-aqua peopleItem">
+										<span class="name">王五</span>
+									</div>
+									<div class="report-police bg-aqua peopleItem">
+										<span class="name">赵六</span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">选择车辆</h3>
+							</div>
+							<div class="box-body">
+								<div>
+									<label>车辆所属单位</label>
+									<input type="text" id="vehicleObjectUnit" value="广州市公安局" />
+									<label>搜索</label>
+									<div class="input-group ">
+										<input type="text" class="form-control" placeholder="请输入搜索名称">
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-info btn-flat">搜索</button>
+										</span>
+									</div>
+									<label>根据标签搜索</label>
+									<div class="input-group ">
+										<input type="text" class="form-control" placeholder="请输入标签名称">
+										<span class="input-group-btn">
+											<button type="button" class="btn btn-primary btn-flat">搜索</button>
+										</span>
+									</div>
+								</div>
+								<br>
+								<div class="report-policeContainer">
+									<div class="report-police bg-green peopleItem" style="width:90px;">
+										<span class="name">粤B1234</span>
+									</div>
+									<div class="report-police bg-yellow peopleItem" style="width:90px;">
+										<span class="name">粤B1234</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-10">
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">选择岗位</h3>
+							</div>
+							<div class="box-body">
+								<div class="row">
+									<div class="col-md-3 col-sm-3 col-xs-4">
+										<div class="form-group">
+											<label>选择岗位</label>
+											<input type="text" class="form-control" />
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-3 col-xs-4">
+										<div class="form-group">
+											<label>搜索岗位</label>
+											<div class="input-group ">
+												<input type="text" class="form-control" placeholder="请输入搜索名称">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-info btn-flat">搜索</button>
+												</span>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-3 col-sm-3 col-xs-4">
+										<div class="form-group">
+											<label>搜索标签</label>
+											<div class="input-group ">
+												<input type="text" class="form-control" placeholder="请输入搜索名称">
+												<span class="input-group-btn">
+													<button type="button" class="btn btn-info btn-flat">搜索</button>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>常用标签</label>
+											<div class="report-policeContainer">
+												<div class="report-police bg-yellow peopleItem">
+													<span class="name">张三</span>
+												</div>
+												<div class="report-police bg-aqua peopleItem">
+													<span class="name">王五</span>
+												</div>
+												<div class="report-police bg-aqua peopleItem">
+													<span class="name">赵六</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>推荐排班人员</label>
+											<div class="report-policeContainer">
+												<div class="report-police bg-yellow peopleItem">
+													<span class="name">张三</span>
+												</div>
+												<div class="report-police bg-aqua peopleItem">
+													<span class="name">王五</span>
+												</div>
+												<div class="report-police bg-aqua peopleItem">
+													<span class="name">赵六</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+								
+							
+						</div>
+						
+						
+						<div class="box box-primary" id="reportBox">
+							<div class="box-header with-border">
+								<h3 class="box-title">报备</h3>
+								<button class="btn btn-success pull-right" style="margin: 0 5px;">保存报备</button>
+								<button class="btn btn-primary pull-right" style="margin: 0 5px;">批量报备</button>
+							</div>
+							<div class="box-body">
+								<table class="report-table">
+									<tr>
+										<th>岗位名称</th>
+										<th style="width: 65px;">班次时间</th>
+										<th class="headerDate">
+											10月23日&nbsp;周一
+										</th>
+										<th class="headerDate">
+											10月24日&nbsp;周二
+										</th>
+										<th class="headerDate">
+											10月25日&nbsp;周三
+										</th>
+										<th class="headerDate">
+											10月26日&nbsp;周四
+										</th>
+										<th class="headerDate">
+											10月27日&nbsp;周五
+										</th>
+										<th class="headerDate">
+											10月28日&nbsp;周六
+										</th>
+										<th class="headerDate">
+											10月29日&nbsp;周日
+										</th>
+									</tr>
+									<tr class="report-duty">
+										<th rowspan="2">北京A1001</th>
+										<th>08:30<br>-<br>10:30</th>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+									</tr>
+									<tr class="report-duty">
+										<th>08:30<br>-<br>10:30</th>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+									</tr>
+									<tr class="report-duty">
+										<th rowspan="1">北京A1003</th>
+										<th>08:30<br>-<br>10:30</th>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+										<td class="report-table-policeContainer">
+											<!--<div class="teamLeaderContainer"></div>-->
+											<div class="teamMemberContainer"></div>
+										</td>
+									</tr>
+									
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- /.content -->
+		</div>
+		<br><br>
+		<!-- /.content-wrapper -->
+		<!-- jQuery -->
+		<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../../../plugins/bootstrap/js/bootstrap.js"></script>
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="../../../plugins/AdminLTE/js/adminlte.js"></script>
+		<!-- utilJS -->
+		<script type="text/javascript" src="../../../js/util.js"></script>
+		<!-- easyUILoader -->
+		<script type="text/javascript" src="../../../plugins/easyui/easyloader.js"></script>
+
+		<script>
+			var reportingDiv;
+			var polices = ['张三', '李四', '王五', '赵六']
+			var loadingDiv = $('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>')
+
+			$(document).ready(function() {
+				easyloader.load('combotree', function() {
+					$('#objectUnit').combotree({
+						width: '100%',
+						height: 33,
+						data: treeData
+					});
+					$('#vehicleObjectUnit').combotree({
+						width: '100%',
+						height: 33,
+						data: treeData
+					});
+					$("#objectUnit").combotree('tree').tree("collapseAll");
+					$("#vehicleObjectUnit").combotree('tree').tree("collapseAll");
+				});
+				easyloader.load(['draggable', 'droppable'], function() {
+					/*$('.teamLeaderContainer').droppable({
+						onDragEnter: function(e, source) {
+							$(source).draggable('options').cursor = 'auto';
+						},
+						onDragLeave: function(e, source) {
+							$(source).draggable('options').cursor = 'not-allowed';
+						},
+						onDrop: function(e, source) {
+							var policeName = $(source).find(".policeName").html()
+							var appendDiv = $("<div class='reportedPolice'><span class='policeName'>" + policeName + "</span><i class='pull-right fa fa-remove removeButton' style='color: #FFF;'></i></div>")
+							$(e.target).append(appendDiv)
+							makeDraggable($(e.target).find(".reportedPolice"))
+							makeDelButton($(appendDiv).find(".removeButton"))
+							source.remove()
+						}
+					});*/
+					$('.teamMemberContainer').droppable({
+						onDragEnter: function(e, source) {
+							$(source).draggable('options').cursor = 'auto';
+						},
+						onDragLeave: function(e, source) {
+							$(source).draggable('options').cursor = 'not-allowed';
+						},
+						onDrop: function(e, source) {
+							var policeName = $(source).find(".policeName").html()
+							var appendDiv = $("<div class='reportedPolice'><span class='policeName'>" + policeName + "</span><i class='pull-right fa fa-remove removeButton' style='color: #FFF;'></i></div>")
+							$(e.target).append(appendDiv)
+							makeDraggable($(e.target).find(".reportedPolice"))
+							makeDelButton($(appendDiv).find(".removeButton"))
+							source.remove()
+						}
+					});
+				});
+				easyloader.locale = "zh_CN";
+				/*$('.teamLeaderContainer').click(function() {
+					$('.teamLeaderContainer').removeClass("reportingLeaderContainer")
+					$('.teamMemberContainer').removeClass("reportingLeaderContainer")
+					reportingDiv = this;
+					$(this).addClass("reportingLeaderContainer");
+					var loadingDivc = loadingDiv.clone()
+					$("#recommendPeopleContainer").parents(".box").append(loadingDivc);
+					$("#recommendPeopleContainer").html("");
+					setTimeout(function() {
+						var ii = Math.floor(Math.random() * 4)
+						var policeDiv = '<div class="report-police bg-green peopleItem"><span class="name">' + polices[ii] + '</span></div>'
+						$("#recommendPeopleContainer").append(policeDiv);
+						$("#recommendPeopleContainer").find(".peopleItem").click(function(e) {
+							reportPeople(polices[ii])
+						})
+						$("#recommendPeopleContainer").parents(".box").find(".overlay").remove()
+					}, 800)
+				});*/
+				$('.teamMemberContainer').click(function() {
+					$('.teamLeaderContainer').removeClass("reportingLeaderContainer")
+					$('.teamMemberContainer').removeClass("reportingLeaderContainer")
+					reportingDiv = this;
+					$(this).addClass("reportingLeaderContainer")
+					var loadingDivc = loadingDiv.clone()
+					$("#recommendPeopleContainer").parents(".box").append(loadingDivc);
+					$("#recommendPeopleContainer").html("")
+					setTimeout(function() {
+						var ii = Math.floor(Math.random() * 4)
+						var policeDiv = '<div class="report-police bg-green peopleItem"><span class="name">' + polices[ii] + '</span></div>'
+						$("#recommendPeopleContainer").append(policeDiv);
+						$("#recommendPeopleContainer").find(".peopleItem").click(function(e) {
+							reportPeople(polices[ii])
+						})
+						$("#recommendPeopleContainer").parents(".box").find(".overlay").remove()
+					}, 800)
+				});
+
+				$(".peopleItem").click(function(e) {
+					if(reportingDiv) {
+						var policeName
+						if($(e.target).find(".name").html()) {
+							policeName = $(e.target).find(".name").html();
+						} else {
+							policeName = $(e.target).html()
+						}
+						reportPeople(policeName)
+					}
+				})
+
+			})
+
+			function reportPeople(policeName) {
+				if(reportingDiv) {
+					var appendDiv = $("<div class='reportedPolice'><span class='policeName'>" + policeName + "</span><i class='pull-right fa fa-remove removeButton' style='color: #FFF;'></i></div>")
+					var a = $(reportingDiv).append(appendDiv);
+				}
+				makeDraggable($(reportingDiv).find(".reportedPolice"))
+				makeDelButton($(appendDiv).find(".removeButton"))
+			}
+
+			function makeDraggable(obj) {
+				$(obj).draggable({
+					revert: true,
+					onStartDrag: function() {
+						$(this).draggable('options').cursor = 'not-allowed';
+						$(this).css('z-index', 999);
+					},
+					onStopDrag: function() {
+						$(this).draggable('options').cursor = 'move';
+					}
+				});
+			}
+
+			function makeDelButton(obj) {
+				$(obj).mousedown(function() {
+					$(obj).parent().remove()
+				})
+			}
+
+			function createReport() {
+				var loadingDivc = loadingDiv.clone()
+				$("#reportBox").append(loadingDivc);
+				setTimeout(function() {
+					$(".teamLeaderContainer").each(function() {
+						var ii = Math.floor(Math.random() * 4)
+						var appendDiv = $("<div class='reportedPolice'><span class='policeName'>" + polices[ii] + "</span><i class='pull-right fa fa-remove removeButton' style='color: #FFF;'></i></div>")
+						$(this).append(appendDiv)
+						makeDraggable($(appendDiv))
+						makeDelButton($(appendDiv).find(".removeButton"))
+					})
+					$(".teamMemberContainer").each(function() {
+						var num = Math.floor(Math.random() * 2) + 1
+						for(var i = 0; i < num; i++) {
+							var ii = Math.floor(Math.random() * 4)
+							var appendDiv = $("<div class='reportedPolice'><span class='policeName'>" + polices[ii] + "</span><i class='pull-right fa fa-remove removeButton' style='color: #FFF;'></i></div>")
+							$(this).append(appendDiv)
+							makeDraggable($(appendDiv))
+							makeDelButton($(appendDiv).find(".removeButton"))
+						}
+					})
+					$("#reportBox").find(".overlay").remove()
+				}, 800)
+
+			}
+			var treeData = [{
+				id: 1,
+				text: '广州市公安局',
+				children: [{
+					id: 11,
+					text: '越秀分局',
+					children: [{
+						id: 111,
+						text: '北京派出所'
+					}]
+				}, {
+					id: 12,
+					text: '天河分局',
+					children: [{
+						id: 121,
+						text: '五山派出所'
+					}]
+				}, {
+					id: 13,
+					text: '番禺分局',
+					children: [{
+						id: 131,
+						text: '市桥派出所'
+					}]
+				}]
+			}]
+		</script>
+	</body>
+
+</html>

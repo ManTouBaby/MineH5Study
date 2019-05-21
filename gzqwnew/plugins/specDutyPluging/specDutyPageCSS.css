@@ -1,0 +1,328 @@
+@CHARSET "UTF-8";
+
+body {
+	margin: 0px;
+}
+
+a {
+	color: #000;
+	text-decoration: none;
+}
+
+input {
+	height: 15px;
+	font-size: 10px;
+}
+
+.title {
+	margin: 0px;
+	height: 25px;
+	line-height: 25px;
+	color: #fff;
+	font-size: 16px;
+	font-weight: bold;
+	background: none
+}
+
+.boxDiv {
+	width: 98%;
+}
+
+.mainDiv {
+	width: 100%;
+	min-height: 600px;
+	overflow: hidden;
+}
+
+.mainDiv_leftContent {
+	float: left;
+	width: 30%;
+	height: 100%;
+	padding: 5px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+.mainDiv_rightContainer {
+	float: right;
+	width: 68%;
+	height: 100%;
+}
+
+.mainDiv_rightContainer_mapArea {
+	width: 100%;
+	height: 50%;
+}
+
+.mainDiv_rightContainer_infoArea {
+	width: 100%;
+	height: 50%;
+}
+
+.noSelectZHBOrGZZTips{
+	width:100%;
+	text-align:center;
+	margin-top:50px;
+}
+.headquarter_trans-enter-active, .headquarter_trans-leave-active {
+	transition: all 0.5s;
+}
+
+.headquarter_trans-enter {
+	opacity: 0;
+	transform: translateX(30px);
+}
+
+.headquarter_trans-leave, .headquarter_trans-leave-to {
+	opacity: 0;
+	transform: translateX(50px);
+}
+
+.mainDiv_leftContent_List_zhbList {
+	float: left;
+	width: 49%;
+}
+
+.mainDiv_leftContent_List_gzzList {
+	float: right;
+	width: 49%;
+}
+
+.headquarterTitle {
+	width: 95%;
+	margin: 5px 10px;
+	color: #003366;
+	font-size: 18px;
+	font-weight: bold;
+	border-bottom: 1px dotted #003366
+}
+
+.headquarterTitleTips {
+	width: 95%;
+	margin: 5px 10px;
+	color: #003366;
+	font-size: 14px;
+	font-weight: normal;
+	text-align: center;
+}
+
+.headquarter_ZHB_item {
+	width: 100%;
+	background-color: #00a65a !important;
+	border-radius: 3px;
+	margin: 5px 0px;
+	cursor: pointer;
+	color: #fff;
+	text-align: center;
+}
+.headquarter_ZHB_item_noNeedReprot {
+	width: 100%;
+	background-color: #888;
+	border-radius: 3px;
+	margin: 5px 0px;
+	color: #fff;
+	text-align: center;
+}
+
+.headquarter_GZZ_item {
+	width: 100%;
+	background-color: rgb(51, 122, 183);
+	border-radius: 3px;
+	margin: 5px 0px;
+	cursor: pointer;
+	color: #fff;
+	text-align: center;
+}
+.headquarter_GZZ_item_noNeedReprot {
+	width: 100%;
+	background-color: #888;
+	border-radius: 3px;
+	margin: 5px 0px;
+	color: #fff;
+	text-align: center;
+}
+
+.headquarter_ZHBGZZTille {
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.headquarter_ZHBGZZ_OperaArea {
+	text-align: center;
+}
+
+.headquarter_ZHBGZZ_OperaArea a {
+	color: #fff;
+	font-size: 12px;
+}
+
+.editView_Title {
+	width: 95%;
+	margin: 5px 10px;
+	color: #003366;
+	font-size: 16px;
+	font-weight: bold;
+	border-bottom: 1px dotted #003366
+}
+
+.editView_OperaButtom {
+	text-align: center;
+}
+
+.zhbEditingView{
+	height:100%;
+}
+
+.zhbEditView_baseinfo {
+	float: left;
+	width: 33%;
+	height:100%;
+	overflow-y:auto;
+}
+
+.zhbEditView_peopleInfo {
+	float: left;
+	width: 33%;
+	height:100%;
+	overflow-y:auto;
+}
+
+.zhbEditView_unitInfo {
+	float: left;
+	width: 33%;
+	height:100%;
+	overflow-y:auto;
+}
+
+.editView_PeopleContainer{
+	marign:5px 0px;
+	text-algin:center;
+	font-size:14px;
+}
+.editView_PeopleContainer_title{
+	text-align: center;
+	font-size:14px;
+	font-weight:bold;
+	marign:5px 0px;
+	border-bottom: 1px dotted #555
+}
+.editView_PeopleContainer_peopleTable{
+	width:100%;
+}
+.editView_PeopleContainer_peopleTable th{
+	font-size:14px;
+	font-weight:bold;
+	text-align:center;
+}
+.editView_PeopleContainer_peopleTable td{
+	font-size:12px;
+	font-weight:normal;
+	text-align:center;
+}
+.headquarter_unitItem {
+	width: 95%;
+	margin: 5px;
+	padding: 3px;
+	border: 1px solid #999;
+	border-radius: 5px;
+	background-color: #aaa;
+	position:relative;
+}
+
+.headquarter_unitItem_needReport {
+	width: 95%;
+	margin: 5px;
+	padding: 3px;
+	border: 1px solid #aaa;
+	border-radius: 5px;
+	background-color: #ccc;
+	position:relative;
+}
+
+.headquarter_unitItem_title {
+	text-align: center;
+	border-bottom: 1px dotted #333
+}
+.headquarter_unitItem_title_removeButton{
+	position:absolute;
+	right:10px;
+	top:0px;
+	cursor: pointer;
+}
+.headquarter_unitItem_table{
+	width:100%;
+}
+
+.headquarter_unitItem_table th{
+	font-size:14px;
+	font-weight:bold;
+	text-align:center;
+}
+.headquarter_unitItem_table td{
+	font-size:12px;
+	font-weight:normal;
+	text-align:center;
+}
+
+.headquarter_unitItem_classesBox{
+	width: 95%;
+	margin: 5px;
+	padding: 3px;
+	border: 1px solid #aaa;
+	border-radius: 5px;
+	background-color: #eee;
+	position:relative;
+	text-align:left;
+	postition:relative;
+}
+
+.editView_peopleInnerTable {
+	margin: 0px;
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 98%
+}
+.editView_peopleInnerTable tr th{
+	padding: 0px;
+    background: none;
+    color: #000;
+    font-size: 12px;
+    font-weight: normal;
+    vertical-align: middle;
+    border: 0px;
+    text-align:center;
+}
+.editView_peopleInnerTable tr td{
+	padding: 0px;
+	background: none;
+	font-size: 12px;
+	font-weight: normal;
+	vertical-align: middle;
+	border: 0px;
+	text-align:center;
+}
+.report_ZHB_Unit_OperaButtom{
+	margin-top:5px;
+	text-align: center;
+}
+.report_GZZ_Unit_childrenUnit_item{
+	width: 95%;
+	margin: 5px;
+	padding: 3px;
+	border: 1px solid #aaa;
+	border-radius: 5px;
+	background-color: #ddd;
+	position:relative;
+}
+.report_GZZ_Classes_item{
+	width: 95%;
+	margin: 5px;
+	padding: 3px;
+	border: 1px solid #aaa;
+	border-radius: 5px;
+	background-color: #ccc;
+	position:relative;
+}

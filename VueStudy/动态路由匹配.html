@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+
+<body>
+<div id="app">
+    <router-link to="/timelink">首页</router-link>
+    <router-link to="/pins">沸点</router-link>
+    <router-view></router-view>
+</div>
+<script type="text/javascript" src="lib/vue.js"></script>
+<script type="text/javascript" src="lib/vue-router.js"></script>
+<script type="text/javascript">
+    var Commont = {
+        template: '<div>我是前端内容</div>'
+    }
+    var TimeLine = {
+        template: `
+
+			    <router-link to="{name:'Commont',params:{id:'frontend'}}">我是前端</router-link>
+			    <router-link to="{name:'Commont',params:{id:'backend'}}">我是后端</router-link>
+			    <router-view></router-view>
+			    `
+    }
+
+
+    var Pins = {
+        template: '<div>我是沸点</div>'
+    }
+    var router = new VueRouter({
+        routes: [{
+            path: '/timelink',
+            component: TimeLine,
+            children: [{
+                path: '/timelink/:id',
+                component: Commont
+            },
+                {
+                    path: '/backgroup',
+                    component: Commont
+                }
+
+            ]
+
+        },
+            {
+                path: '/pins',
+                component: Pins,
+
+            }
+        ]
+    });
+    new Vue({
+        el: "#app",
+        router
+    });
+</script>
+
+</body>
+
+</html>

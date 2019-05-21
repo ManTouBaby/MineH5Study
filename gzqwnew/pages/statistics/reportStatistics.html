@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../css/general.css" />
+
+	</head>
+
+	<body class="innerPage">
+		<div>
+			<section class="content-header">
+				<h1>
+					报备警力统计
+					<small>统计分析</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+					<li>
+						<a href="#">统计分析</a>
+					</li>
+					<li class="active">报备警力统计</li>
+				</ol>
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">统计图</h3>
+					</div>
+					<div class="box-body">
+						<div class="row">
+							<div id="container" align="left" style="min-width:200px;height:400px" class="col-md-6">
+							</div>
+							<div id="container2" align="right" style="min-width:200px;height:400px" class="col-md-6">
+							</div>
+						</div>
+						<div id="container3" style="min-width:400px;height:400px"></div>
+					</div>
+				</div>
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">警力统计表</h3>
+					</div>
+					<div class="box-body">
+						<table id="tables" border="1">
+							<thead>
+								<td width="250px">区域</td>
+								<td width="250px">民警</td>
+								<td width="250px">辅警</td>
+								<td width="250px">武警</td>
+								<td width="250px">特警</td>
+							</thead>
+							<tbody>
+								<tr>
+									<td>越秀</td>
+									<td>10</td>
+									<td>10</td>
+									<td>10</td>
+									<td>10</td>
+								</tr>
+								<tr>
+									<td>海珠</td>
+									<td>10</td>
+									<td>10</td>
+									<td>10</td>
+									<td>10</td>
+								</tr>
+
+								<tr>
+									<td>越秀</td>
+									<td>10</td>
+									<td>10</td>
+									<td>10</td>
+									<td>10</td>
+								</tr>
+
+								<tr>
+									<td>越秀</td>
+									<td>10</td>
+									<td>10</td>
+									<td>10</td>
+									<td>10</td>
+								</tr>
+								<tr>
+									<td>越秀</td>
+									<td>10</td>
+									<td>10</td>
+									<td>10</td>
+									<td>10</td>
+								</tr>
+								<tr>
+									<td>越秀</td>
+									<td>10</td>
+									<td>10</td>
+									<td>10</td>
+									<td>10</td>
+								</tr>
+								<tr>
+									<td>越秀</td>
+									<td>10</td>
+									<td>10</td>
+									<td>10</td>
+									<td>10</td>
+								</tr>
+
+								<tr>
+									<td>黄埔</td>
+									<td>10</td>
+									<td>10</td>
+									<td>10</td>
+									<td>10</td>
+								</tr>
+							</tbody>
+
+						</table>
+					</div>
+				</div>
+		</div>
+		</section>
+
+		</div>
+		<!-- /.content-wrapper -->
+		<!-- jQuery -->
+		<script src="../../plugins/jquery/jquery-3.2.1.js"></script>
+
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../../plugins/bootstrap/js/bootstrap.js"></script>
+
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="../../plugins/AdminLTE/js/adminlte.js"></script>
+
+		<!-- utilJS -->
+		<script type="text/javascript" src="../../js/util.js"></script>
+
+		<!-- easyUILoader -->
+		<script type="text/javascript" src="../../plugins/easyui/easyloader.js"></script>
+
+		<!-- SlimScroll -->
+		<script type="text/javascript" src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+		<!-- FastClick -->
+		<script type="text/javascript" src="../../plugins/fastclick/fastclick.min.js"></script>
+
+		<!-- dataTable -->
+		<script type="text/javascript" src="../../plugins/bootstrap-table/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../plugins/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>
+
+		<!--highcharts-->
+		<script type="text/jscript" src="../../plugins/highcharts/highcharts.js"></script>
+
+		<script>
+			$(function() {
+				var colors = Highcharts.getOptions().colors,
+					categories = ['越秀区警力分布', ' 天河区警力分布', '  荔湾区警力分布', '海珠区警力分布', '黄埔区警力分布'],
+					data = [{
+						y: 25,
+						color: colors[0],
+						drilldown: {
+							name: '越秀区',
+							categories: ['越秀街道1', '越秀街道2', '越秀街道3', '越秀街道4'],
+							data: [10.85, 7.35, 33.06, 2.81],
+							color: colors[0]
+						}
+					}, {
+						y: 20,
+						color: colors[1],
+						drilldown: {
+							name: '天河区',
+							categories: ['天河街道1', '天河街道2', '天河街道3', '天河街道4'],
+							data: [10, 10, 1.58, 13.12],
+							color: colors[1]
+						}
+					}, {
+						y: 25,
+						color: colors[2],
+						drilldown: {
+							name: '荔湾区',
+							categories: ['荔湾街道1', '荔湾街道2', '荔湾街道3', '荔湾街道4'],
+							data: [10, 10, 12, 10],
+							color: colors[2]
+						}
+					}, {
+						y: 15,
+						color: colors[3],
+						drilldown: {
+							name: '海珠区',
+							categories: ['海珠街道1', '海珠街道2', '海珠街道3', '海珠街道4'],
+							data: [10, 10, 12, 10],
+							color: colors[3]
+						}
+					}, {
+						y: 15,
+						color: colors[4],
+						drilldown: {
+							name: '黄埔区',
+							categories: ['黄埔街道1', '黄埔街道2', '黄埔街道3', '黄埔街道4'],
+							data: [10, 10, 12, 10],
+							color: colors[4]
+						}
+					}],
+					browserData = [],
+					versionsData = [],
+					i,
+					j,
+					dataLen = data.length,
+					cdrillDataLen,
+					brightness;
+				// 构建数据数组
+				for(i = 0; i < dataLen; i += 1) {
+					// 添加浏览器数据
+					browserData.push({
+						name: categories[i],
+						y: data[i].y,
+						color: data[i].color
+					});
+					// 添加版本数据
+					drillDataLen = data[i].drilldown.data.length;
+					for(j = 0; j < drillDataLen; j += 1) {
+						brightness = 0.2 - (j / drillDataLen) / 5;
+						versionsData.push({
+							name: data[i].drilldown.categories[j],
+							y: data[i].drilldown.data[j],
+							color: Highcharts.Color(data[i].color).brighten(brightness).get()
+						});
+					}
+				}
+				// 创建图表
+				$('#container').highcharts({
+					chart: {
+						type: 'pie'
+					},
+					title: {
+						text: '2017年9月全市警力分布'
+					},
+					subtitle: {
+						text: '各区警力汇总'
+					},
+					yAxis: {
+						title: {
+							text: '总百分比'
+						}
+					},
+					plotOptions: {
+						pie: {
+							shadow: false,
+							center: ['50%', '50%']
+						}
+					},
+					tooltip: {
+						valueSuffix: '%'
+					},
+					series: [{
+						name: '浏览器',
+						data: browserData,
+						size: '60%',
+						dataLabels: {
+							formatter: function() {
+								return this.y > 5 ? this.point.name : null;
+							},
+							color: 'white',
+							distance: -30
+						}
+					}, {
+						name: '百分比',
+						data: versionsData,
+						size: '80%',
+						innerSize: '60%',
+						/* dataLabels: {
+						     formatter: function () {
+						         // 大于1则显示
+						         return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
+						     }
+						 }*/
+					}]
+				});
+			});
+		</script>
+
+		<script>
+			$(function() {
+				var colors = Highcharts.getOptions().colors,
+					categories = ['民警', ' 辅警', '武警', '交警', '特警'],
+					data = [{
+						y: 25,
+						color: colors[0],
+						drilldown: {
+							name: '越秀区',
+							categories: ['越秀街道1', '越秀街道2', '越秀街道3', '越秀街道4'],
+							data: [10.85, 7.35, 33.06, 2.81],
+							color: colors[0]
+						}
+					}, {
+						y: 20,
+						color: colors[1],
+						drilldown: {
+							name: '天河区',
+							categories: ['天河街道1', '天河街道2', '天河街道3', '天河街道4'],
+							data: [10, 10, 1.58, 13],
+							color: colors[1]
+						}
+					}, {
+						y: 25,
+						color: colors[2],
+						drilldown: {
+							name: '荔湾区',
+							categories: ['荔湾街道1', '荔湾街道2', '荔湾街道3', '荔湾街道4'],
+							data: [10, 10, 12, 10],
+							color: colors[2]
+						}
+					}, {
+						y: 15,
+						color: colors[3],
+						drilldown: {
+							name: '海珠区',
+							categories: ['海珠街道1', '海珠街道2', '海珠街道3', '海珠街道4'],
+							data: [10, 10, 12, 10],
+							color: colors[3]
+						}
+					}, {
+						y: 15,
+						color: colors[4],
+						drilldown: {
+							name: '黄埔区',
+							categories: ['黄埔街道1', '黄埔街道2', '黄埔街道3', '黄埔街道4'],
+							data: [10, 10, 12, 10],
+							color: colors[4]
+						}
+					}],
+					browserData = [],
+					versionsData = [],
+					i,
+					j,
+					dataLen = data.length,
+					cdrillDataLen,
+					brightness;
+				// 构建数据数组
+				for(i = 0; i < dataLen; i += 1) {
+					// 添加浏览器数据
+					browserData.push({
+						name: categories[i],
+						y: data[i].y,
+						color: data[i].color
+					});
+					// 添加版本数据
+					/* drillDataLen = data[i].drilldown.data.length;
+					 for (j = 0; j < drillDataLen; j += 1) {
+					     brightness = 0.2 - (j / drillDataLen) / 5;
+					     versionsData.push({
+					         name: data[i].drilldown.categories[j],
+					         y: data[i].drilldown.data[j],
+					         color: Highcharts.Color(data[i].color).brighten(brightness).get()
+					     });
+					 }*/
+				}
+				// 创建图表
+				$('#container2').highcharts({
+					chart: {
+						type: 'pie'
+					},
+					title: {
+						text: '2017年9月全市警种分布'
+					},
+					subtitle: {
+						text: '警种汇总'
+					},
+					yAxis: {
+						title: {
+							text: '总百分比'
+						}
+					},
+					plotOptions: {
+						pie: {
+							shadow: false,
+							center: ['50%', '50%']
+						}
+					},
+					tooltip: {
+						valueSuffix: '%'
+					},
+					series: [{
+						name: '百分比',
+						data: browserData,
+						size: '60%',
+						dataLabels: {
+							formatter: function() {
+								return this.y > 5 ? this.point.name : null;
+							},
+							color: 'white',
+							distance: -30
+						}
+					}, {
+						name: '百分比',
+						data: versionsData,
+						size: '80%',
+						innerSize: '60%',
+						/* dataLabels: {
+						     formatter: function () {
+						         // 大于1则显示
+						         return this.y > 1 ? '<b>' + this.point.name + ':</b> ' + this.y + '%'  : null;
+						     }
+						 }*/
+					}]
+				});
+			});
+		</script>
+
+		<script>
+			$(function() {
+				$('#container3').highcharts({
+					title: {
+						text: '(警力变化统计 )月平均',
+						x: -20 //center
+					},
+					subtitle: {
+						text: '广州市',
+						x: -20
+					},
+					xAxis: {
+						categories: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月']
+					},
+					yAxis: {
+						title: {
+							text: '百分比'
+						},
+						plotLines: [{
+							value: 0,
+							width: 1,
+							color: '#808080'
+						}]
+					},
+					tooltip: {
+						valueSuffix: '%'
+					},
+					legend: {
+						layout: 'vertical',
+						align: 'right',
+						verticalAlign: 'middle',
+						backgroundColor: '#CCCCCC',
+						borderWidth: 2
+					},
+					series: [{
+						name: '越秀区',
+						data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
+					}, {
+						name: '天河区',
+						data: [-2.8, 0.8, 5.7, 11.3, 17.0, 36.0, 30.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+					}, {
+						name: '荔湾区',
+						data: [-1.9, 0.6, 3.5, 8.4, 13.5, 25.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+					}, {
+						name: '海珠',
+						data: [3.9, 4.2, 5.7, 8.5, 11.9, 34.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+					}]
+				});
+			});
+		</script>
+
+		<script>
+			$(document).ready(function() {
+						$('#table').bootstrapTable({
+								pagination: true,
+								height: 800,
+								striped: true,
+								sortable: false,
+								pageNumber: 1,
+								pageSize: 10,
+								pageList: [10, 25, 50, 100],
+								columns: [{
+									field: 'id',
+									visible: false
+								}, {
+									field: 'barrierName',
+									title: '巡组名称',
+									align: 'center',
+									width: '30%'
+								}, {
+									field: 'substation',
+									title: '所属分局',
+									align: 'center',
+									width: '20%'
+								}, {
+									field: 'policeoffice',
+									title: '所属派出所',
+									align: 'center',
+									width: '20%'
+								}, {
+									field: 'createTime',
+									title: '创建时间',
+									align: 'center',
+									width: '20%'
+								}, {
+									field: '',
+									title: '操作',
+									align: 'center',
+									width: '10%',
+									formatter: function(value, row, index) {
+										var htmlContnt = '<div class="btn-group">' +
+											'<button type="button" class="btn btn-info btn-xs" onclick="doView()"><i class="fa fa-search"></i></button>' +
+											'<button type="button" class="btn btn-info btn-xs" ><i class="fa fa-pencil-square-o"></i></button>' +
+											'<button type="button" class="btn btn-info btn-xs" onclick="doDel()"><i class="fa fa-close"></i></button>' +
+											'</div>';
+										return htmlContnt;
+									}
+								}],
+								data: [{
+										{
+											id: "123123-432412-52314",
+											barrierName: "北京A1004巡组",
+											substation: "越秀分局",
+											policeoffice: "北京派出所",
+											createTime: "2017-01-01 10:00"
+										},
+										{
+											id: "123123-432412-52314",
+											barrierName: "北京A2001巡组",
+											substation: "越秀分局",
+											policeoffice: "北京派出所",
+											createTime: "2017-01-01 10:00"
+										},
+										{
+											id: "123123-432412-52314",
+											barrierName: "北京A3001巡组",
+											substation: "越秀分局",
+											policeoffice: "北京派出所",
+											createTime: "2017-01-01 10:00"
+										},
+										{
+											id: "123123-432412-52314",
+											barrierName: "北京A3001巡组",
+											substation: "越秀分局",
+											policeoffice: "北京派出所",
+											createTime: "2017-01-01 10:00"
+										},
+										{
+											id: "123123-432412-52314",
+											barrierName: "北京A3001巡组",
+											substation: "越秀分局",
+											policeoffice: "北京派出所",
+											createTime: "2017-01-01 10:00"
+										}]
+								}); easyloader.load('combotree', function() {
+								$('#deptId').combotree({
+									width: '100%',
+									height: 33,
+									data: treeData
+								});
+								$('#xldeptId').combotree({
+									width: '100%',
+									height: 33,
+									data: treeData
+								});
+								$("#deptId").combotree('tree').tree("collapseAll");
+								$("#xldeptId").combotree('tree').tree("collapseAll");
+							}); easyloader.locale = "zh_CN";
+						});
+					var treeData = [{
+						id: 1,
+						text: '广州市公安局',
+						children: [{
+							id: 11,
+							text: '越秀分局',
+							children: [{
+								id: 111,
+								text: '北京派出所'
+							}]
+						}, {
+							id: 12,
+							text: '天河分局',
+							children: [{
+								id: 121,
+								text: '五山派出所'
+							}]
+						}, {
+							id: 13,
+							text: '番禺分局',
+							children: [{
+								id: 131,
+								text: '市桥派出所'
+							}]
+						}]
+					}]
+
+					function doDel() {
+						$("#Confirm_del").modal('show')
+					}
+
+					function doView() {
+						window.location.href = "roadDefenceDoView.html"
+					}
+		</script>
+	</body>
+
+</html>

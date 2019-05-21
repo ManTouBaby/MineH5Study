@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../../../css/general.css" />
+		<!-- dataTables -->
+		<link rel="stylesheet" type="text/css" href="../../../../plugins/bootstrap-table/bootstrap-table.css">
+
+	</head>
+
+	<body class="innerPage">
+		<div>
+			<section class="content-header">
+				<h1>
+					基础信息管理
+					<small>岗位信息管理</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+					<li>
+						<a href="#">基础信息管理</a>
+					</li>
+					<li class="active">岗位信息管理</li>
+				</ol>
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+
+				<!-- Default box -->
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">搜索条件</h3>
+
+						<div class="box-tools pull-right">
+							<button type="button" class="btn btn-box-tool" data-widget="collapse" title="折叠">
+              					<i class="fa fa-minus"></i></button>
+						</div>
+					</div>
+					<div class="box-body">
+						<div class="row">
+							<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+								<div class="form-group">
+									<label>岗位名称</label>
+									<input type="text" class="form-control" placeholder="岗位名称">
+								</div>
+							</div>
+							<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+								<div class="form-group">
+									<label>岗位类型</label>
+									<input type="text" class="form-control" id="defenceType">
+								</div>
+							</div>
+							<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+								<div class="form-group">
+									<label>所属单位</label>
+									<input type="text" class="form-control" id="deptId">
+								</div>
+							</div>
+							<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+								<div class="form-group">
+									<label>巡逻方式</label>
+									<input type="text" class="form-control" placeholder="巡逻方式">
+								</div>
+							</div>
+							<div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+								<div class="form-group">
+									<label>责任(巡逻)单位</label>
+									<input type="text" class="form-control" id="xldeptId">
+								</div>
+							</div>
+							
+							
+							<div class="col-md-12" style="text-align: center;">
+								<button class="btn btn-primary">搜索</button>
+								<button class="btn btn-success" onclick="window.location.href='roadDefenceDoNew.html'">新建</button>
+								<button class="btn btn-info">导出</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">岗位列表</h3>
+
+					</div>
+					<div class="box-body">
+						<table id="table"></table>
+					</div>
+				</div>
+
+			</section>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+
+		<div class="modal fade" id="Confirm_del">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">确认删除</h4>
+					</div>
+					<div class="modal-body">
+						<p>您确认要删除该巡组吗？</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success pull-left">确认</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+
+		<!-- jQuery -->
+		<script src="../../../../plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../../../../plugins/bootstrap/js/bootstrap.js"></script>
+		<!-- SlimScroll -->
+		<script type="text/javascript" src="../../../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+		<!-- FastClick -->
+		<script type="text/javascript" src="../../../../plugins/fastclick/fastclick.min.js"></script>
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="../../../../plugins/AdminLTE/js/adminlte.js"></script>
+		<!-- utilJS -->
+		<script type="text/javascript" src="../../../../js/util.js"></script>
+		<!-- dataTable -->
+		<script type="text/javascript" src="../../../../plugins/bootstrap-table/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../../../plugins/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>
+		<!-- easyUILoader -->
+		<script type="text/javascript" src="../../../../plugins/easyui/easyloader.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('#table').bootstrapTable({
+					pagination: true,
+					height: 800,
+					striped: true,
+					sortable: false,
+					pageNumber: 1,
+					pageSize: 10,
+					pageList: [10, 25, 50, 100],
+					columns: [{
+						field: 'id',
+						visible: false
+					}, {
+						field: 'barrierName',
+						title: '巡组名称',
+						align: 'center',
+						width: '25%'
+					}, {
+						field: 'substation',
+						title: '所属分局',
+						align: 'center',
+						width: '20%'
+					}, {
+						field: 'policeoffice',
+						title: '所属派出所',
+						align: 'center',
+						width: '20%'
+					}, {
+						field: 'createTime',
+						title: '创建时间',
+						align: 'center',
+						width: '20%'
+					}, {
+						field: '',
+						title: '操作',
+						align: 'center',
+						width: '15%',
+						formatter: function(value, row, index) {
+							var htmlContnt = '<div class="btn-group">' +
+								'<button type="button" class="btn btn-info btn-xs" onclick="doView()"><i class="fa fa-search"></i></button>' +
+								'<button type="button" class="btn btn-info btn-xs" ><i class="fa fa-pencil-square-o"></i></button>' +
+								'<button type="button" class="btn btn-info btn-xs" onclick="doDel()"><i class="fa fa-close"></i></button>' +
+								'</div>';
+							return htmlContnt;
+						}
+					}],
+					data: [{
+						id: "123123-432412-52314",
+						barrierName: "北京A1001巡组",
+						substation: "越秀分局",
+						policeoffice: "北京派出所",
+						createTime: "2017-01-01 10:00"
+					}, {
+						id: "123123-432412-52314",
+						barrierName: "北京A1002巡组",
+						substation: "越秀分局",
+						policeoffice: "北京派出所",
+						createTime: "2017-01-01 10:00"
+					}, {
+						id: "123123-432412-52314",
+						barrierName: "北京A1003巡组",
+						substation: "越秀分局",
+						policeoffice: "北京派出所",
+						createTime: "2017-01-01 10:00"
+					}, {
+						id: "123123-432412-52314",
+						barrierName: "北京A1004巡组",
+						substation: "越秀分局",
+						policeoffice: "北京派出所",
+						createTime: "2017-01-01 10:00"
+					}, {
+						id: "123123-432412-52314",
+						barrierName: "北京A2001巡组",
+						substation: "越秀分局",
+						policeoffice: "北京派出所",
+						createTime: "2017-01-01 10:00"
+					}, {
+						id: "123123-432412-52314",
+						barrierName: "北京A3001巡组",
+						substation: "越秀分局",
+						policeoffice: "北京派出所",
+						createTime: "2017-01-01 10:00"
+					}, {
+						id: "123123-432412-52314",
+						barrierName: "北京A3001巡组",
+						substation: "越秀分局",
+						policeoffice: "北京派出所",
+						createTime: "2017-01-01 10:00"
+					}, {
+						id: "123123-432412-52314",
+						barrierName: "北京A3001巡组",
+						substation: "越秀分局",
+						policeoffice: "北京派出所",
+						createTime: "2017-01-01 10:00"
+					}, {
+						id: "123123-432412-52314",
+						barrierName: "北京A3001巡组",
+						substation: "越秀分局",
+						policeoffice: "北京派出所",
+						createTime: "2017-01-01 10:00"
+					}, {
+						id: "123123-432412-52314",
+						barrierName: "北京A3001巡组",
+						substation: "越秀分局",
+						policeoffice: "北京派出所",
+						createTime: "2017-01-01 10:00"
+					}, {
+						id: "123123-432412-52314",
+						barrierName: "北京A3001巡组",
+						substation: "越秀分局",
+						policeoffice: "北京派出所",
+						createTime: "2017-01-01 10:00"
+					}]
+				});
+				easyloader.load('combotree', function() {
+					$('#deptId').combotree({
+						width: '100%',
+						height: 33,
+						data: treeData
+					});
+					$('#xldeptId').combotree({
+						width: '100%',
+						height: 33,
+						data: treeData
+					});
+					$('#defenceType').combotree({
+						width: '100%',
+						height: 33,
+						data: defenceData
+					});
+					$("#deptId").combotree('tree').tree("collapseAll");
+					$("#xldeptId").combotree('tree').tree("collapseAll");
+					$("#defenceType").combotree('tree').tree("collapseAll");
+				});
+				easyloader.locale = "zh_CN";
+			});
+			var treeData = [{
+				id: 1,
+				text: '广州市公安局',
+				children: [{
+					id: 11,
+					text: '越秀分局',
+					children: [{
+						id: 111,
+						text: '北京派出所'
+					}]
+				}, {
+					id: 12,
+					text: '天河分局',
+					children: [{
+						id: 121,
+						text: '五山派出所'
+					}]
+				}, {
+					id: 13,
+					text: '番禺分局',
+					children: [{
+						id: 131,
+						text: '市桥派出所'
+					}]
+				}]
+			}]
+			var defenceData = [{
+					id: 10,
+					text: '值班领导'
+				},{
+					id: 11,
+					text: '巡组'
+				}, {
+					id: 12,
+					text: '治安防控'
+				}, {
+					id: 13,
+					text: '重点部位'
+				}, {
+					id: 14,
+					text: '社区'
+				}, {
+					id: 15,
+					text: '警务室'
+				}, {
+					id: 16,
+					text: '卡点岗亭'
+				}, {
+					id: 17,
+					text: '机动备勤'
+				}, {
+					id: 16,
+					text: '办案'
+				}]
+
+			function doDel() {
+				$("#Confirm_del").modal('show')
+			}
+			function doView(){
+				window.location.href="roadDefenceDoView.html"
+			}
+		</script>
+	</body>
+
+</html>

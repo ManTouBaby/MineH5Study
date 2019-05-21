@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+.selectEquipment-item {
+	font-weight: bold;
+	margin: 5px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	padding: 5px 10px;
+	border-radius: 3px;
+	width: 45%;
+	float: left;
+	text-align: center;
+}
+
+.pointerCursor {
+	cursor: pointer;
+}
+
+.selectEquipment-item-text {
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.selectEquipment-item-equName {
+	height: 20px;
+}
+
+.selectEquipment-item-equNum, .selectEquipment-item-equType {
+	font-weight: normal;
+	font-size: 12px;
+}

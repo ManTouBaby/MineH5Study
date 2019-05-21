@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+
+	<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../../css/general.css" />
+		<!-- dataTables -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/bootstrap-table/bootstrap-table.css">
+
+	</head>
+
+	<body class="innerPage">
+		<div>
+			<section class="content-header">
+				<h1>
+					人员报备查询
+					<small>报备查询</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+					<li>
+						<a href="#">报备查询</a>
+					</li>
+					<li class="active">人员报备查询</li>
+				</ol>
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+
+				<!-- Default box -->
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">搜索条件</h3>
+
+						<div class="box-tools pull-right">
+							<button type="button" class="btn btn-box-tool" data-widget="collapse" title="折叠">
+              					<i class="fa fa-minus"></i></button>
+						</div>
+					</div>
+					<div class="box-body">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>警员名称</label>
+									<input type="text" class="form-control" placeholder="警员名称">
+								</div>
+							</div>
+							
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>所属分局</label>
+									<input type="text" class="form-control" id="deptId">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>所属派出所</label>
+									<input type="text" class="form-control" id="xldeptId">
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>警号</label>
+									<input type="text" class="form-control" placeholder="警号" id="rigsum">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>标签</label>
+									<input type="text" class="form-control" placeholder="标签" id="biaoqian" multiple="multiple"/>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-12" style="text-align: center;">
+							<button class="btn btn-primary">搜索</button>
+							<button class="btn btn-success" onclick="window.location.href='policeDoNew.html'">新建</button>
+							<button class="btn btn-info" onclick="Export()">导出</button>
+						</div>
+					</div>
+				</div>
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">警员信息列表</h3>
+
+					</div>
+					<div class="box-body">
+						<table id="table"></table>
+					</div>
+				</div>
+
+			</section>
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+
+		<div class="modal fade" id="Confirm_del">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">确认删除</h4>
+					</div>
+					<div class="modal-body">
+						<p>您确认要删除该警员信息吗？</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-success pull-left">确认</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+	<!-- jQuery -->
+		<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../../../plugins/bootstrap/js/bootstrap.js"></script>
+		<!-- SlimScroll -->
+		<script type="text/javascript" src="../../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+		<!-- FastClick -->
+		<script type="text/javascript" src="../../../plugins/fastclick/fastclick.min.js"></script>
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="../../../plugins/AdminLTE/js/adminlte.js"></script>
+		<!-- utilJS -->
+		<script type="text/javascript" src="../../../js/util.js"></script>
+		<!-- dataTable -->
+		<script type="text/javascript" src="../../../plugins/bootstrap-table/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../../plugins/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>
+		<!-- easyUILoader -->
+		<script type="text/javascript" src="../../../plugins/easyui/easyloader.js"></script>
+		<script>
+			$(document).ready(function() {
+				$('#table').bootstrapTable({
+					pagination: true,
+					height: 800,
+					striped: true,
+					sortable: false,
+					pageNumber: 1,
+					pageSize: 10,
+					pageList: [10, 25, 50, 100],
+					columns: [{
+						field: 'id',
+						visible: false
+					}, {
+						field: 'barrierName',
+						title: '警员名称',
+						align: 'center',
+						width: '15%'
+					}, {
+						field: 'rigsum',
+						title: '警号',
+						align: 'center',
+						width: '15%'
+					},{
+						field: 'substation',
+						title: '所属分局',
+						align: 'center',
+						width: '20%'
+					}, {
+						field: 'policeoffice',
+						title: '所属派出所',
+						align: 'center',
+						width: '15%'
+					},{
+						field: '',
+						title: '操作',
+						align: 'center',
+						width: '10%',
+						formatter: function(value, row, index) {
+							var htmlContnt = '<div class="btn-group">' +
+								'<button type="button" class="btn btn-info btn-xs" onclick="toPeopleWatch()"><i class="fa fa-search"></i></button>' +
+								'</div>';
+							return htmlContnt;
+						}
+					}],
+					data: [{
+						id: "123123-432412-52314",
+						barrierName: "张三",
+						rigsum:"003",
+						substation: "越秀分局",
+						policeoffice: "北京派出所",
+						createTime: "2017-01-01 10:00",
+						biaoqian:['二级警长','未婚','搏击']
+					}, {
+						id: "123123-432412-52314",
+						barrierName: "张四",
+						rigsum:"004",
+						substation: "天河分局",
+						policeoffice: "五山派出所",
+						createTime: "2017-01-01 10:00",
+						biaoqian:['中年', '已婚','非领导','女']
+					}, {
+						id: "123123-432412-52314",
+						barrierName: "张五",
+						rigsum:"005",
+						substation: "番禺分局",
+						policeoffice: "市桥派出所",
+						createTime: "2017-01-01 10:00",
+						biaoqian:['年长','已婚','领导','男性']
+					}]
+				});
+				easyloader.load('combotree', function() {
+					$('#deptId').combotree({
+						width: '100%',
+						height: 33,
+						data: treeData
+					});
+					$('#xldeptId').combotree({
+						width: '100%',
+						height: 33,
+						data: treeData
+					});
+					$('#biaoqian').combotree({
+						width: '100%',
+						height: 33,
+						data: treeDataBQ
+					});
+					$("#deptId").combotree('tree').tree("collapseAll");
+					$("#xldeptId").combotree('tree').tree("collapseAll");
+					$("#biaoqian").combotree('tree').tree("collapseAll");
+				});
+			
+				easyloader.locale = "zh_CN";
+			});
+			
+			var treeData = [{
+				id: 1,
+				text: '广州市公安局',
+				children: [{
+					id: 11,
+					text: '越秀分局',
+					children: [{
+						id: 111,
+						text: '北京派出所'
+					}]
+				}, {
+					id: 12,
+					text: '天河分局',
+					children: [{
+						id: 121,
+						text: '五山派出所'
+					}]
+				}, {
+					id: 13,
+					text: '番禺分局',
+					children: [{
+						id: 131,
+						text: '市桥派出所'
+					}]
+				}]
+			}]
+			
+			
+			var treeDataBQ = [{
+				id: 1,
+				text: '人员特征',
+				children: [{
+					id: 11,
+					text: '年轻',
+				}, {
+					id: 12,
+					text: '年长',
+				}, {
+					id: 13,
+					text: '男性',
+				}, {
+					id: 14,
+					text: '女性',
+				}, {
+					id: 15,
+					text: '已婚',
+				}, {
+					id: 16,
+					text: '未婚',
+				}]
+			},{
+				id: 2,
+				text: '职位',
+				children: [{
+					id: 11,
+					text: '领导',
+				},{
+					id: 12,
+					text: '非领导',
+				}]
+				
+			},{
+				id: 3,
+				text: '特长',
+				children: [{
+					id: 11,
+					text: '狙击',
+				},{
+					id: 12,
+					text: '搏击',
+				}]
+				
+			}]
+			function toPeopleWatch(){
+				window.location.href="policeWatch.html"
+			}
+
+			function doDel() {
+				$("#Confirm_del").modal('show')
+			}
+			function doView(){
+				window.location.href="policeDoView.html"
+			}
+			
+			function doExport(){
+				
+			}
+		</script>
+	</body>
+
+</html>

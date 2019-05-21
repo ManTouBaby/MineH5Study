@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.fullWidth {
+	width: 100%;
+}
+
+.alignCenter {
+	text-align: center;
+}
+
+.cal_policeName {
+	font-size:18px;
+	font-weight: bold;
+	text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+}

@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" href="css/general.css" />
+
+	</head>
+
+	<body class="innerPage">
+		<div>
+			<!-- 头部标题 -->
+			<section class="content-header">
+				<h1>
+					用户首页
+					<small>今日是2018年2月1日</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+				</ol>
+			</section>
+			<!-- /.头部标题 -->
+			<!-- 主要内容 -->
+			<section class="content">
+				<div class="row">
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="small-box bg-aqua">
+							<div class="inner">
+								<h3>张三</h3>
+							
+								<p>今日值班领导</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-user"></i>
+							</div>
+							
+							<a href="#" onclick="window.location.href='pages/barrierReportWatch/leaderReport/leaderReportWatch.html'" class="small-box-footer">查看更多<i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="small-box bg-red">
+							<div class="inner">
+								<h3>12</h3>
+								<p>今日执勤岗位</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<a href="#" onclick="window.location.href='pages/barrierReportWatch/roadDefenceWatch/roadDefenceReportWatch.html'" class="small-box-footer">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="small-box bg-yellow">
+							<div class="inner">
+								<h3>2198</h3>
+								<p>今日报备警力</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-users"></i>
+							</div>
+							<a href="#" onclick="window.location.href='pages/statistics/reportStatistics.html'" class="small-box-footer">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="small-box bg-green">
+							<div class="inner">
+								<h3>1789</h3>
+
+								<p>当前实时警力</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-cab"></i>
+							</div>
+							<a href="#" class="small-box-footer">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<div class="box box-danger" style="min-height: 300px;">
+							<div class="box-header with-border">
+								<i class="fa fa-calendar-o"></i>
+								<h3 class="box-title">消息通告</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> </button>
+								</div>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="alert alert-success alert-dismissible">
+											<h4><i class="icon fa fa-info"></i> 勤务等级响应</h4> 全市于2018年2月9日至2月15日启动三级勤务&nbsp;&nbsp;
+											<a href="#" onclick="window.location.href='pages/barrierReport/LeaderReport/LeaderReport.html'">详情>></a>
+										</div>
+										<div class="alert alert-warning">
+											<h4><i class="icon fa fa-warning"></i> 勤务督查</h4> 目前勤务落实情况不够理想，需要加强督导...&nbsp;&nbsp;
+											<a href="#">详情>></a>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+							<!-- /.box-body -->
+						</div>
+						<!-- /.box -->
+					</div>
+					<div class="col-md-6">
+						<div class="box box-danger" style="min-height: 300px;">
+							<div class="box-header with-border">
+								<i class="fa fa-calendar-o"></i>
+								<h3 class="box-title">待办事项提醒</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> </button>
+								</div>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<div class="nav-tabs-custom">
+									<ul class="nav nav-tabs">
+										<li class="active">
+											<a href="#tab_0" data-toggle="tab">值班信息</a>
+										</li>
+										<li>
+											<a href="#tab_1" data-toggle="tab">路面巡逻</a>
+										</li>
+										<li>
+											<a href="#tab_2" data-toggle="tab">卡点</a>
+										</li>
+										<li>
+											<a href="#tab_3" data-toggle="tab">社区</a>
+										</li>
+										<li>
+											<a href="#tab_3" data-toggle="tab">重点目标</a>
+										</li>
+										<li>
+											<a href="#tab_3" data-toggle="tab">治安防控</a>
+										</li>
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane active" id="tab_0">
+											<div class="row">
+												<div class="row">
+													<div class="col-md-12">
+														<div class="alert alert-danger alert-dismissible">
+															<h4><i class="icon fa fa-warning"></i> 应急备勤</h4> 您今日应急备勤尚未报备...&nbsp;&nbsp;
+															<a href="#">前往报备>></a>
+														</div>
+														
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="tab-pane" id="tab_1">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="alert alert-danger alert-dismissible">
+														<h4><i class="icon fa fa-warning"></i> 未报备</h4>
+														<p>北京A1001<span class="pull-right"><a href="#" onclick="window.location.href='pages/barrierReport/roadDefenceReport/roadDefenceReport.html'" >报备>></a></span></p>
+														<p>北京A1002<span class="pull-right"><a href="#" onclick="window.location.href='pages/barrierReport/roadDefenceReport/roadDefenceReport.html'" >报备>></a></span></p>
+														<p>北京A1003<span class="pull-right"><a href="#" onclick="window.location.href='pages/barrierReport/roadDefenceReport/roadDefenceReport.html'" >报备>></a></span></p>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="alert alert-success alert-dismissible">
+														<h4><i class="icon fa fa-check"></i> 已报备</h4>
+														<p>北京B1003</p>
+														<p>北京C1001</p>
+													</div>
+
+												</div>
+											</div>
+										</div>
+										<div class="tab-pane" id="tab_2">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="alert alert-danger alert-dismissible">
+														<h4><i class="icon fa fa-warning"></i> 未报备</h4>
+														<p>北京001卡点<span class="pull-right"><a href="#">报备>></a></span></p>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="alert alert-success alert-dismissible">
+														<h4><i class="icon fa fa-check"></i> 已报备</h4>
+													</div>
+
+												</div>
+											</div>
+										</div>
+										<div class="tab-pane" id="tab_3">
+											<div class="row">
+												<div class="col-md-6">
+													<div class="alert alert-danger alert-dismissible">
+														<h4><i class="icon fa fa-warning"></i> 未报备</h4>
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="alert alert-success alert-dismissible">
+														<h4><i class="icon fa fa-check"></i> 已报备</h4>
+													</div>
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- /.box-body -->
+						</div>
+
+						<!-- /.box -->
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="box box-info">
+							<div class="box-header with-border">
+								<i class="fa fa-bar-chart"></i>
+								<h3 class="box-title">今日警力统计</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> </button>
+								</div>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<div class="row">
+									<div class="col-md-8">
+										<p class="text-center">
+											<strong>2018年2月1日警力时段分布</strong>
+										</p>
+
+										<div class="chart">
+											<!-- Sales Chart Canvas -->
+											<canvas id="policeCountChart" style="height: 180px;"></canvas>
+										</div>
+										<!-- /.chart-responsive -->
+									</div>
+									<!-- /.col -->
+									<div class="col-md-4">
+										<p class="text-center">
+											<strong>今日报备警力</strong>
+										</p>
+
+										<div class="progress-group">
+											<span class="progress-text">民警警力</span>
+											<span class="progress-number"><b>376</b>/345</span>
+
+											<div class="progress sm">
+												<div class="progress-bar progress-bar-aqua" style="width:100%"></div>
+											</div>
+										</div>
+										<!-- /.progress-group -->
+										<div class="progress-group">
+											<span class="progress-text">辅警警力</span>
+											<span class="progress-number"><b>310</b>/400</span>
+
+											<div class="progress sm">
+												<div class="progress-bar progress-bar-red" style="width: 81%"></div>
+											</div>
+										</div>
+										<!-- /.progress-group -->
+										<div class="progress-group">
+											<span class="progress-text">武警警力</span>
+											<span class="progress-number"><b>45</b>/50</span>
+
+											<div class="progress sm">
+												<div class="progress-bar progress-bar-green" style="width: 90%"></div>
+											</div>
+										</div>
+										<!-- /.progress-group -->
+										<div class="progress-group">
+											<span class="progress-text">合计警力</span>
+											<span class="progress-number"><b>731</b>/795</span>
+
+											<div class="progress sm">
+												<div class="progress-bar progress-bar-yellow" style="width: 91%"></div>
+											</div>
+										</div>
+										<!-- /.progress-group -->
+									</div>
+									<!-- /.col -->
+								</div>
+								<!-- /.row -->
+							</div>
+							<!-- ./box-body -->
+							<div class="box-footer">
+								<div class="row">
+									<div class="col-md-4">
+										<div class="description-block border-right">
+											<span class="description-percentage text-green">&nbsp;</span>
+											<h5 class="description-header">1820</h5>
+											<span class="description-text">今日警力</span>
+										</div>
+										<!-- /.description-block -->
+									</div>
+									<!-- /.col -->
+									<div class="col-md-4">
+										<div class="description-block border-right">
+											<span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
+											<h5 class="description-header">1653</h5>
+											<span class="description-text">同比警力</span>
+										</div>
+										<!-- /.description-block -->
+									</div>
+									<!-- /.col -->
+									<div class="col-md-4">
+										<div class="description-block border-right">
+											<span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
+											<h5 class="description-header">1712</h5>
+											<span class="description-text">环比警力</span>
+										</div>
+										<!-- /.description-block -->
+									</div>
+									<div class="col-md-4">
+										<div class="description-block border-right">
+											<span class="description-percentage text-green">&nbsp;</span>
+											<h5 class="description-header">1677</h5>
+											<span class="description-text">今日民警警力</span>
+										</div>
+										<!-- /.description-block -->
+									</div>
+									<!-- /.col -->
+									<div class="col-md-4">
+										<div class="description-block border-right">
+											<span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
+											<h5 class="description-header">1564</h5>
+											<span class="description-text">民警同比警力</span>
+										</div>
+										<!-- /.description-block -->
+									</div>
+									<!-- /.col -->
+									<div class="col-md-4">
+										<div class="description-block border-right">
+											<span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
+											<h5 class="description-header">1345</h5>
+											<span class="description-text">民警环比警力</span>
+										</div>
+										<!-- /.description-block -->
+									</div>
+
+									<div class="col-md-4">
+										<div class="description-block border-right">
+											<span class="description-percentage text-green">&nbsp;</span>
+											<h5 class="description-header">233</h5>
+											<span class="description-text">今日辅警警力</span>
+										</div>
+										<!-- /.description-block -->
+									</div>
+									<!-- /.col -->
+									<div class="col-md-4">
+										<div class="description-block border-right">
+											<span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 19%</span>
+											<h5 class="description-header">213</h5>
+											<span class="description-text">辅警同比警力</span>
+										</div>
+										<!-- /.description-block -->
+									</div>
+									<!-- /.col -->
+									<div class="col-md-4">
+										<div class="description-block border-right">
+											<span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 22%</span>
+											<h5 class="description-header">345</h5>
+											<span class="description-text">辅警环比警力</span>
+										</div>
+										<!-- /.description-block -->
+									</div>
+
+								</div>
+								<!-- /.row -->
+							</div>
+							<!-- /.box-footer -->
+						</div>
+						<!-- /.box -->
+					</div>
+					<!-- /.col -->
+				</div>
+
+			</section>
+			<!-- /.主要内容 -->
+		</div>
+
+		<!-- jQuery -->
+		<script src="plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="plugins/bootstrap/js/bootstrap.js"></script>
+		<!-- SlimScroll -->
+		<script type="text/javascript" src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+		<!-- FastClick -->
+		<script type="text/javascript" src="plugins/fastclick/fastclick.min.js"></script>
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="plugins/AdminLTE/js/adminlte.js"></script>
+		<!-- utilJS -->
+		<script type="text/javascript" src="js/util.js"></script>
+		<!-- ChartJS -->
+		<script type="text/javascript" src="plugins/ChartJS/Chart.js"></script>
+		<!-- PageJS -->
+		<script type="text/javascript" src="js/pageJS/indexJS.js"></script>
+		<script>
+			$(function() {
+				var salesChartCanvas = $('#policeCountChart').get(0).getContext('2d');
+				var salesChart = new Chart(salesChartCanvas);
+				var salesChartData = {
+					labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
+					datasets: [{
+						label: '总警力',
+						fillColor: 'rgb(210, 214, 222)',
+						pointColor: 'rgb(210, 214, 222)',
+						pointStrokeColor: '#c1c7d1',
+						pointHighlightFill: '#fff',
+						pointHighlightStroke: 'rgb(220,220,220)',
+						data: [34, 23, 12, 42, 52, 61, 123, 423, 532, 643, 534, 634, 453, 543, 343, 654, 514, 453, 345, 435, 342, 322, 123, 87]
+					}, {
+						label: '民警',
+						fillColor: 'rgba(60,141,188,0.9)',
+						pointColor: '#3b8bba',
+						pointStrokeColor: 'rgba(60,141,188,1)',
+						pointHighlightFill: '#fff',
+						pointHighlightStroke: 'rgba(60,141,188,1)',
+						data: [23, 11, 5, 23, 42, 42, 101, 302, 456, 532, 420, 520, 372, 400, 219, 590, 444, 302, 330, 333, 209, 210, 100, 20]
+					}]
+				};
+
+				var salesChartOptions = {
+					showScale: true,
+					scaleShowGridLines: false,
+					scaleGridLineColor: 'rgba(0,0,0,.05)',
+					scaleGridLineWidth: 1,
+					scaleShowHorizontalLines: true,
+					scaleShowVerticalLines: true,
+					bezierCurve: true,
+					bezierCurveTension: 0.3,
+					pointDot: false,
+					pointDotRadius: 4,
+					pointDotStrokeWidth: 1,
+					pointHitDetectionRadius: 20,
+					datasetStroke: true,
+					datasetStrokeWidth: 2,
+					datasetFill: true,
+					legendTemplate: '<ul class=\'<%=name.toLowerCase()%>-legend\'><% for (var i=0; i<datasets.length; i++){%><li><span style=\'background-color:<%=datasets[i].lineColor%>\'></span><%=datasets[i].label%></li><%}%></ul>',
+					maintainAspectRatio: true,
+					responsive: true
+				};
+
+				// Create the line chart
+				salesChart.Line(salesChartData, salesChartOptions);
+			});
+		</script>
+	</body>
+
+</html>

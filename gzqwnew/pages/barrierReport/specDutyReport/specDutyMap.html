@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>专项勤务工作地图</title>
+		<link rel="stylesheet" href="../../../plugins/specDutyPluging/global.css" type="text/css"></link>
+		<link rel="stylesheet" href="../../../plugins/specDutyPluging/easyui/easyui.css" type="text/css"></link>
+		<link rel="stylesheet" href="../../../plugins/specDutyPluging/easyui/icon.css" type="text/css"></link>
+		<link rel="stylesheet" href="../../../plugins/specDutyPluging/easyui/color.css" type="text/css"></link>
+
+		<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+		<script src="../../../plugins/specDutyPluging/jquery.extend.js"></script>
+		<script src="../../../plugins/specDutyPluging/jquery.easyui.min.js"></script>
+		<script src="../../../plugins/specDutyPluging/easyui-lang-zh_CN.js"></script>
+		<script src="../../../plugins/specDutyPluging/util.js"></script>
+		<script src="../../../js/common/common.js"></script>
+		<!-- 加载地图  -->
+		<link rel="stylesheet" type="text/css" href="http://10.41.219.142/arcgis_js_api/library/3.12/3.12/dijit/themes/tundra/tundra.css" />
+		<link rel="stylesheet" type="text/css" href="http://10.41.219.142/arcgis_js_api/library/3.12/3.12/esri/css/esri.css" />
+		<link rel="stylesheet" type="text/css" href="../../../plugins/specDutyPluging/specDutyMapPageCSS.css" />
+		<script type="text/javascript" src="../../../plugins/specDutyPluging/util_ds.js"></script>
+		<script type="text/javascript" src="http://10.235.40.135:10000/arcgis_js_api/library/3.14/3.14/init.js"></script>
+		<script type="text/javascript" src="http://10.41.1.165/arcgis_js_api/library/3.12/3.12/CCFPGISLayer.js"></script>
+		<script>
+			var mainMap;
+			var isMapReady = false;
+			dojo.require("esri.map");
+			dojo.require("esri.Color");
+			dojo.require("esri.toolbars.draw");
+
+			function init() {
+				initPGISLayer();
+				dojo.require("esri.layers.agstiled");
+				dojo.require("esri.symbols.SimpleLineSymbol");
+				dojo.require("esri.symbols.SimpleMarkerSymbol");
+				dojo.require("esri.symbols.SimpleFillSymbol");
+				dojo.require("esri.InfoTemplate");
+
+				// 加载基本地图图层
+				mainMap = new esri.Map("map", {
+					center: new esri.geometry.Point(113.264580, 23.124100),
+					zoom: 12,
+					autoResize: true,
+					//nav:true,//8个pan 箭头
+					slider: true, //左上的缩放 +/-;
+					logo: false, //右下的esri logo
+					showAttribution: false
+						//右下的gisNeu (logo左侧)
+				});
+				vector = new esri.layers.CCFPGISLayer(util.MapURL);
+				raster = new esri.layers.CCFPGISLayer(util.MapRasterURL);
+				raster.hide();
+				vecRas = new esri.layers.CCFPGISLayer(util.MapVecRasURL);
+				vecRas.hide();
+				mainMap.addLayer(vector);
+				mainMap.addLayer(raster);
+				mainMap.addLayer(vecRas);
+
+				// 初始化绘图工具
+				tb = new esri.toolbars.Draw(mainMap);
+				dojo.connect(tb, "onDrawEnd", addGraphic);
+
+				// 叠加画图涂层
+				drawLayer = new esri.layers.GraphicsLayer({
+					opacity: 1,
+					id: "drawLayer"
+				});
+				mainMap.addLayer(drawLayer);
+				isMapReady = true;
+			}
+			$(function() {
+				$("#mapArea").height($(window).height())
+				$(window).resize(function() {
+					$("#mapArea").height($(window).height())
+				})
+			})
+
+			/** ------ **/
+
+			var drawingMapinfo = null;
+
+			function drawMapOptionSelectOpen(drawingMapModel) {
+				drawingMapinfo = drawingMapModel;
+				$("#bhmc").val("");
+				$("#bhms").val("");
+				$("#drawMapType").val("");
+				// 清除颜色选择
+				$("#drawMapColor").val("");
+				$(".colorOptions").html("");
+				// 清除类型选择
+				$(".mapOptions").each(function() {
+					$(this).removeClass("mapOptionsSelected");
+				});
+				$("#drawMapType").val("")
+					// 清除图标选择
+				$(".symbolOptions").each(function() {
+					$(this).removeClass("mapOptionsSelected");
+				});
+				$("#drawMapSymbol").val("");
+				$(".symbolOptionsDiv").hide()
+				$('#mapOptions').dialog('open');
+			}
+			// 选择地图类型
+			function selectMapType(obj, mapType) {
+				$("#drawMapType").val(mapType);
+				$(".symbolOptions").each(function() {
+					$(this).removeClass("mapOptionsSelected");
+				});
+				$("#drawMapSymbol").val("");
+				$(".symbolOptionsDiv").hide()
+				if(mapType == "point") {
+					$(".mapSymbol_Point").show()
+				} else if(mapType == "polyline") {
+					$(".mapSymbol_polyline").show()
+				} else if(mapType == "polygon") {
+					$(".mapSymbol_polygon").show()
+				}
+				$(".mapOptions").each(function() {
+					$(this).removeClass("mapOptionsSelected");
+				});
+				$(obj).children().addClass("mapOptionsSelected");
+				drawingMapinfo.mapType = mapType;
+			}
+			// 选择地图标绘标识
+			function selectMapSymbol(obj, symbol) {
+				$("#drawMapSymbol").val(symbol);
+				$(".symbolOptions").each(function() {
+					$(this).removeClass("mapOptionsSelected");
+				});
+				$(obj).children().addClass("mapOptionsSelected");
+				drawingMapinfo.symbol = symbol;
+			}
+			// 选择标绘颜色
+			function selectMapColor(obj) {
+				$(".colorOptions").html("")
+				$(obj).children(".colorOptions").html("选中")
+				var color = $(obj).children(".colorOptions").css('background-color');
+				var colorNum = color.split("(")[1].split(")")[0]
+				colorNum = colorNum.replace(/,/g, "-");
+				colorNum = colorNum.replace(/ /g, "");
+				$("#drawMapColor").val(colorNum);
+				drawingMapinfo.color = colorNum;
+			}
+
+			// 校验
+			function doDrawMapValid() {
+				var bhmc = $("#bhmc").val();
+				var mapType = $("#drawMapType").val();
+				drawingColor = $("#drawMapColor").val();
+				if("" == bhmc) {
+					$.messager.alert('错误信息', '请输入标绘名称', 'error');
+					return;
+				}
+				if("" == mapType) {
+					$.messager.alert('错误信息', '请选择标绘类型', 'error');
+					return;
+				}
+				if("" == drawingColor) {
+					$.messager.alert('错误信息', '请选择标绘颜色', 'error');
+					return;
+				}
+				$("#mapOptions").dialog('close');
+				doDrawMap();
+			}
+			// 开始绘图
+			function doDrawMap() {
+				var mapType = $("#drawMapType").val();
+				if(mapType == 'point')
+					tb.activate(esri.toolbars.Draw.POINT);
+				else if(mapType == 'polyline')
+					tb.activate(esri.toolbars.Draw.POLYLINE);
+				else if(mapType == 'polygon')
+					tb.activate(esri.toolbars.Draw.POLYGON);
+			}
+
+			function addGraphic(geometry) {
+				// 画图后上图
+				tb.deactivate();
+
+				var color = $("#drawMapColor").val();
+				var r = color.split("-")[0];
+				var g = color.split("-")[1];
+				var b = color.split("-")[2];
+
+				var pointInfo = "";
+				var type = geometry.type;
+				if(type === "point" || type === "multipoint") {
+					symbol = new esri.symbols.SimpleMarkerSymbol({
+						color: new esri.Color([r, g, b, 0.9]),
+						outline: {
+							color: [255, 255, 255],
+							width: 2
+						}
+					})
+					pointInfo = geometry.x + " " + geometry.y;
+				} else if(type === "line" || type === "polyline") {
+					var lineSymbol = new esri.symbols.SimpleLineSymbol({
+						width: 3,
+						style: "solid",
+						color: new esri.Color([r, g, b, 0.9])
+					});
+					symbol = lineSymbol;
+					var path = geometry.paths[0]
+					for(var i = 0; i < path.length; i++) {
+						pointInfo += path[i][0] + " " + path[i][1] + ",";
+					}
+					pointInfo = pointInfo.substring(0, pointInfo.length - 1)
+				} else {
+					var fillSymbol = new esri.symbols.SimpleFillSymbol({
+						color: new esri.Color([r, g, b, 0.9]),
+						outline: {
+							color: [255, 255, 255],
+							width: 2
+						}
+					});
+					fillSymbol.style = 'solid';
+					symbol = fillSymbol;
+					var ring = geometry.rings[0];
+					for(var i = 0; i < ring.length; i++) {
+						pointInfo += ring[i][0] + " " + ring[i][1] + ",";
+					}
+					pointInfo = pointInfo.substring(0, pointInfo.length - 1)
+				}
+
+				drawingMapinfo.title = $("#bhmc").val();
+				drawingMapinfo.remark = $("#bhms").val();
+				drawingMapinfo.pointInfo = pointInfo;
+				var info = "";
+				info += "<b>标绘名称: " + drawingMapinfo.title + "<br/>";
+				info += "<b>标绘描述: " + drawingMapinfo.remark + "<br/>";
+				info += "<b><a href='javascript:void(0)' onclick=\"removeMapinfoById('" + drawingMapinfo.id + "')\">删除</a><br/>";
+				var infoTemplate = new esri.InfoTemplate();
+				infoTemplate.setTitle(drawingMapinfo.title);
+				infoTemplate.setContent(info)
+				var drawGraphic = new esri.Graphic(geometry, symbol, drawingMapinfo);
+				drawGraphic.setInfoTemplate(infoTemplate);
+				mainMap.graphics.add(drawGraphic);
+
+				addMapinfoToMainPage()
+			}
+
+			function addMapinfoToMainPage() {
+				window.parent.doAddMapinfo(drawingMapinfo)
+			}
+
+			function removeMapGraphic(mapinfoId) {
+				var graphics = mainMap.graphics.graphics;
+				for(var i = 0; i < graphics.length; i++) {
+					if(graphics[i].attributes) {
+						if(graphics[i].attributes.id == mapinfoId) {
+							mainMap.graphics.remove(graphics[i])
+							break;
+						}
+					}
+				}
+			}
+
+			function removeMapinfoById(mapinfoId) {
+				mainMap.infoWindow.hide();
+				window.parent.removeMapinfoByMapinfoId(mapinfoId);
+			}
+
+			function drawMapinfoIntoMap(mapinfoList) {
+				if(mapinfoList && mapinfoList.length > 0) {
+					for(var j = 0; j < mapinfoList.length; j++) {
+						var mapinfo = mapinfoList[j];
+						var info = "";
+						info += "<b>标绘名称: " + mapinfo.title + "<br/>";
+						info += "<b>标绘描述: " + mapinfo.remark + "<br/>";
+						info += "<b><a href='javascript:void(0)' onclick=\"removeMapinfoById('" + mapinfo.id + "')\">删除</a><br/>";
+						var infoTemplate = new esri.InfoTemplate();
+						infoTemplate.setTitle(mapinfo.title);
+						infoTemplate.setContent(info)
+
+						if(mapinfo.mapType == "point") {
+							var color = mapinfo.color;
+							if("" == color) {
+								color = "255-0-0"
+							}
+							var r = color.split("-")[0];
+							var g = color.split("-")[1];
+							var b = color.split("-")[2];
+
+							var pointSymbol = new esri.symbols.SimpleMarkerSymbol({
+								color: new esri.Color([r, g, b, 0.9]),
+								outline: {
+									color: [255, 255, 255],
+									width: 2
+								}
+							})
+							var drawGraphic = new esri.Graphic(new esri.geometry.Point(mapinfo.pointInfo.split(" ")), pointSymbol, mapinfo);
+							drawGraphic.setInfoTemplate(infoTemplate);
+							mainMap.graphics.add(drawGraphic);
+						} else if(mapinfo.mapType == "polyline") {
+
+							var points = mapinfo.pointInfo.split(",");
+							var tempPoint = new Array();
+							var tempLine = new Array();
+							for(var i = 0; i < points.length; i++) {
+								tempPoint = points[i].split(" ");
+								tempLine.push(tempPoint);
+							}
+							var color = mapinfo.color;
+							if("" == color) {
+								color = "255-0-0"
+							}
+							var r = color.split("-")[0];
+							var g = color.split("-")[1];
+							var b = color.split("-")[2];
+							var lineSymbol = new esri.symbols.SimpleLineSymbol({
+								width: 3,
+								style: "solid",
+								color: new esri.Color([r, g, b, 0.9])
+							});
+							var drawGraphic = new esri.Graphic(new esri.geometry.Polyline(tempLine), lineSymbol, mapinfo);
+							drawGraphic.setInfoTemplate(infoTemplate);
+							mainMap.graphics.add(drawGraphic);
+						} else if(mapinfo.mapType == "polygon") {
+							var points = mapinfo.pointInfo.split(",");
+							var tempPoint = new Array();
+							var tempLine = new Array();
+							for(var i = 0; i < points.length; i++) {
+								tempPoint = points[i].split(" ");
+								tempLine.push(tempPoint);
+							}
+							var color = mapinfo.color;
+							if("" == color) {
+								color = "255-0-0"
+							}
+							var r = color.split("-")[0];
+							var g = color.split("-")[1];
+							var b = color.split("-")[2];
+							var polygonSymbol = new esri.symbols.SimpleFillSymbol({
+								color: new esri.Color([r, g, b, 0.9]),
+								outline: {
+									color: [255, 255, 255],
+									width: 2
+								}
+							});
+							polygonSymbol.style = 'solid';
+							var drawGraphic = new esri.Graphic(new esri.geometry.Polygon(tempLine), polygonSymbol, mapinfo);
+							drawGraphic.setInfoTemplate(infoTemplate);
+							mainMap.graphics.add(drawGraphic);
+						}
+					}
+				}
+			}
+
+			var mapReadyCount = 0;
+			var drawmapList = null;
+
+			function drawMapinfoToMap(mapinfoList) {
+				drawmapList = mapinfoList;
+				console.log("专项勤务地图子页面地图加载尝试:" + (mapReadyCount + 1));
+				if(isMapReady) {
+					drawMapinfoIntoMap(mapinfoList);
+					return;
+				} else if(mapReadyCount > 25) {
+					$.messager.alert("提示", "地图服务加载失败，请联系系统管理员", "error");
+					return false;
+				} else {
+					window.setTimeout(function() {
+						drawMapinfoToMap(drawmapList)
+					}, 100);
+					mapReadyCount++;
+				}
+			}
+		</script>
+	</head>
+
+	<body onload="init()">
+		<div id="mapArea" style="width: 100%">
+			<div id="map" style="width: 100%; height: 100%;"></div>
+		</div>
+		<div id="mapOptions" class="easyui-dialog" title="绘图选项" data-options="closed:true" style="width: 400px; height: 470px;">
+			<table class="mainTable" style="width: 95%;">
+				<tr>
+					<th style="width: 100px; text-align: center;">标绘名称</th>
+					<td style="width: 225px; text-align: center;">
+						<input id="bhmc" style="width: 100%;">
+					</td>
+					<tr>
+						<tr>
+							<th style="text-align: center;">标绘描述</th>
+							<td>
+								<textarea id="bhms" style="width: 100%;" rows="3"></textarea>
+							</td>
+							<tr>
+								<tr>
+									<th style="text-align: center;">标绘类型</th>
+									<td class="mapTypeOptions">
+										<a href="javascript:void(0)" onclick="selectMapType(this,'point')">
+											<div class="mapOptions">点</div>
+										</a>
+										<a href="javascript:void(0)" onclick="selectMapType(this,'polyline')">
+											<div class="mapOptions">线</div>
+										</a>
+										<a href="javascript:void(0)" onclick="selectMapType(this,'polygon')">
+											<div class="mapOptions">面</div>
+										</a>
+										<input type="hidden" id="drawMapType" value="">
+									</td>
+									<tr>
+										<tr>
+											<th style="text-align: center;">图标</th>
+											<td class="mapTypeOptions">
+												<div class="mapSymbol_Point symbolOptionsDiv">
+													<a href="javascript:void(0)" onclick="selectMapSymbol(this,'circle')">
+														<div class="symbolOptions">圆形</div>
+													</a>
+													<a href="javascript:void(0)" onclick="selectMapSymbol(this,'triangle')">
+														<div class="symbolOptions">三角形</div>
+													</a>
+													<a href="javascript:void(0)" onclick="selectMapSymbol(this,'square')">
+														<div class="symbolOptions">正方形</div>
+													</a>
+													<a href="javascript:void(0)" onclick="selectMapSymbol(this,'star')">
+														<div class="symbolOptions">五角星</div>
+													</a>
+												</div>
+												<div class="mapSymbol_polyline symbolOptionsDiv">
+													<a href="javascript:void(0)" onclick="selectMapSymbol(this,'solid')">
+														<div class="symbolOptions">实线</div>
+													</a>
+													<a href="javascript:void(0)" onclick="selectMapSymbol(this,'dotted')">
+														<div class="symbolOptions">虚线</div>
+													</a>
+												</div>
+												<div class="mapSymbol_polygon symbolOptionsDiv">
+													<a href="javascript:void(0)" onclick="selectMapSymbol(this,'solidPolygon')">
+														<div class="symbolOptions">实心面</div>
+													</a>
+													<a href="javascript:void(0)" onclick="selectMapSymbol(this,'dottedPolygon')">
+														<div class="symbolOptions">虚面</div>
+													</a>
+												</div>
+												<input type="hidden" id="drawMapSymbol" value="">
+												<div style="clear: both"></div>
+											</td>
+											<tr>
+												<tr>
+													<th style="text-align: center;">标绘颜色</th>
+													<td class="mapTypeOptions">
+														<a href="javascript:void(0)" onclick="selectMapColor(this)">
+															<div class="colorOptions" style="background: #16a085"></div>
+														</a>
+														<a href="javascript:void(0)" onclick="selectMapColor(this)">
+															<div class="colorOptions" style="background: #27ae60"></div>
+														</a>
+														<a href="javascript:void(0)" onclick="selectMapColor(this)">
+															<div class="colorOptions" style="background: #2980b9"></div>
+														</a>
+														<a href="javascript:void(0)" onclick="selectMapColor(this)">
+															<div class="colorOptions" style="background: #8e44ad"></div>
+														</a>
+														<a href="javascript:void(0)" onclick="selectMapColor(this)">
+															<div class="colorOptions" style="background: #2c3e50"></div>
+														</a>
+														<a href="javascript:void(0)" onclick="selectMapColor(this)">
+															<div class="colorOptions" style="background: #f39c12"></div>
+														</a>
+														<a href="javascript:void(0)" onclick="selectMapColor(this)">
+															<div class="colorOptions" style="background: #d35400"></div>
+														</a>
+														<a href="javascript:void(0)" onclick="selectMapColor(this)">
+															<div class="colorOptions" style="background: #c0392b"></div>
+														</a>
+														<a href="javascript:void(0)" onclick="selectMapColor(this)">
+															<div class="colorOptions" style="background: #7f8c8d"></div>
+														</a>
+														<input type="hidden" id="drawMapColor" value="">
+														<div style="clear: both"></div>
+													</td>
+													<tr>
+			</table>
+			<div class="alignCenter">
+				<a href="javascript:void(0)" onclick="doDrawMapValid()" class="easyui-linkbutton c6">开始标绘</a>
+			</div>
+		</div>
+	</body>
+
+</html>
