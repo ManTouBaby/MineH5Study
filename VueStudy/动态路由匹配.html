@@ -16,14 +16,21 @@
 <script type="text/javascript" src="lib/vue-router.js"></script>
 <script type="text/javascript">
     var Commont = {
-        template: '<div>我是前端内容</div>'
+        template: '<div>{{$router.param.id}}内容</div>',
+        onCreate:function () {
+
+        },
+        mounted:function (e) {
+            console.log(e);
+        }
     }
     var TimeLine = {
         template: `
-
-			    <router-link to="{name:'Commont',params:{id:'frontend'}}">我是前端</router-link>
-			    <router-link to="{name:'Commont',params:{id:'backend'}}">我是后端</router-link>
+              <div>
+                <router-link :to="{ name: 'Commont', params: { id: backend }}">我是后端</router-link>
+                <router-link :to="{ name: 'Commont', params: { id: frontend }}">我是前端</router-link>
 			    <router-view></router-view>
+              </div>
 			    `
     }
 
@@ -38,12 +45,7 @@
             children: [{
                 path: '/timelink/:id',
                 component: Commont
-            },
-                {
-                    path: '/backgroup',
-                    component: Commont
                 }
-
             ]
 
         },
