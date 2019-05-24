@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+		<link rel="stylesheet" type="text/css" href="plugins/layer/theme/default/layer.css" />
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		
+		<link rel="stylesheet" href="plugins/ivew/dist/styles/iview.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="css/general.css" />
+		<!-- ReportCSS -->
+		<link rel="stylesheet" type="text/css" href="css/barrierReport/barrierReport.css" />
+		<link rel="stylesheet" type="text/css" href="css/barrierReport/dailyReport.css" />
+		
+		<link rel="stylesheet" href="css/xCommon.css" />
+
+		<style>
+			/*.alert h4 {
+			    color: #3778ff;
+			}
+			.alert a {
+			    color: #000;
+			}*/
+			.bbyc-box {
+				padding: 10px 0;
+			}
+			.table th, .table td {
+				text-align: center;
+				vertical-align: middle !important;
+			}
+			
+			.abnormal-box {
+				float: left;
+				position: relative;
+				width: 100%;
+				height: 120px;
+				max-width: 200px;
+				padding-bottom: 42px;
+				border-radius: 5px;
+				margin: 10px;
+				border: 1px solid #e4e4e4;
+				border: 1px solid #fdcfcf;
+			}
+			.abnormal-box>.front {
+				width: 100%;
+				height: 100%;
+			}
+			.abnormal-box>.front>.num {
+				width: 100%;
+				height: 100%;
+				font-size: 32px;
+				line-height: 76px;
+				color: #FF0000;
+				text-align: center;
+			}
+			.abnormal-box>.front>.title {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				display: block;
+				width: 100%;
+				height: 42px;
+				line-height: 40px;
+				text-align: center;
+				background: #D33724;
+				background: #fdcfcf;
+			}
+			.abnormal-box>.behind {
+				position: absolute;
+				top: 0;
+				left:0;
+				display: none;
+				width: 100%;
+				height: 100%;
+				border-radius: 5px;
+				background: rgba(0,0,0,.75);
+				color: #fff;
+				padding: 10px 5px !important;
+			}
+			.abnormal-box>.behind>.txt {
+				padding: 5px 5px;
+				font-size: 13px;
+			}
+			.abnormal-box>.behind>.txt>.label {
+				margin-right: 15px;
+			}
+			
+			
+		</style>
+	
+		<script type="text/javascript" src="plugins/vue/dist/vue.js"></script>
+		<script type="text/javascript" src="plugins/ivew/dist/iview.js"></script>
+		
+		
+		
+		<style>
+			.popup-container {
+				display: none;
+				width: 100%;
+				height: 100%;
+				padding: 15px 10px;
+			}
+			.popup-content {
+				position: relative;
+				display: block;
+				width: 100%;
+				height: 100%;
+				padding: 15px 10px;
+			}
+			.duty-info-box {
+				position: relative;
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+			
+			.info-item {
+				position: relative;
+				width: 100%;
+				height: auto;
+				padding-left: 100px;
+				font-size: 14px;
+			}
+			
+			.info-item .item-label {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 80px;
+				height: auto;
+				min-height: 32px;
+				line-height: 30px;
+				text-align: right;
+			}
+			.info-item .item-content {
+				position: relative;
+				display: block;
+				width: 100%;
+				height: auto;
+				min-height: 32px;
+			}
+			.info-item .item-content:after{
+				display: block;
+				content: '.';
+				height: 0;
+				clear: both;
+				overflow: hidden;
+				visibility: hidden;
+			}
+			
+			.outline, .online {
+				height: 32px;
+				line-height: 30px;
+				padding: 0 15px;
+				margin-right: 30px;
+			    min-width: 100px;
+    			text-align: center;	
+			}
+			
+			
+			#reportJLTable th {
+				background: #f9b448;
+				color: #fff;
+			}
+			
+			#reportJLTable,
+			#reportJLTable.table-bordered > thead > tr > th,
+			#reportJLTable.table-bordered > tbody > tr > td{
+				border-color: #f39c12 !important;
+				
+			}
+			#reportJLTable.table-bordered > thead > tr > th {
+				border-bottom-width:1px;
+			}
+			
+			#reportJLTable>tbody>tr:nth-of-type(odd){
+				background: #fff;
+			}
+			#reportJLTable>tbody>tr:nth-of-type(even){
+				background: #f8d59f;
+			}
+			
+			.echart-box {
+				width: 100%;
+				height: 528px;
+			}
+			
+		</style>
+	
+	
+	</head>
+
+	<body class="innerPage">
+		<div id="homePage">
+			<!-- 头部标题 -->
+			<section class="content-header">
+				<h1>
+					用户首页
+					<small>今日是{{currentDate}}</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+				</ol>
+			</section>
+			<!-- /.头部标题 -->
+			<!-- 主要内容 -->
+			<section class="content">
+				<div class="row">
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="small-box bg-aqua">
+							<div class="inner">
+								<h3>
+									<template v-for="leader in onDutyInfo.currentDutyLeader">
+										{{leader.policeName}}&nbsp;&nbsp;
+									</template>
+								</h3>
+							
+								<p>今日值班领导</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-user"></i>
+							</div>
+							
+							<!--<a href="#" @click="showAllCurrentDutyInfo = true" class="small-box-footer">查看更多<i class="fa fa-arrow-circle-right"></i></a>-->
+							<a href="#" @click="viewMoreDutyInfo()" class="small-box-footer">查看更多<i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="small-box bg-red">
+							<div class="inner">
+								<h3>{{qwLevelInfo.currentLevel}}</h3>
+								<p>今日勤务等级</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<a href="#" @click="viewMorQwLevel()" class="small-box-footer">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="small-box bg-yellow">
+							<div class="inner">
+								<h3>{{jlInfo.reportJL.total}}</h3>
+								<p>今日报备警力</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-users"></i>
+							</div>
+							<a href="#" @click="viewMorReportJL()" class="small-box-footer">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="small-box bg-green">
+							<div class="inner">
+								<h3>{{jlInfo.realtimeJL.total}}</h3>
+								<p>当前实时警力</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-cab"></i>
+							</div>
+							<a href="#" @click="viewMorRealtimeJL()" class="small-box-footer">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					
+					<div class="col-md-12">
+						<div class="box box-danger">
+							<div class="box-header with-border">
+								<i class="fa fa-calendar-o"></i>
+								<h3 class="box-title">重要信息提醒</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> </button>
+								</div>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<div class="row">
+									<div class="col-md-4">
+										<div class="alert alert-info alert-dismissible">
+										<!--<div class="alert alert-dismissible">-->
+											<h4><i class="icon fa fa-info"></i>专项勤务提醒</h4> 元宵勤务安保将于3月2日开始&nbsp;&nbsp;
+											<a href="#" onclick="parent.iFrame2Page('pages/barrierReport/specDutyReport/specDutyList.html')">详情>></a>
+										</div>
+									</div>
+									<div class="col-md-4" v-if="isShowLevel">
+										<div class="alert alert-danger alert-dismissible">
+										<!--<div class="alert alert-dismissible">-->
+											<h4><i class="icon fa fa-info"></i>勤务等级提醒</h4> 全市于2018年2月9日至2月15日启动三级勤务&nbsp;&nbsp;
+											<a href="#" onclick="parent.iFrame2Page('pages/barrierReport/LeaderReport/LeaderReport.html')">详情>></a>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="alert alert-success alert-dismissible">
+										<!--<div class="alert alert-dismissible">-->
+											<h4><i class="icon fa fa-info"></i>上级通知提醒</h4> 即将开张新一轮的监督&nbsp;&nbsp;
+											<a href="#" onclick="window.location.href='pages/dynamicDuty.html'">详情>></a>
+										</div>
+									</div>
+								</div>
+								<!-- /.box-body -->
+							</div>
+						<!-- /.box -->
+					</div>
+					
+				</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="box box-info">
+							<div class="box-header with-border">
+								<i class="fa fa-bar-chart"></i>
+								<h3 class="box-title">勤务督导</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> </button>
+								</div>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<div class="row">
+									
+									<!--<div class="col-md-12">
+										勤务督导，展示等级勤务落实情况：
+										那些单位勤务有异常（未报备、警力异常）
+										人员执勤异常
+									</div>
+									-->
+									<div class="col-md-6">
+										<div class="alert alert-dismissible">
+											<h4  style="padding-bottom: 15px;"><i class="icon fa fa-warning"></i> 常态勤务督导</h4>
+											<div class="row">
+												<div class="abnormal-box" v-for="item in staticSupervise.list"  onclick="window.location.href='pages/dynamicDuty.html'">
+													<div class="front">
+														<div class="num">{{item.abnormalNum}}</div>
+														<div class="title">{{item.departmentName}}</div>
+													</div>
+													<div class="behind">
+														<div class="txt"><label class="label label-info">等级勤务落实</label>{{item.qwLevel}}</div>
+														<div class="txt"><label class="label label-info">勤务未报备</label>{{item.notRepoortNum}}</div>
+														<div class="txt"><label class="label label-info">人员执勤异常</label>{{item.policeErrorNum}}</div>
+													</div>
+												</div>
+												
+												
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-6">
+										<div class="alert alert-dismissible">
+											<h4 style="padding-bottom: 15px;"><i class="icon fa fa-warning"></i> 重点督导内容</h4>
+											<template v-for="contentItem in importantSuperviseContent.contentList">
+												<blockquote class="xblockquote">{{contentItem.title}}</blockquote>
+												<template v-for="(textItem, index) in contentItem.textList">
+													<div class="xshowbox xshowbox-small" @click="viewDuDaoDetail(textItem)">
+														<div class="xshowbox-title">{{index+1}}</div>
+														<div class="xshowbox-content">{{textItem.text}}</div>
+													</div>
+							            	 	</template>
+									        </template>
+											
+											
+										</div>
+									</div>
+								</div>
+								
+							</div>
+							<!-- ./box-body -->
+							
+							<!-- /.box-footer -->
+						</div>
+						<!-- /.box -->
+					</div>
+					<!-- /.col -->
+				</div>
+				
+				
+
+			</section>
+			<!-- /.主要内容 -->
+			
+			<div id="realtimeJLPopup" class="popup-container">
+				<div class="popup-content">
+				</div>
+			</div>
+			<div id="reportJLPopup" class="popup-container">
+				<div class="popup-content">
+					<table id="reportJLTable" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th rowspan="2">单位</th>
+								<th colspan="3">值班力量</th>
+								<th colspan="3">社会面警力</th>
+								<th colspan="3">应急备勤</th>
+								<th rowspan="2">合计</th>
+							</tr>
+							<tr>
+								<th>民警</th>
+								<th>辅警</th>
+								<th>小计</th>
+								<th>民警</th>
+								<th>辅警</th>
+								<th>小计</th>
+								<th>民警</th>
+								<th>辅警</th>
+								<th>小计</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="deparmentJL in jlInfo.reportJL.deparmentJL">
+								<td>{{deparmentJL.deparmentName}}</td>
+									<td>{{deparmentJL.dutyMJCount}}</td>
+									<td>{{deparmentJL.dutyFJCount}}</td>
+									<td>{{deparmentJL.dutyAllCount}}</td>
+									<td>{{deparmentJL.shmMJCount}}</td>
+									<td>{{deparmentJL.shmFJCount}}</td>
+									<td>{{deparmentJL.shmAllCount}}</td>
+									<td>{{deparmentJL.yjbqMJCount}}</td>
+									<td>{{deparmentJL.yjbqFJCount}}</td>
+									<td>{{deparmentJL.yjbqAllCount}}</td>
+									<td>{{deparmentJL.allCount}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div id="qwLevelPopup" class="popup-container">
+				<div class="popup-content">
+					
+					<div class="col-md-8">
+						<div id="qwLevelMap" class="echart-box"></div>
+					</div>
+					<div class="col-md-4">
+						<div class="">
+							<table id="reportJLTable" class="table table-bordered table-striped">
+								<thead>
+									
+									<tr>
+										<th>单位</th>
+										<th>区域等级</th>
+										<th>重点关注</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>越秀</td>
+										<td>三级</td>
+										<td>入室盗窃</td>
+									</tr>
+									<tr>
+										<td>天河</td>
+										<td>三级</td>
+										<td>两抢一盗</td>
+									</tr>
+									<tr>
+										<td>荔湾</td>
+										<td>三级</td>
+										<td>治安事件</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+		    <div id="onDutyInfoPopup" class="popup-container">
+		    	<div class="popup-content">
+					<div class="duty-info-box">
+						<div class="info-item">
+							<label class="item-label">值班领导</label>
+							<div class="item-content">
+								<template  v-for="item in onDutyInfo.currentDutyLeader">
+									<template v-if="item.online">
+										<Tag color="green" class="online">{{item.policeName}}</Tag>
+									</template>
+									<template v-else>
+										<Tooltip :content="leaveDutyPostText">
+											<Tag  color="#ccc" class="outline">{{item.policeName}}</Tag>
+										</Tooltip>
+									</template>
+								</template>
+								
+							</div>
+						</div>
+						<div class="info-item">
+							<label class="item-label">值班主任</label>
+							<div class="item-content">
+								<template  v-for="item in onDutyInfo.currentDutyLeader2">
+									<template v-if="item.online">
+										<Tag color="green" class="online">{{item.policeName}}</Tag>
+									</template>
+									<template v-else>
+										<Tooltip :content="leaveDutyPostText">
+											<Tag  color="#ccc" class="outline">{{item.policeName}}</Tag>
+										</Tooltip>
+									</template>
+								</template>
+								
+							</div>
+						</div>
+						<div class="info-item">
+							<label class="item-label">值班员</label>
+							<div class="item-content">
+								<template  v-for="item in onDutyInfo.currentDutyPolice">
+									<template v-if="item.online">
+										<Tag color="green" class="online">{{item.policeName}}</Tag>
+									</template>
+									<template v-else>
+										<Tooltip :content="leaveDutyPostText">
+											<Tag  color="#ccc" class="outline">{{item.policeName}}</Tag>
+										</Tooltip>
+									</template>
+								</template>
+								
+							</div>
+						</div>
+						<div class="info-item">
+							<label class="item-label">门岗</label>
+							<div class="item-content">
+								<template  v-for="item in onDutyInfo.currentDutyGuard">
+									<template v-if="item.online">
+										<Tag color="green" class="online">{{item.policeName}}</Tag>
+									</template>
+									<template v-else>
+										<Tooltip :content="leaveDutyPostText">
+											<Tag  color="#ccc" class="outline">{{item.policeName}}</Tag>
+										</Tooltip>
+									</template>
+								</template>
+								
+							</div>
+						</div>
+						<div class="info-item">
+							<label class="item-label">请假</label>
+							<div class="item-content">
+								<template  v-for="item in onDutyInfo.currentLeaveDuty">
+									<template v-if="item.online">
+										<Tag color="green" class="online">{{item.policeName}}</Tag>
+									</template>
+									<template v-else>
+										<Tooltip :content="leaveDutyPostText">
+											<Tag  color="#ccc" class="outline">{{item.policeName}}</Tag>
+										</Tooltip>
+									</template>
+								</template>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+		    </div>
+			
+			
+			
+			
+		</div>
+
+		<!-- jQuery -->
+		<script src="plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="plugins/bootstrap/js/bootstrap.js"></script>
+		<!-- SlimScroll -->
+		<script type="text/javascript" src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+		<!-- FastClick -->
+		<script type="text/javascript" src="plugins/fastclick/fastclick.min.js"></script>
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="plugins/AdminLTE/js/adminlte.js"></script>
+		<!-- utilJS -->
+		<script type="text/javascript" src="js/util.js"></script>
+		<!-- ChartJS -->
+		<script type="text/javascript" src="plugins/ChartJS/Chart.js"></script>
+		<!-- PageJS -->
+		<script type="text/javascript" src="js/pageJS/indexJS.js"></script>
+		
+		<script type="text/javascript" src="plugins/ehcart3/echarts.all.min.js" ></script>
+		<script type="text/javascript" src="plugins/ehcart3/map/guangdong/js/guangzhou.js" ></script>
+		
+		<script type="text/javascript" src="plugins/layer/layer.js"></script>
+		<script type="text/javascript" src="js/common/common.js" ></script>
+		<script type="text/javascript" src="js/pageJS/homePage-vue.js"></script>
+		
+	</body>
+
+</html>

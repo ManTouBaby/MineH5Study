@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="plugins/ivew/dist/styles/iview.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="css/general.css" />
+		<!-- ReportCSS -->
+		<link rel="stylesheet" type="text/css" href="css/barrierReport/barrierReport.css" />
+		<link rel="stylesheet" type="text/css" href="css/barrierReport/dailyReport.css" />
+		
+		<script type="text/javascript" src="plugins/vue/dist/vue.js"></script>
+		<script type="text/javascript" src="plugins/ivew/dist/iview.js"></script>
+		
+		<style>
+			html, body{
+				position:relative;
+				width: 100%;
+				height:100%;
+			}
+			.popup-container {
+				display: block;
+				width: 100%;
+				height: 100%;
+				padding: 15px 10px;
+			}
+			.popup-content {
+				position: relative;
+				display: block;
+				width: 100%;
+				height: 100%;
+				padding: 15px 10px;
+			}
+			.col-md-8 {
+				float: left;
+				width: 66.66666666%;
+				height: 100%;
+			}
+			.col-md-4 {
+				float: left;
+				width: 33.33333333%;
+			}
+			.echart-box {
+				position:relative;
+				width: 100%;
+				height:100%;
+			}
+			
+			#reportJLTable th {
+				background: #f9b448;
+				color: #fff;
+			}
+			
+			#reportJLTable,
+			#reportJLTable.table-bordered > thead > tr > th,
+			#reportJLTable.table-bordered > tbody > tr > td{
+				border-color: #f39c12 !important;
+				
+			}
+			#reportJLTable.table-bordered > thead > tr > th {
+				border-bottom-width:1px;
+			}
+			
+			#reportJLTable>tbody>tr:nth-of-type(odd){
+				background: #fff;
+			}
+			#reportJLTable>tbody>tr:nth-of-type(even){
+				background: #f8d59f;
+			}
+			
+		</style>
+		
+	</head>
+	<body>
+		<div id="qwLevelPopup" class="popup-container">
+			<div class="popup-content">
+				
+				<div class="col-md-8">
+					<div id="qwLevelMap" class="echart-box"></div>
+				</div>
+				<div class="col-md-4">
+					<div class="">
+						<table id="reportJLTable" class="table table-bordered table-striped">
+							<thead>
+								
+								<tr>
+									<th>单位</th>
+									<th>区域等级</th>
+									<th>重点关注</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>越秀</td>
+									<td>三级</td>
+									<td>入室盗窃</td>
+								</tr>
+								<tr>
+									<td>天河</td>
+									<td>三级</td>
+									<td>两抢一盗</td>
+								</tr>
+								<tr>
+									<td>荔湾</td>
+									<td>三级</td>
+									<td>治安事件</td>
+								</tr>
+								<tr>
+									<td>海珠</td>
+									<td>四级</td>
+									<td>-</td>
+								</tr>
+								<tr>
+									<td>白云</td>
+									<td>三级</td>
+									<td>两抢一盗</td>
+								</tr>
+								<tr>
+									<td>黄埔</td>
+									<td>三级</td>
+									<td>治安事件</td>
+								</tr>
+								<tr>
+									<td>南沙</td>
+									<td>三级</td>
+									<td>治安事件</td>
+								</tr>
+								<tr>
+									<td>从化</td>
+									<td>三级</td>
+									<td>治安事件</td>
+								</tr>
+								<tr>
+									<td>番禺</td>
+									<td>三级</td>
+									<td>两抢一盗</td>
+								</tr>
+								<tr>
+									<td>增城</td>
+									<td>三级</td>
+									<td>入室盗窃</td>
+								</tr>
+								<tr>
+									<td>花都</td>
+									<td>三级</td>
+									<td>治安事件</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<script type="text/javascript" src="plugins/ehcart3/echarts.all.min.js" ></script>
+		<script type="text/javascript" src="plugins/ehcart3/map/guangdong/js/guangzhou.js" ></script>
+		<!-- jQuery -->
+		<script src="plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="plugins/bootstrap/js/bootstrap.js"></script>
+		
+		<script>
+			var echartMap;
+			function initQWLevelEchartMap(){
+				var optionSSDT = {
+					title : {
+						text : '广州市勤务等级',
+						left : 'center',
+						textStyle : {
+							color : '#fff'
+						},
+						top : "3%"
+					},
+					series : [ {
+						name : '勤务等级',
+						type : 'map',
+						aspectScale : 1,
+						mapType : '广州市',
+						roam : false,
+						itemStyle : {
+							normal : {
+								areaColor : 'rgb(6,214,160)',
+								label : {show:true}
+							},
+							emphasis : {
+								areaColor : '#3498db',
+								shadowBlur : 10,
+								shadowColor : '#2980b9',
+								opacity : 0.5
+							}
+						},
+						label : {
+							normal : {
+								show : true,
+								textStyle : {
+									color : '#fff',
+									fontWeight : 'normal',
+									fontSize : '12'
+								}
+							},
+							emphasis : {
+								show : true,
+								textStyle : {
+									color : '#fff',
+									fontWeight : 'bold',
+									fontSize : '20'
+								}
+							}
+						}
+					}]
+				};
+				echartMap = setEchart("qwLevelMap", optionSSDT);
+			}
+			
+			function setEchart(id, option) {
+				var myChart = echarts.init(document.getElementById(id));
+				myChart.setOption(option);
+				return myChart;
+			}
+			
+			var fourColor = ['rgb(6,214,160)','rgb(255,209,102)','rgb(255,100,0)','rgb(255,0,0)'];
+			var qwLevelData = [{
+				"天河区":1000,
+				"越秀区":2000,
+				"荔湾区":3000,
+				"白云区":4000,
+				"从化区":5000,
+				"增城区":6000,
+				"花都区":7000,
+				"南沙区":8000,
+				"番禺区":4000,
+				"黄埔区":6000,
+				"海珠区":6000
+			},{
+				"天河区":12500,
+				"越秀区":3000,
+				"荔湾区":5000,
+				"白云区":20000,
+				"从化区":7000,
+				"增城区":10000,
+				"花都区":7000,
+				"南沙区":18000,
+				"番禺区":4000,
+				"黄埔区":6000,
+				"海珠区":6000
+			}]
+			
+			function updateQWLevelEchartMapData(echartMap){
+			//	var data={TimeType:TimeType};
+			//	url= +"Jqcase/queryJqcaseNumberGroupByDept.do";
+			//	$.post(url,data,function(res){
+				
+				var res = qwLevelData;
+				var values = new Array();
+				//console.log(res);		
+					for (var param in res[1]) {
+						var obj4map = {
+							name : '',
+							value : '',
+							itemStyle : {
+								normal : {
+									areaColor : ''
+								},
+								emphasis : {
+									areaColor : '#3498db',
+									shadowBlur : 10,
+									shadowColor : '#2980b9',
+									opacity : 0.5
+								}
+							}
+						};
+						obj4map.name = param;
+						obj4map.value = parseInt(res[1][param]);
+						var oldvalue= res[0][param];
+						var flag=obj4map.value / oldvalue;
+						if (flag<=1)
+							obj4map.itemStyle.normal.areaColor = fourColor[0];
+						else if (flag>1 && flag<=1.2)
+							obj4map.itemStyle.normal.areaColor = fourColor[1];
+						else if(flag>1.2 && flag<=1.5)
+							obj4map.itemStyle.normal.areaColor = fourColor[2];
+						else
+							obj4map.itemStyle.normal.areaColor = fourColor[3];
+						values.push(obj4map);
+					}
+					var option = {
+						title : {
+							text : '广州市勤务等级',
+							left : 'center',
+							textStyle : {
+								color : '#fff'
+							},
+							top : "3%"
+						},
+						series : [{
+							name : '勤务等级',
+							type : 'map',
+							aspectScale : 1,
+							mapType : '广州市',
+							roam : false,
+							data : values
+						}]
+					};
+					
+					echartMap = setEchart("qwLevelMap", option);
+			
+			}
+			
+
+			
+			$(function(){
+				initQWLevelEchartMap();
+				
+			 	updateQWLevelEchartMapData(echartMap);	
+				
+			})
+		</script>
+		
+	</body>
+</html>

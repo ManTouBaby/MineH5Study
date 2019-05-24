@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap.css">
+    <script type="text/javascript" src="lib/vue.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            <h3 class="panel-title">添加商品</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-inline">
+                <label>商品ID
+                    <input type="text" class="form-control" v-model="addProductId">
+                </label>
+                <label>商品名称
+                    <input type="text" class="form-control" v-model="addProductName">
+                </label>
+                <button id="addP" type="button" class="btn btn-info" @click="addProduct">添加商品</button>
+                <div class="form-group">
+                    <input type="email" class="form-control" placeholder="搜索商品名称" v-model="keywords">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>商品ID</th>
+            <th>商品名称</th>
+            <th>创建时间</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="item in search(keywords)" :key="item.productId">
+            <td v-cloak>{{item.productId}}</td>
+            <td v-text="item.productName"></td>
+            <td v-cloak>{{item.cTime}}</td>
+            <td>
+                <button type="submit" class="btn btn-info" @click="del(item.productId)">删除</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    var vu = new Vue({
+        el: '.container',
+        data: function () {
+            return {
+                list: [{
+                    productId: 1,
+                    productName: "奔驰",
+                    cTime: new Date()
+                },
+                    {
+                        productId: 2,
+                        productName: "宝马",
+                        cTime: new Date()
+                    }
+                ],
+                addProductId: "",
+                addProductName: "",
+                addTime: "",
+                keywords: ""
+            }
+        },
+        methods: {
+            addProduct() {
+                this.list.push({
+                    productId: this.addProductId,
+                    productName: this.addProductName,
+                    cTime: new Date()
+                })
+            },
+            del(id) {
+                var index = this.list.findIndex(function (item) {
+                    if (item.productId == id) {
+                        return true;
+                    }
+                });
+                this.list.splice(index, 1);
+            },
+            search(keywords) {
+                /*过滤方式一*/
+                /*var resultList=[];
+                this.list.forEach(function(item){
+                    if(item.productName.indexOf(keywords)!=-1){
+                        resultList.push(item);
+                    }
+                })
+                return resultList;*/
+                /*过滤方式二*/
+                return this.list.filter(function (item) {
+                    if (item.productName.includes(keywords)) {
+                        return item;
+                    }
+                })
+
+            }
+        }
+    })
+</script>
+</body>
+
+</html>

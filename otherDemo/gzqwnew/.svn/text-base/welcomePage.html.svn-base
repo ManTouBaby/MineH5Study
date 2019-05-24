@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" href="css/general.css" />
+
+		<style>
+			/*.alert h4 {
+			    color: #3778ff;
+			}
+			.alert a {
+			    color: #000;
+			}*/
+			.bbyc-box {
+				padding: 10px 0;
+			}
+			.table th, .table td {
+				text-align: center;
+				vertical-align: middle !important;
+			}
+			
+			.abnormal-box {
+				float: left;
+				position: relative;
+				width: 100%;
+				height: 120px;
+				max-width: 200px;
+				padding-bottom: 42px;
+				border-radius: 5px;
+				margin: 10px;
+				border: 1px solid #e4e4e4;
+				border: 1px solid #fdcfcf;
+			}
+			.abnormal-box>.front {
+				width: 100%;
+				height: 100%;
+			}
+			.abnormal-box>.front>.num {
+				width: 100%;
+				height: 100%;
+				font-size: 32px;
+				line-height: 76px;
+				color: #FF0000;
+				text-align: center;
+			}
+			.abnormal-box>.front>.title {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				display: block;
+				width: 100%;
+				height: 42px;
+				line-height: 40px;
+				text-align: center;
+				background: #D33724;
+				background: #fdcfcf;
+			}
+			.abnormal-box>.behind {
+				position: absolute;
+				top: 0;
+				left:0;
+				display: none;
+				width: 100%;
+				height: 100%;
+				border-radius: 5px;
+				background: rgba(0,0,0,.75);
+				color: #fff;
+				padding: 10px 5px !important;
+			}
+			.abnormal-box>.behind>.txt {
+				padding: 5px 5px;
+				font-size: 13px;
+			}
+			.abnormal-box>.behind>.txt>.label {
+				margin-right: 15px;
+			}
+			
+			
+		</style>
+	</head>
+
+	<body class="innerPage">
+		<div>
+			<!-- 头部标题 -->
+			<section class="content-header">
+				<h1>
+					用户首页
+					<small>今日是2018年2月1日</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+				</ol>
+			</section>
+			<!-- /.头部标题 -->
+			<!-- 主要内容 -->
+			<section class="content">
+				<div class="row">
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="small-box bg-aqua">
+							<div class="inner">
+								<h3>张三</h3>
+							
+								<p>今日值班领导</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-user"></i>
+							</div>
+							
+							<a href="#" onclick="window.location.href='pages/barrierReportWatch/leaderReport/leaderReportWatch.html'" class="small-box-footer">查看更多<i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="small-box bg-red">
+							<div class="inner">
+								<h3>一级</h3>
+								<p>今日勤务等级</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-calendar"></i>
+							</div>
+							<a href="#" onclick="window.location.href='pages/barrierReportWatch/roadDefenceWatch/roadDefenceReportWatch.html'" class="small-box-footer">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="small-box bg-yellow">
+							<div class="inner">
+								<h3>2198</h3>
+								<p>今日报备警力</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-users"></i>
+							</div>
+							<a href="#" onclick="window.location.href='pages/statistics/reportStatistics.html'" class="small-box-footer">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+					<div class="col-md-3 col-sm-6 col-xs-12">
+						<div class="small-box bg-green">
+							<div class="inner">
+								<h3>1789</h3>
+
+								<p>当前实时警力</p>
+							</div>
+							<div class="icon">
+								<i class="fa fa-cab"></i>
+							</div>
+							<a href="#" class="small-box-footer">查看更多 <i class="fa fa-arrow-circle-right"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					
+					<div class="col-md-12">
+						<div class="box box-danger" style="min-height: 300px;">
+							<div class="box-header with-border">
+								<i class="fa fa-calendar-o"></i>
+								<h3 class="box-title">消息通告</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> </button>
+								</div>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<div class="row">
+									<div class="col-md-6">
+										<div class="alert alert-success alert-dismissible">
+										<!--<div class="alert alert-dismissible">-->
+											<h4><i class="icon fa fa-info"></i> 勤务等级响应</h4> 全市于2018年2月9日至2月15日启动三级勤务&nbsp;&nbsp;
+											<a href="#" onclick="window.location.href='pages/barrierReport/LeaderReport/LeaderReport.html'">详情>></a>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="alert alert-success alert-dismissible">
+										<!--<div class="alert alert-dismissible">-->
+											<h4><i class="icon fa fa-info"></i> 专项勤务提醒</h4> 元宵勤务安保将于3月2日开始&nbsp;&nbsp;
+											<a href="#" onclick="window.location.href='pages/barrierReport/LeaderReport/LeaderReport.html'">详情>></a>
+										</div>
+									</div>
+								</div>
+								<!-- /.box-body -->
+							</div>
+						<!-- /.box -->
+					</div>
+					
+				</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="box box-info">
+							<div class="box-header with-border">
+								<i class="fa fa-bar-chart"></i>
+								<h3 class="box-title">勤务督导</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> </button>
+								</div>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<div class="row">
+									<!--<div class="col-md-12">
+										勤务督导，展示等级勤务落实情况：
+										那些单位勤务有异常（未报备、警力异常）
+										人员执勤异常
+									</div>
+									-->
+									<div class="col-md-6">
+										<div class="alert alert-dismissible">
+											<h4 ><i class="icon fa fa-warning"></i> 报备异常</h4>
+											<div class="row">
+												<div class="abnormal-box">
+													<div class="front">
+														<div class="num">3</div>
+														<div class="title">天河区分局</div>
+													</div>
+													<div class="behind">
+														<div class="txt"><label class="label label-info">等级勤务落实</label>未落实</div>
+														<div class="txt"><label class="label label-info">勤务未报备</label>3</div>
+														<div class="txt"><label class="label label-info">人员执勤异常</label>0</div>
+													</div>
+												</div>
+												<div class="abnormal-box">
+													<div class="front">
+														<div class="num">6</div>
+														<div class="title">番禺区分局</div>
+													</div>
+													<div class="behind">
+														<div class="txt"><label class="label label-info">等级勤务落实</label>未落实</div>
+														<div class="txt"><label class="label label-info">勤务未报备</label>3</div>
+														<div class="txt"><label class="label label-info">人员执勤异常</label>0</div>
+													</div>
+												</div>
+												<div class="abnormal-box">
+													<div class="front">
+														<div class="num">4</div>
+														<div class="title">荔湾区分局</div>
+													</div>
+													<div class="behind">
+														<div class="txt"><label class="label label-info">等级勤务落实</label>未落实</div>
+														<div class="txt"><label class="label label-info">勤务未报备</label>3</div>
+														<div class="txt"><label class="label label-info">人员执勤异常</label>0</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									
+									<div class="col-md-6">
+										<div class="alert alert-danger alert-dismissible">
+										<!--<div class="alert alert-dismissible">-->
+											<h4><i class="icon fa fa-warning"></i> 应急备勤</h4> 您今日应急备勤尚未报备...&nbsp;&nbsp;
+											<a href="#">前往报备>></a>
+										</div>
+										<div class="alert alert-warning">
+										<!--<div class="alert">-->
+											<h4><i class="icon fa fa-warning"></i> 社会面巡逻岗位</h4> 
+											<small class="label label-primary">巡组</small>&nbsp;北京A1001&nbsp;&nbsp;
+											<a href="#">前往报备>></a> <br /><br />
+											<small class="label label-success">社区</small>&nbsp;逢源社区&nbsp;&nbsp;
+											<a href="#">前往报备>></a>
+										</div>
+										<div class="alert alert-warning">
+										<!--<div class="alert">-->
+											<h4><i class="icon fa fa-warning"></i> 专项勤务任务</h4> 
+											<small class="label label-primary">专项</small>&nbsp;元宵安保勤务任务&nbsp;&nbsp;
+											<a href="#">前往报备>></a> 
+										</div>
+									</div>
+								</div>
+								<div class="row">	
+									<div class="col-md-12"  style="display: none;">
+										<div class="alert alert-dismissible">
+											<h4 ><i class="icon fa fa-warning"></i> 报备异常</h4>
+											<div class="bbyc-box">
+												<small class="label label-primary">天河区分局</small>&nbsp;未报备 &nbsp;&nbsp; 3 &nbsp;&nbsp;
+												<a href="#">查看详情>></a>
+											</div>
+											<div class="bbyc-box">
+												<small class="label label-primary">番禺区分局</small>&nbsp;未报备 &nbsp;&nbsp; 1 &nbsp;&nbsp;
+												<a href="#">查看详情>></a>
+											</div>
+											<div class="bbyc-box">
+												<small class="label label-primary">荔湾区分局</small>&nbsp;未报备 &nbsp;&nbsp; 5 &nbsp;&nbsp;
+												<a href="#">查看详情>></a>
+											</div>
+											
+										</div>
+									</div>
+									
+									<div class="col-md-12 table-responsive" style="display: none;">
+										<table class="table table-bordered">
+											<tr>
+												<th rowspan="2">序号</th>
+												<th rowspan="2">单位</th>
+												<th colspan="3">等级勤务落实</th>
+												<th rowspan="2">报备异常</th>
+												<th rowspan="2">操作</th>
+											</tr>
+											<tr>
+												<th>当前等级</th>
+												<th>等级要求警力</th>
+												<th>实有警力</th>
+												
+											</tr>
+											<tr>
+												<td>1</td>
+												<td>天河区分局</td>
+												<td>三级</td>
+												<td>19</td>
+												<td>15</td>
+												<td>0</td>
+												<td><button class="btn btn-xs btn-primary">查看</button></td>
+											</tr>
+											<tr>
+												<td>1</td>
+												<td>越秀区分局</td>
+												<td>三级</td>
+												<td>15</td>
+												<td>15</td>
+												<td class="text-danger">3</td>
+												<td><button class="btn btn-xs btn-primary">查看</button></td>
+											</tr>
+											<tr>
+												<td>1</td>
+												<td>荔湾区分局</td>
+												<td>三级</td>
+												<td>19</td>
+												<td class="text-danger">15</td>
+												<td>0</td>
+												<td><button class="btn btn-xs btn-primary">查看</button></td>
+											</tr>
+											<tr>
+												<td>1</td>
+												<td>白云区分局</td>
+												<td>三级</td>
+												<td>13</td>
+												<td>13</td>
+												<td class="text-danger">1</td>
+												<td><button class="btn btn-xs btn-primary">查看</button></td>
+											</tr>
+										</table>
+									</div>
+									
+									
+									<!--<div class="col-md-6">
+										<div class="alert alert-dismissible">
+											<h4 ><i class="icon fa fa-warning"></i> 单位报备异常</h4>
+											<div class="bbyc-box">
+												<small class="label label-primary">值班领导</small>&nbsp;天河分局  指挥长未报备&nbsp;&nbsp;
+												<a href="#">前往报备>></a>
+											</div>
+											<div class="bbyc-box">
+												<small class="label label-success">路面巡逻</small>&nbsp;北京A1001 人员未报备&nbsp;&nbsp;
+												<a href="#">前往报备>></a>
+											</div>
+											<div class="bbyc-box">
+												<small class="label label-success">等级响应</small>&nbsp;天河分局  人数不满足报备条件&nbsp;&nbsp;
+												<a href="#">前往报备>></a>
+											</div>
+											
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="alert alert-dismissible">
+											<h4 ><i class="icon fa fa-warning"></i> 人员执勤异常</h4>
+											<div class="bbyc-box">
+												<small class="label label-primary">张三</small>&nbsp;超出执勤范围&nbsp;&nbsp;
+												<a href="#">前往查看>></a>
+											</div>
+											<div class="bbyc-box">
+												<small class="label label-primary">李四</small>&nbsp;久坐不动&nbsp;&nbsp;
+												<a href="#">前往查看>></a>
+											</div>
+										</div>
+									</div>-->
+								</div>
+								<!-- /.row -->
+								
+							</div>
+							<!-- ./box-body -->
+							
+							<!-- /.box-footer -->
+						</div>
+						<!-- /.box -->
+					</div>
+					<!-- /.col -->
+				</div>
+				
+				
+
+			</section>
+			<!-- /.主要内容 -->
+		</div>
+
+		<!-- jQuery -->
+		<script src="plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="plugins/bootstrap/js/bootstrap.js"></script>
+		<!-- SlimScroll -->
+		<script type="text/javascript" src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
+		<!-- FastClick -->
+		<script type="text/javascript" src="plugins/fastclick/fastclick.min.js"></script>
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="plugins/AdminLTE/js/adminlte.js"></script>
+		<!-- utilJS -->
+		<script type="text/javascript" src="js/util.js"></script>
+		<!-- ChartJS -->
+		<script type="text/javascript" src="plugins/ChartJS/Chart.js"></script>
+		<!-- PageJS -->
+		<script type="text/javascript" src="js/pageJS/indexJS.js"></script>
+		<script>
+			$(function() {
+				var salesChartCanvas = $('#policeCountChart').get(0).getContext('2d');
+				var salesChart = new Chart(salesChartCanvas);
+				var salesChartData = {
+					labels: ['00:00', '01:00', '02:00', '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00', '23:00'],
+					datasets: [{
+						label: '总警力',
+						fillColor: 'rgb(210, 214, 222)',
+						pointColor: 'rgb(210, 214, 222)',
+						pointStrokeColor: '#c1c7d1',
+						pointHighlightFill: '#fff',
+						pointHighlightStroke: 'rgb(220,220,220)',
+						data: [34, 23, 12, 42, 52, 61, 123, 423, 532, 643, 534, 634, 453, 543, 343, 654, 514, 453, 345, 435, 342, 322, 123, 87]
+					}, {
+						label: '民警',
+						fillColor: 'rgba(60,141,188,0.9)',
+						pointColor: '#3b8bba',
+						pointStrokeColor: 'rgba(60,141,188,1)',
+						pointHighlightFill: '#fff',
+						pointHighlightStroke: 'rgba(60,141,188,1)',
+						data: [23, 11, 5, 23, 42, 42, 101, 302, 456, 532, 420, 520, 372, 400, 219, 590, 444, 302, 330, 333, 209, 210, 100, 20]
+					}]
+				};
+
+				var salesChartOptions = {
+					showScale: true,
+					scaleShowGridLines: false,
+					scaleGridLineColor: 'rgba(0,0,0,.05)',
+					scaleGridLineWidth: 1,
+					scaleShowHorizontalLines: true,
+					scaleShowVerticalLines: true,
+					bezierCurve: true,
+					bezierCurveTension: 0.3,
+					pointDot: false,
+					pointDotRadius: 4,
+					pointDotStrokeWidth: 1,
+					pointHitDetectionRadius: 20,
+					datasetStroke: true,
+					datasetStrokeWidth: 2,
+					datasetFill: true,
+					legendTemplate: '<ul class=\'<%=name.toLowerCase()%>-legend\'><% for (var i=0; i<datasets.length; i++){%><li><span style=\'background-color:<%=datasets[i].lineColor%>\'></span><%=datasets[i].label%></li><%}%></ul>',
+					maintainAspectRatio: true,
+					responsive: true
+				};
+
+				// Create the line chart
+				salesChart.Line(salesChartData, salesChartOptions);
+			});
+		</script>
+		
+		<script>
+			$(function(){
+				$(".abnormal-box").mouseover(function(e){
+					e.stopPropagation();
+//					e.preventDefault();	
+//					debugger;
+					$(this).find(".behind").stop().slideDown(200);
+				});
+				$(".abnormal-box").mouseout(function(e){
+					e.stopPropagation();
+//					e.preventDefault();
+//					debugger;
+					$(this).find(".behind").stop().slideUp(200);
+				});
+			})
+		</script>
+		
+	</body>
+
+</html>

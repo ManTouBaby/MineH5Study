@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- PAGEJS -->
+		<link rel="stylesheet" href="css/LoginCSS.css" />
+		<!-- general -->
+		<link rel="stylesheet" href="css/general.css" />
+	</head>
+
+	<body>
+		<canvas id="backgroundTriangle" style="display: none;"></canvas>
+		<div class="loginArea">
+			<div class="loginTitle">
+				<span>[</span> 动态勤务管理云应用
+				<span>]</span>
+			</div>
+			<div class="loginBox">
+				<div class="loginBoxElement">
+					<input id="loginName" class="form-control" type="email" placeholder="用户名" onkeydown="keyDown()" style="text-align: center;background-color: rgba(255,255,255,0.8);border-radius: 5px;">
+				</div>
+				<div class="loginBoxElement">
+					<input id="passWord" class="form-control" type="password" placeholder="密码" onkeydown="keyDown()" style="text-align: center;background-color: rgba(255,255,255,0.8);border-radius: 5px">
+
+				</div>
+				<div class="loginBoxElement" style="margin-top: 20px;">
+					<button type="button" class="btn btn-block btn-success btn-lg" id="loginButton" onclick="login()">登&nbsp;&nbsp;录</button>
+				</div>
+			</div>
+			<div class="browserTips">
+				<p>- 您的浏览器版本过低 某些功能可能显示不正常 -</p>
+				<p>- 建议您下载最新版浏览器
+					<a href="#">点击下载</a> -</p>
+			</div>
+
+		</div>
+		<div class="companyTips">
+			<p>- 建议分辨率: 1440 * 900 或以上 -</p>
+			<p>- 技术支持&nbsp;:&nbsp;北京航天长峰科技工业集团有限公司 -</p>
+		</div>
+		<!-- jQuery -->
+		<script src="plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="plugins/bootstrap/js/bootstrap.js"></script>
+		<!-- utilJS -->
+		<script type="text/javascript" src="js/util.js"></script>
+		<script type="text/javascript" src="js/common/common.js"></script>
+		<!-- PageJS -->
+		<script src="js/pageJS/loginJS.js"></script>
+	</body>
+
+</html>
