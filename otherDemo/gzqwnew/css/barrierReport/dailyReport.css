@@ -1,0 +1,230 @@
+html,body 
+{
+	font-size: 14px;
+}
+
+
+th.headerDate {
+	width: 12.5%;
+}
+
+
+
+.reportedPolice-tag {
+	float: right;
+	position: relative;
+	display: inline-block;
+	width: auto;
+	min-width: 100px;
+	height: 28px;
+	background: #3c8dbc;
+	border-radius: 3px;
+	padding: 0 21px 0 0;
+	margin: 0 0 6px 0;
+	color: #fff;
+	font-size: 16px;
+	line-height: 28px;
+}
+
+
+
+.reportedPolice-tag .tag-selecter ,
+.reportedPolice-tag .tag-closer {
+	position: absolute;
+	top: 0;
+	display: inline-block;
+	width: 20px;
+	height: 100%;
+	text-align: center;
+	cursor: pointer;
+}
+.reportedPolice-tag .tag-selecter {
+	left: 0;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	border-right: 1px solid #ccc;
+	font-size: 13px;
+	width: 24px;
+	background-color: #444;
+}
+.reportedPolice-tag .tag-closer {
+	right: 0;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border-left: 1px solid #62a5cc;
+}
+
+.reportedPolice-tag .tag-selecter:hover ,
+.reportedPolice-tag .tag-closer:hover {
+	background-color: #5aa6d2;
+    color: #9c3cbc;
+}
+
+.reportedPolice-tag .tag-content {
+	display: block;
+	width: 100%;
+	height: 100%;
+	color: #fff;
+	padding: 0;
+}
+.reportedPolice-tag .tag-content:after {
+	display: block;
+	content: '.';
+	height: 0;
+	clear: both;
+	overflow: hidden;
+	visibility: hidden;
+}
+
+.reportedPolice-tag .tag-content .label-icon {
+	float: left;
+	display: inline-block;
+	width: 20px;
+	height: 100%;
+	color: #fff;
+	font-size: 18px;
+	line-height: 28px;
+	/*margin: 0 6px;*/
+	cursor: pointer;
+}
+
+.reportedPolice-tag .tag-content .label-icon:hover {
+	background-color: #5aa6d2;
+    color: #9c3cbc;
+}
+
+.reportedPolice-tag .tag-content .fl {
+	float: left;
+}
+
+.reportedPolice-tag .tag-content .fr {
+	float: right;
+}
+.reportedPolice-tag .tag-content .label-icon.empty {
+	opacity: 0.15;
+}
+
+
+
+.reportedPolice-tag .tag-content .policeName {
+	float: right;
+	display: inline-block;
+	width: 56px;
+	height: 100%;
+	/*padding: 0 6px 0 0;*/
+	font-size: 12px;
+	line-height: 26px;
+	text-align: center;
+	word-break: break-all;
+}
+.reportedPolice-tag.vehicle {
+	background: rgb(243, 156, 18);
+	min-width: 100px;
+}
+.reportedPolice-tag.vehicle .tag-closer {
+	border-color: #f9bb4a;
+}
+.reportedPolice-tag.vehicle .tag-selecter:hover ,
+.reportedPolice-tag.vehicle .tag-closer:hover ,
+.reportedPolice-tag.vehicle .label-icon:hover{
+	background-color: #ffad2b;
+    color: #257cc6;
+}
+
+
+.reportedPolice-tag.selected {
+	background-color:#ff0018;
+}
+.reportedPolice-tag.selected .leader,
+.reportedPolice-tag.selected .tag-closer {
+	display: none;
+}
+
+
+
+
+
+
+
+.equipment-list-container {
+	position: absolute;
+	top: 30px;
+	right: 0;
+	display: none;
+	
+	z-index: 9999;
+	background: #3c8dbc;
+	border-radius: 3px;
+	font-size: 12px;
+}
+.equipment-list-container.active {
+	display: block;
+	box-shadow: #999 5px 5px 10px;
+}
+
+.equipment-list {
+	width:auto;
+}
+.equipment-list li {
+	position: relative;
+	min-width: 200px;
+	width: auto;
+	height: 32px;
+	padding: 2px 26px 2px 5px;
+	border-bottom: 1px solid #1a5a7f;
+    border-top: 1px solid #47ade8;
+}
+.equipment-list li:first-child {
+	border-top: 0;
+}
+.equipment-list li:last-child {
+	border-bottom: 0;
+}
+
+.equipment-list li:after {
+	display: block;
+	content: '.';
+	height: 0;
+	clear: both;
+	overflow: hidden;
+	visibility: hidden;
+}
+
+.equipment-list li .equipment-type,
+.equipment-list li .equipment-name,
+.equipment-list li .equipment-remove {
+	display: inline-block;
+	float: left;
+	width: auto;
+	color: #FFF;
+	font-size: 12px;
+	line-height: 28px;
+	padding: 0 6px;
+}
+.equipment-list li .equipment-remove {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: block;
+	width: 24px;
+	height: 100%;
+	cursor: pointer;
+}
+
+.teamMemberContainer {
+    width: 100%;
+    height: 100%;
+}
+.teamMemberContainer.selected,
+.reportingLeaderContainer {
+    background-color: #abddfb;
+}
+
+.report-table {
+    min-width: 1100px;
+}
+
+#week-container {
+	max-height: 600px;
+	overflow: auto;
+}

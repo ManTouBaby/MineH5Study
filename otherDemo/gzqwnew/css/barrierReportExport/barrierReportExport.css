@@ -1,0 +1,33 @@
+/* 岗位导出页面 */
+.pointerCursor {
+	cursor: pointer;
+}
+.previewTable {
+	width: 100%
+}
+.previewTable th {
+	text-align: center;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #777;
+	padding: 0;
+	vertical-align: top;
+}
+
+.previewTable td {
+	text-align: center;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #777;
+	padding: 0;
+	vertical-align: top;
+}
+
+.previewTable .headerDate {
+	height: 30px;
+	line-height: 30px;
+}
+
+.selectedBarrierListMove-move {
+	transition: transform 0.5s;
+}

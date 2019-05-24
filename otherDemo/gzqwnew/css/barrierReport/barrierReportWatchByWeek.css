@@ -1,0 +1,222 @@
+/* 岗位选择页面 */
+.selectedBarrier {
+	width: 100%;
+	height: 50px;
+	text-align: center;
+	border: 1px solid #008d4c;
+	background-color: #00a65a;
+	border-radius: 10px;
+	line-height: 50px;
+	color: #fff;
+	margin-bottom: 10px;
+}
+
+.selectedBarrier span {
+	font-size: 16px;
+}
+
+.selectedBarrierRemoveButton {
+	cursor: pointer;
+	margin-right: 10px;
+}
+
+/* 报备页面 */
+.moveCursor {
+	cursor: move;
+}
+
+.pointerCursor {
+	cursor: pointer;
+}
+
+.reportRollingDIV {
+	overflow: auto;
+}
+
+.selectPolice-item {
+	font-weight: bold;
+	margin: 5px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	padding: 5px 10px;
+	border-radius: 3px;
+	width: 65px;
+	float: left;
+	text-align: center;
+}
+
+.selectVehicle-item {
+	font-weight: bold;
+	margin: 5px auto;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	padding: 5px 10px;
+	border-radius: 3px;
+	width: 90%;
+	text-align: center;
+}
+.selectVehicle_vehicleNum{
+	font-weight: normal;
+	font-size:12px;
+}
+
+.report-table {
+	width: 100%;
+}
+
+.report-table th {
+	text-align: center;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #777;
+	padding: 0;
+	vertical-align: top;
+}
+
+.report-table td {
+	text-align: center;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #777;
+	padding: 0;
+	vertical-align: top;
+}
+
+.report-table .headerDate {
+	height: 30px;
+	line-height: 30px;
+}
+
+.reportedPeopleContainer {
+	padding: 10px;
+	min-height: 120px;
+}
+
+.reportingTH {
+	background-color: rgba(255, 0, 0, 0.7)
+}
+
+.reportedPolice-item {
+	margin-bottom: 5px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	padding: 3px 10px;
+	border-radius: 3px;
+	width: 100%;
+	text-align: center;
+}
+
+.reportedVehicle-item {
+	margin-bottom: 5px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	padding: 3px 10px;
+	border-radius: 3px;
+	width: 100%;
+	text-align: center;
+}
+
+.policeItem_policeNameDiv {
+	font-size: 16px;
+	font-weight: bold;
+	text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+}
+
+.policeItem_policeEquipmentContainer>div {
+	margin:0 auto;
+	font-size: 12px;
+	font-weight: normal;
+	text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	max-width: 100px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.reportPoliceItem_DragProxy {
+	margin-bottom: 5px;
+	font-weight: bold;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	padding: 5px 10px;
+	border-radius: 3px;
+	width: 120px;
+	text-align: center;
+}
+.reportVehicleItem_DragProxy {
+	margin-bottom: 5px;
+	font-weight: bold;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	padding: 5px 10px;
+	border-radius: 3px;
+	width: 200px;
+	text-align: center;
+}
+
+.reportedPolice-item-operaIconSpan {
+	display: -moz-inline-box;
+	display: inline-block;
+	text-align: center;
+	width: 20px;
+}
+
+.reportedPolice-PeopleView-item {
+	margin-bottom: 5px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	padding: 3px 10px;
+	border-radius: 3px;
+	width: 100%;
+	text-align: center;
+}
+
+.reportedPolice-PeopleView-item-barrierName {
+	font-size: 16px;
+	font-weight: bold;
+	text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+}
+
+.reportedPolice-PeopleView-item-barrierClassName {
+	font-size: 12px;
+	text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+}
+
+.poilceBindEquipmentAdmin-reportedEqu-Container{
+	width:100%;
+	padding:10px;
+}
+.poilceBindEquipmentAdmin-reportedEqu-item{
+	width:100%;
+	font-weight: bold;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	padding: 5px 10px;
+	border-radius: 3px;
+	text-align: center;
+	margin-bottom:10px;
+}
+.poilceBindEquipmentAdmin-reportEqu-item-text{
+	width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.poilceBindEquipmentAdmin-reportEqu-item-text-small{
+	font-weight: normal;
+	font-size: 12px;
+}
+.poilceBindEquipmentAdmin-selectEquipment-item {
+	font-weight: bold;
+	margin: 5px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	padding: 5px 10px;
+	border-radius: 3px;
+	width: 45%;
+	float: left;
+	text-align: center;
+}
+
+
+.reportedPolice-item-vehicleNum{
+	font-weight: normal;
+	font-size:12px;
+}

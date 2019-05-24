@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>报备专项勤务任务</title>
+		<!-- 页面CSS -->
+		<link rel="stylesheet" href="../../../plugins/specDutyPluging/global.css" type="text/css"></link>
+		<link rel="stylesheet" href="../../../plugins/specDutyPluging/easyui/easyui.css" type="text/css"></link>
+		<link rel="stylesheet" href="../../../plugins/specDutyPluging/easyui/icon.css" type="text/css"></link>
+		<link rel="stylesheet" href="../../../plugins/specDutyPluging/easyui/color.css" type="text/css"></link>
+
+		<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+		<script src="../../../plugins/specDutyPluging/jquery.extend.js"></script>
+		<script src="../../../plugins/specDutyPluging/jquery.easyui.min.js"></script>
+		<script src="../../../plugins/specDutyPluging/easyui-lang-zh_CN.js"></script>
+		<script src="../../../plugins/specDutyPluging/util.js"></script>
+		<script src="../../../js/common/common.js"></script>
+		<!-- 页面CSS -->
+		<link rel="stylesheet" href="../../../plugins/specDutyPluging/specDutyPageCSS.css" type="text/css"></link>
+	</head>
+
+	<body>
+		<div class="mainDiv" id="mainDiv">
+			<div class="mainDiv_leftContent">
+				<div class="boxDiv">
+					<div class='title1class'>基本信息</div>
+					<table class="mainTable" style="width: 95%;">
+						<tr>
+							<th style="width: 100px;">专项勤务工作名称</th>
+							<td>
+								<input v-model="specReportInfo.dutyName" readonly="readonly" style="width: 100%" />
+							</td>
+						</tr>
+						<tr>
+							<th>专项勤务工作地点</th>
+							<td>
+								<input v-model="specReportInfo.location" readonly="readonly" style="width: 100%" />
+							</td>
+						</tr>
+						<tr>
+							<th>对讲机频率</th>
+							<td>
+								<input v-model="specReportInfo.workChanel" readonly="readonly" style="width: 100%" />
+							</td>
+						</tr>
+						<tr>
+							<th>开始时间</th>
+							<td>
+								<input v-model="specReportInfo.watchBegin" readonly="readonly" style="width: 100%" />
+
+							</td>
+						</tr>
+						<tr>
+							<th>结束时间</th>
+							<td>
+								<input v-model="specReportInfo.watchEnd" readonly="readonly" style="width: 100%" />
+							</td>
+						</tr>
+						<tr>
+							<th>报备截止时间</th>
+							<td>
+								<input v-model="specReportInfo.reportDeadline" readonly="readonly" style="width: 100%" />
+							</td>
+						</tr>
+						<tr>
+							<th>勤务内容</th>
+							<td>
+								<textarea style="width: 100%" rows="3" v-model="specReportInfo.description" readonly="readonly"></textarea>
+							</td>
+						</tr>
+						<tr>
+							<th>地图标绘</th>
+							<td>
+								<div>
+									<template v-for="mapinfo in mapinfoList">
+										<div class="mapInfoElement mapInfoBox" v-if="mapinfo.belongType == 'dutyInfo'">
+											<span>{{ mapinfo.title }}</span>
+										</div>
+									</template>
+								</div>
+							</td>
+						</tr>
+					</table>
+					<div class="alignCenter">
+						<a href="javascript:void(0)" @click="validateSaveData()" class="easyui-linkbutton c6">保存本单位报备</a>
+					</div>
+				</div>
+				<div>
+					<div class="mainDiv_leftContent_List">
+						<div class="mainDiv_leftContent_List_zhbList">
+							<div class="headquarterTitle">指挥部列表</div>
+							<div class="headquarter_zhbContainer">
+								<div :class="{'headquarter_ZHB_item_noNeedReprot' : !headquarter.isNeedReport,'headquarter_ZHB_item' : headquarter.isNeedReport}" :key="headquarter.id" v-for="headquarter in headquarterList" @click="doEditZHB(headquarter)">
+									<div class="headquarter_ZHBGZZTille" style="height: 40px; line-height: 40px;">{{ headquarter.name }}</div>
+								</div>
+							</div>
+						</div>
+						<div class="mainDiv_leftContent_List_gzzList">
+							<div class="headquarterTitle">工作组列表</div>
+							<div class="headquarter_gzzContainer">
+								<div :class="{'headquarter_GZZ_item_noNeedReprot' : !workGroup.isNeedReport,'headquarter_GZZ_item' : workGroup.isNeedReport}" :key="workGroup.id" v-for="workGroup in workGroupList" @click="doEditGZZ(workGroup)">
+									<div class="headquarter_ZHBGZZTille" style="height: 40px; line-height: 40px;">{{ workGroup.name }}</div>
+								</div>
+							</div>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+				</div>
+				<div style="clear: both;"></div>
+			</div>
+			<div class="mainDiv_rightContainer">
+				<div class="mainDiv_rightContainer_mapArea">
+					<iframe id="mapWindow" name="mapWindow" style="width: 100%; height: 100%;" frameborder="no" border="0" marginwidth="0" marginheight="0" allowtransparency="yes" src="specDutyMap.html"></iframe>
+				</div>
+				<div class="mainDiv_rightContainer_infoArea">
+					<div v-if="!editingViewController.zhb && !editingViewController.gzz" class="noSelectZHBOrGZZTips">请先在左侧选择非灰色需要报备的工作组</div>
+					<div class="zhbEditingView" v-if="editingViewController.zhb">
+						<div class="zhbEditView_baseinfo">
+							<div class="editView_Title">指挥部基础信息</div>
+							<table class="mainTable" style="width: 95%;">
+								<tr>
+									<th style="width: 30%">名称</th>
+									<td style="width: 70%">
+										<input v-model="editingZHB.name" style="width: 100%" readonly="readonly" />
+									</td>
+								</tr>
+								<tr>
+									<th>地址</th>
+									<td>
+										<input v-model="editingZHB.location" style="width: 100%" readonly="readonly" />
+									</td>
+								</tr>
+								<tr>
+									<th>工作描述</th>
+									<td>
+										<textarea style="width: 100%" rows="5" v-model="editingZHB.description" readonly="readonly"></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th>
+										指挥部标绘 <br>
+									</th>
+									<td>
+										<template v-for="mapinfo in mapinfoList">
+											<div class="mapInfoElement mapInfoBox" v-if="mapinfo.belongType == 'headquarter' && mapinfo.headquarterId == editingZHB.id">
+												<span>{{ mapinfo.title }}</span>
+											</div>
+										</template>
+									</td>
+								</tr>
+								<tr>
+									<th>指挥部人员</th>
+									<td>
+										<div class="editView_PeopleContainer">
+											<div class="editView_PeopleContainer_title">领导</div>
+											<table class="editView_peopleInnerTable">
+												<tr>
+													<th>姓名</th>
+													<th>职务</th>
+													<th>电话</th>
+													<th>电台呼号</th>
+												</tr>
+												<template v-for="people in peopleList">
+													<tr v-if="people.headquarterId == editingZHB.id && people.belongType == 'headquarter' && people.teamRole == '1'">
+														<td>{{ people.policeName}}</td>
+														<td>{{ people.job}}</td>
+														<td>{{ people.mobilePhone}}</td>
+														<td>{{ people.locationId}}</td>
+													</tr>
+												</template>
+											</table>
+											<br>
+											<div style="clear: both;"></div>
+											<div class="editView_PeopleContainer_title">组员</div>
+											<table class="editView_peopleInnerTable">
+												<tr>
+													<th>姓名</th>
+													<th>职务</th>
+													<th>电话</th>
+													<th>电台呼号</th>
+												</tr>
+												<template v-for="people in peopleList">
+													<tr v-if="people.headquarterId == editingZHB.id && people.belongType == 'headquarter'&& people.teamRole == '2'">
+														<td>{{ people.policeName}}</td>
+														<td>{{ people.job}}</td>
+														<td>{{ people.mobilePhone}}</td>
+														<td>{{ people.locationId}}</td>
+													</tr>
+												</template>
+											</table>
+										</div>
+									</td>
+								</tr>
+							</table>
+							<div class="editView_OperaButtom"></div>
+						</div>
+						<div class="zhbEditView_peopleInfo">
+							<div class="editView_Title">本单位进驻指挥部信息</div>
+							<div class="editView_UnitContainer">
+								<template v-for="unit in unitList">
+									<div class="headquarter_unitItem_needReport" v-if="unit.headquarterId == editingZHB.id && unit.unitLevel == '1' && unit.isNeedReport">
+										<div class="headquarter_unitItem_title">{{ unit.stationName }}</div>
+										<div class="report_ZHB_Unit_OperaButtom">
+											<a href="javascript:void(0)" @click="selectUnitInZHBPeople(unit)" class="easyui-linkbutton c1">选择本单位进驻指挥部人员</a>
+										</div>
+									</div>
+								</template>
+							</div>
+						</div>
+						<div class="zhbEditView_unitInfo">
+							<div class="editView_Title">本单位进驻指挥部人员</div>
+							<div class="editView_PeopleContainer">
+								<div class="editView_PeopleContainer_title">领导</div>
+								<table class="editView_PeopleContainer_peopleTable">
+									<tr>
+										<th>姓名</th>
+										<th>职务</th>
+										<th>电话</th>
+										<th>电台呼号</th>
+										<th></th>
+									</tr>
+									<template v-for="people in reportPeopleList">
+										<tr v-if="people.headquarterId == editingZHB.id && people.belongType == 'headquarterUnitPeople' && people.teamRole == '1'">
+											<td>{{ people.policeName}}</td>
+											<td>{{ people.job}}</td>
+											<td>{{ people.mobilePhone}}</td>
+											<td>{{ people.locationId}}</td>
+											<td>
+												<a href="javascript:void(0)" @click="delReportPolice(people.id)">X</a>
+											</td>
+										</tr>
+									</template>
+								</table>
+								<br>
+								<div style="clear: both;"></div>
+								<div class="editView_PeopleContainer_title">组员</div>
+								<table class="editView_PeopleContainer_peopleTable">
+									<tr>
+										<th>姓名</th>
+										<th>职务</th>
+										<th>电话</th>
+										<th>电台呼号</th>
+										<th></th>
+									</tr>
+									<template v-for="people in reportPeopleList">
+										<tr v-if="people.headquarterId == editingZHB.id && people.belongType == 'headquarterUnitPeople' && people.teamRole == '2'">
+											<td>{{ people.policeName}}</td>
+											<td>{{ people.job}}</td>
+											<td>{{ people.mobilePhone}}</td>
+											<td>{{ people.locationId}}</td>
+											<td>
+												<a href="javascript:void(0)" @click="delReportPolice(people.id)">X</a>
+											</td>
+										</tr>
+									</template>
+								</table>
+							</div>
+						</div>
+						<div style="clear: both;"></div>
+					</div>
+					<div class="zhbEditingView" v-if="editingViewController.gzz">
+						<div class="zhbEditView_baseinfo">
+							<div class="editView_Title">工作组基础信息</div>
+							<table class="mainTable" style="width: 95%;">
+								<tr>
+									<th style="width: 30%">名称</th>
+									<td style="width: 70%">
+										<input v-model="editingGZZ.name" style="width: 100%" readonly="readonly">
+									</td>
+								</tr>
+								<tr key="GZZ_workTime targetGZZ">
+									<th style="width: 30%">工作时间</th>
+									<td style="width: 70%">
+										开始:
+										<input v-model="editingGZZ.watchBegin" style="width: 100%" readonly="readonly">
+										<br> 结束:
+										<input v-model="editingGZZ.watchEnd" style="width: 100%" readonly="readonly">
+										<br>
+									</td>
+								</tr>
+								<tr>
+									<th>工作描述</th>
+									<td>
+										<textarea style="width: 100%" rows="5" v-model="editingGZZ.description" readonly="readonly"></textarea>
+									</td>
+								</tr>
+								<tr>
+									<th>工作组标绘</th>
+									<td>
+										<template v-for="mapinfo in mapinfoList">
+											<div class="mapInfoElement mapInfoBox" v-if="mapinfo.belongType == 'workGroup' && mapinfo.headquarterId == editingGZZ.id">
+												<span>{{ mapinfo.title }}</span>
+											</div>
+										</template>
+									</td>
+								</tr>
+								<tr>
+									<th>工作组领导人员</th>
+									<td>
+										<div class="editView_PeopleContainer">
+											<div class="editView_PeopleContainer_title">领导</div>
+											<table class="editView_peopleInnerTable">
+												<tr>
+													<th>姓名</th>
+													<th>职务</th>
+													<th>电话</th>
+													<th>电台呼号</th>
+												</tr>
+												<template v-for="people in peopleList">
+													<tr v-if="people.headquarterId == editingGZZ.id && people.belongType == 'workGroup' && people.teamRole == '1'">
+														<td>{{ people.policeName}}</td>
+														<td>{{ people.job}}</td>
+														<td>{{ people.mobilePhone}}</td>
+														<td>{{ people.locationId}}</td>
+													</tr>
+												</template>
+											</table>
+											<br>
+											<div style="clear: both;"></div>
+											<div class="editView_PeopleContainer_title">组员</div>
+											<table class="editView_peopleInnerTable">
+												<tr>
+													<th>姓名</th>
+													<th>职务</th>
+													<th>电话</th>
+													<th>电台呼号</th>
+												</tr>
+												<template v-for="people in peopleList">
+													<tr v-if="people.headquarterId == editingGZZ.id && people.belongType == 'workGroup' && people.teamRole == '2'">
+														<td>{{ people.policeName}}</td>
+														<td>{{ people.job}}</td>
+														<td>{{ people.mobilePhone}}</td>
+														<td>{{ people.locationId}}</td>
+													</tr>
+												</template>
+											</table>
+										</div>
+									</td>
+								</tr>
+							</table>
+							<div class="editView_OperaButtom"></div>
+						</div>
+						<template v-for="unit in unitList">
+							<div class="zhbEditView_peopleInfo" v-if="unit.headquarterId == editingGZZ.id && unit.stationId == userDeptId">
+								<div class="editView_Title">本单位报备信息</div>
+
+								<div class="headquarter_unitItem">
+									<div class="headquarter_unitItem_title">{{ unit.stationName }}</div>
+									<table class="headquarter_unitItem_table">
+										<tr>
+											<th style="width: 25%">所需民警</th>
+											<td style="width: 25%">
+												<input style="width: 80%; text-align: center;" v-model="unit.mjCount" readonly="readonly">
+											</td>
+
+											<th style="width: 25%">所需辅警</th>
+											<td style="width: 25%">
+												<input style="width: 80%; text-align: center;" v-model="unit.fjCount" readonly="readonly">
+											</td>
+										</tr>
+										<tr>
+											<th>工作内容</th>
+											<td colspan=3>
+												<textarea style="width: 95%;" v-model="unit.description" readonly="readonly"></textarea>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div class="zhbEditView_unitInfo" v-if="unit.headquarterId == editingGZZ.id && unit.stationId == userDeptId">
+								<div class="editView_Title">本单位工作组人员信息</div>
+								<template v-for="classes in classesList">
+									<div class="report_GZZ_Classes_item" v-if="classes.stationId == unit.id && classes.belongType == 'childrenUnitClasses'">
+										开始:
+										<input style="width: 120px" readonly="readonly" v-model="classes.watchBegin"> &nbsp;&nbsp;结束:
+										<input style="width: 120px" readonly="readonly" v-model="classes.watchEnd">
+										<br>
+										<div style="text-align: center; margin-top: 5px;">
+											<a href="javascript:void(0)" @click="selectChildrenClassesPeople(classes)" class="easyui-linkbutton c1">选择本班次人员</a>
+										</div>
+										<div class="editView_PeopleContainer_title">领导</div>
+										<table class="editView_PeopleContainer_peopleTable">
+											<tr>
+												<th>姓名</th>
+												<th>职务</th>
+												<th>电话</th>
+												<th>电台呼号</th>
+												<th></th>
+											</tr>
+											<template v-for="people in reportPeopleList">
+												<tr v-if="people.classesId == classes.id && people.belongType == 'workGroupChildrenUnitPeople' && people.teamRole == '1'">
+													<td>{{ people.policeName}}</td>
+													<td>{{ people.job}}</td>
+													<td>{{ people.mobilePhone}}</td>
+													<td>{{ people.locationId}}</td>
+													<td>
+														<a href="javascript:void(0)" @click="delReportPolice(people.id)">X</a>
+													</td>
+												</tr>
+											</template>
+										</table>
+										<br>
+										<div style="clear: both;"></div>
+										<div class="editView_PeopleContainer_title">组员</div>
+										<table class="editView_PeopleContainer_peopleTable">
+											<tr>
+												<th>姓名</th>
+												<th>职务</th>
+												<th>电话</th>
+												<th>电台呼号</th>
+												<th></th>
+											</tr>
+											<template v-for="people in reportPeopleList">
+												<tr v-if="people.classesId == classes.id && people.belongType == 'workGroupChildrenUnitPeople' && people.teamRole == '2'">
+													<td>{{ people.policeName}}</td>
+													<td>{{ people.job}}</td>
+													<td>{{ people.mobilePhone}}</td>
+													<td>{{ people.locationId}}</td>
+													<td>
+														<a href="javascript:void(0)" @click="delReportPolice(people.id)">X</a>
+													</td>
+												</tr>
+											</template>
+										</table>
+									</div>
+								</template>
+							</div>
+						</template>
+						<div style="clear: both;"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="reportWin" class="easyui-dialog" title="人员选择" data-options="closed:true" style="width: 970px; height: 700px;">
+			<iframe id="reportIframe" style="width: 100%; height: 99%;" frameborder="no"></iframe>
+		</div>
+		<script type="text/javascript" src="../../../plugins/vue/dist/vue.js"></script>
+		<script>
+			var dutyId = $.getUrlParam('dutyId');
+			var userDeptId;
+			var specReportInfo;
+			var headquarterList;
+			var workGroupList;
+			var specReportUnitList;
+			var specReportClassesList;
+			var specReportPeopleList;
+			var specReportMapinfoList;
+
+			var reportUnitList;
+			var reportClassesList;
+			var reportPeopleList;
+			var reportMapinfoList;
+
+			$.ajax({
+				url: BASEPATH + "/SpecDuty/getReportSpecDutyInfo.do?dutyId=" + dutyId,
+				type: "get",
+				async: true,
+				beforeSend: function(request) {
+					request.setRequestHeader("Authorization", getCookieValue("xtoken"));
+					request.setRequestHeader("Auth", getCookieValue("loginName"));
+				},
+				success: function(data) {
+					specReportInfo = $.parseJSON(data.specReportInfo);
+					headquarterList = $.parseJSON(data.headquarterList);
+					workGroupList = $.parseJSON(data.workGroupList);
+					specReportUnitList = $.parseJSON(data.specReportUnitList);
+					specReportClassesList = $.parseJSON(data.specReportClassesList);
+					specReportPeopleList = $.parseJSON(data.specReportPeopleList);
+					specReportMapinfoList = $.parseJSON(data.specReportMapinfoList);
+
+					reportUnitList = $.parseJSON(data.reportUnitList);
+					reportClassesList = $.parseJSON(data.reportClassesList);
+					reportPeopleList = $.parseJSON(data.reportPeopleList);
+					reportMapinfoList = $.parseJSON(data.reportMapinfoList);
+
+					userDeptId = data.userDeptId;
+					initVue()
+				}
+			});
+		</script>
+		<script type="text/javascript" src="../../../plugins/specDutyPluging/specDutyDoReportJS.js"></script>
+	</body>
+
+</html>

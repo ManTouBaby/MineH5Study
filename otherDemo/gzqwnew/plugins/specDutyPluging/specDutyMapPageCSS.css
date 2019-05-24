@@ -1,0 +1,53 @@
+@CHARSET "UTF-8";
+
+body{margin: 0px;}
+a {color:#000;text-decoration:none;}
+input {height:15px;font-size:10px;}
+.title {margin: 0px;height: 25px;line-height: 25px;color: #fff;font-size: 16px;font-weight: bold;background: none}
+.boxDiv{width:98%;}
+.mainDiv{width:100%;min-height:600px;overflow:hidden;}
+.title1class{width:95%;margin:5px 10px;color:#003366;font-size:18px;font-weight:bold;border-bottom:1px dotted #003366}
+.title3class{width:95%;margin:5px 10px;color:#003366;font-size:14px;font-weight:bold;border-bottom:1px dotted #003366;text-align:center;}
+.title3classNoLine {width:95%;margin:5px 10px;color:#003366;font-size:14px;font-weight:bold;text-align:center;}
+.title4class{margin:5px 10px;color:#003366;font-size:10px;font-weight:bold;border-bottom:1px dotted #003366;text-align:left;}
+
+.mapArea{width:65%;height:100%;float:left;overflow:hidden;background-color:#999}
+.littleMapArea{width:100%;height:80%;background-color:#999}
+.littleChartArea{width:100%;height:20%;background-color:#eee}
+
+.infoArea{width:35%;height:100%;float:right;overflow-y:scroll;overflow-x:hidden;}
+
+.boxDivTable {margin: 5px 20px 5px 5px;border-collapse: collapse;border-spacing: 0;width:98%}
+.boxDivTable tr th{padding: 5px;background: #439df8;color: #fff;font-size: 12px;font-weight: inherit;vertical-align: middle;border: 2px solid #fff;}
+.boxDivTable tr td{padding: 5px 2px;background: #e6e5e5;font-size: 12px;font-weight: inherit;vertical-align: middle;border: 2px solid #fff;}
+
+.addElementA{float:right;width:15px;height:15px;line-height:15px;border:1px solid #27ae60;background-color:#2ecc71;border-radius:5px;}
+.addElementA hover{backgorund-color:#27ae60}
+
+.mapOptions {margin:5px;text-align:center;border:1px solid #aaa;width:40px;height:35px;line-height:35px;float:left;border-radius: 5px;}
+.mapOptionsSelected {background-color:#FF0040;}
+
+.symbolOptions{margin:5px;text-align:center;border:1px solid #aaa;width:40px;height:35px;line-height:35px;float:left;border-radius: 5px;}
+
+.colorOptions {margin:5px;text-align:center;border:1px solid #aaa;width:40px;height:35px;line-height:35px;float:left;border-radius: 5px;}
+
+.postElement{margin:3px 0px;padding:3px 1px;border:1px solid #2980b9;border-radius:5px;background-color:#fff;width:98%;font-size:10px;}
+.postPointContainer{padding:5px;}
+.postPointElement{margin:3px 0px;padding:3px 1px;border:1px solid #2980b9;border-radius:5px;background-color:#aaa;width:98%;font-size:10px;}
+.classesElement{margin:3px 0px;padding:3px 1px;border:1px solid #2980b9;border-radius:5px;background-color:#eee;width:98%;font-size:10px;}
+
+
+.peopleElement{margin:3px 0px;padding:3px 1px;border:1px solid #2980b9;border-radius:5px;background-color:#3498db;color:#fff;width:98%;font-size:10px;height:50px;line-height:25px}
+.peopleTable { border-collapse: separate; border-spacing: 0px;}
+.peopleTable tr th{background:none;padding:0px;margin:0px;border:0px;}
+.peopleTable tr td{background:none;padding:0px;margin:0px;border:0px;}
+
+.unitElement{text-align:center;margin:5px;padding:3px;border:1px solid #2980b9;border-radius: 5px;background-color:#3498db;color:#fff;width:44%;float:left;}
+.unitElementUnitName{text-align:center;border-bottom:1px dotted #eee}
+.unitPeopleContainer{margin:3px;2px;}
+.unitElementButtonArea{text-align:center;border-top:1px dotted #eee;color:#fff;}
+.unitElementButtonArea>a {color:#fff;}
+
+.removeButton{float:rigth;float: right;margin-right: 2px;cursor: pointer;font-size: 10px;}
+
+.mapInfoBox {text-align:center;margin:5px;padding:3px;border:1px solid #2980b9;border-radius: 5px;background-color:#3498db;color:#fff;width:44%;float:left;}

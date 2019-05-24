@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>警力资源及勤务管理系统</title>
+<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../../css/general.css" /> 
+		<!-- fullCalendar -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/fullcalendar/fullcalendar.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../plugins/fullcalendar/fullcalendar.print.css" media="print" />
+		<!-- PageCSS -->
+		<link rel="stylesheet" type="text/css" href="../../../css/barrierReport/barrierReportWatch.css" />
+</head>
+<body class="innerPage">
+	<div>
+		<section class="content-header">
+			<h1>
+				岗位排班查询 <small>报备查询</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="#" onclick="window.parent.toIndex()">
+						<i class="fa fa-home"></i>首页
+					</a></li>
+				<li><a href="#" onclick="">
+						<i class="fa fa-search"></i>报备查询
+					</a></li>
+				<li class="active">岗位报备详细</li>
+			</ol>
+		</section>
+
+		<!-- Main content -->
+		<section class="content">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">岗位排班详情</h3>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" onClick="toggleThisBox(this)" id="serarchBoxToggleButton">
+							<i class="fa fa-minus"></i>
+						</button>
+					</div>
+				</div>
+				<div class="box-body">
+					<div id="calendar"></div>
+				</div>
+			</div>
+		</section>
+		<div class="col-md-12" style="text-align: center;">
+					<button class="btn btn-danger" type="button" style="width: 120px;"
+						onclick="window.history.go(-1)">返回</button>
+		</div>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+	<!-- jQuery -->
+	<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+	<!-- Bootstrap 3.3.7 -->
+	<script src="../../../plugins/bootstrap/js/bootstrap.js"></script>
+	<!-- SlimScroll -->
+	<script type="text/javascript" src="../../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+	<!-- FastClick -->
+	<script type="text/javascript" src="../../../plugins/fastclick/fastclick.min.js"></script>
+	<!-- AdminLTE App -->
+	<script type="text/javascript" src="../../../plugins/AdminLTE/js/adminlte.js"></script>
+	<script type="text/javascript" src="../../../plugins/tools/jquery.extend.js"></script>
+	
+	<script type="text/javascript" src="../../../js/common/common.js"></script>	
+		
+	<!-- fullCalendar -->
+	<script type="text/javascript" src="../../../plugins/fullcalendar/moment.js"></script>
+	<script type="text/javascript" src="../../../plugins/fullcalendar/fullcalendar.min.js"></script>
+	<script type="text/javascript" src="../../../js/barrierReportWatch/barrierReport/barrierWatchDetailByMonth.js"></script>
+	
+	<!-- /.JS -->
+</body>
+
+</html>

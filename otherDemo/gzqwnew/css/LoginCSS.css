@@ -1,0 +1,68 @@
+body {
+	margin: 0px;
+	background-color: #ddd;
+}
+
+#backgroundTriangle {
+	width: 100%;
+	height: 600px;
+	position: absolute;
+	z-index: 1;
+}
+
+.loginArea {
+	width: 500px;
+	height: 400px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -250px;
+	margin-top: -200px;
+	z-index: 99;
+}
+
+.loginTitle>span {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.loginTitle {
+	width: 100%;
+	margin-top: 5px;
+	text-align: center;
+	font-size: 26px;
+	letter-spacing: 5px;
+}
+
+.loginBox {
+	width: 80%;
+	height: 200px;
+	margin: 20px auto 0px auto;
+	background-color: rgba(243, 243, 243, 0.6);
+	border-radius: 10px;
+	;
+	padding: 20px;
+}
+
+.loginBoxElement {
+	margin: 10px auto;
+}
+
+.browserTips {
+	margin-top: 10px;
+	text-align: center;
+	display:none;
+}
+
+
+.browserTips>p {
+	font-size: 12px;
+}
+
+.companyTips {
+	width: 100%;
+	font-size: 12px;
+	text-align: center;
+	position: absolute;
+	bottom: 20px;
+}

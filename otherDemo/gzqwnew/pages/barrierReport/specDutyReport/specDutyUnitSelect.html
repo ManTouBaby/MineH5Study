@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title>成员单位选择</title>
+		<link rel="stylesheet" href="../../../plugins/specDutyPluging/global.css" type="text/css"></link>
+		<link rel="stylesheet" href="../../../plugins/specDutyPluging/easyui/easyui.css" type="text/css"></link>
+		<link rel="stylesheet" href="../../../plugins/specDutyPluging/easyui/icon.css" type="text/css"></link>
+		<link rel="stylesheet" href="../../../plugins/specDutyPluging/easyui/color.css" type="text/css"></link>
+
+		<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+		<script src="../../../plugins/specDutyPluging/jquery.extend.js"></script>
+		<script src="../../../plugins/specDutyPluging/jquery.easyui.min.js"></script>
+		<script src="../../../plugins/specDutyPluging/easyui-lang-zh_CN.js"></script>
+		<script src="../../../plugins/specDutyPluging/util.js"></script>
+		<script src="../../../js/common/common.js"></script>
+		<link rel="stylesheet" href="../../../plugins/specDutyPluging/ZXQWWin.css" type="text/css"></link>
+		<script>
+			var reportingDIV = null;
+			$(document).ready(function() {
+				getOrgTreeData();
+			});
+
+			function getOrgTreeData() {
+				$("#easyTree").tree({
+					checkbox: false,
+					url: "<%=path%>/General/getOrgTreeData.do",
+					data: [{
+						id: "440100000000",
+						text: "广州市公安局",
+						children: [{
+							id: "440103000000",
+							text: "荔湾区分局",
+							state: "closed"
+						}, {
+							id: "440104000000",
+							text: "越秀区分局",
+							state: "closed"
+						}, {
+							id: "440105000000",
+							text: "海珠区分局",
+							state: "closed"
+						}, {
+							id: "440106000000",
+							text: "天河区分局",
+							state: "closed",
+							children: [{
+								id: "440106500000",
+								text: "石牌派出所",
+								state: "closed"
+							}]
+						}, {
+							id: "440111000000",
+							text: "白云区分局",
+							state: "closed"
+						}]
+					}],
+					onClick: function(node) {
+						var modelDIV = $("#unitModel").clone(true);
+						modelDIV[0].id = "";
+						var html = modelDIV[0].innerHTML;
+						html = html.replace(/99999/g, node.text);
+						html = html.replace(/88888/g, node.id);
+						modelDIV[0].innerHTML = html;
+						$("#unitContainer").append(modelDIV);
+					}
+				})
+			}
+
+			function closeWindow() {
+				parent.closeSelectWin();
+			}
+
+			function deleteUnit(obj) {
+				$(obj).parents(".unitElement").remove();
+			}
+
+			function doConfirm() {
+				var unitList = new Array();
+				$("input[name='deptId']").each(function() {
+					if($(this).val() == '88888')
+						return true;
+					var parentDiv = $(this).parents(".unitElement");
+					var unit = new Object();
+					unit.deptId = $(this).val();
+					unit.deptName = parentDiv.find("input[name='deptName']").val();
+					unitList.push(unit);
+				})
+				if(unitList.length <= 0) {
+					$.messager.confirm('提示',  '未选择任何单位，是否确定返回',  function (r)  {
+						if(!r) {
+							return;
+						} else {
+							parent.closeSelectWin();
+						}
+					})
+				} else {
+					parent.doAddUnit(unitList);
+				}
+			}
+		</script>
+	</head>
+
+	<body>
+		<div id="mainLayout" class="easyui-layout" style="width:100%;height:620px;">
+			<div region="west" title="选择单位" style="width:400px;" data-options="collapsible:false">
+				<div style="width:100%;height:90%;">
+					<div>
+						<ul id="easyTree">
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div region="east" title="已选单位" style="width:460px;overflow-x:hidden;" data-options="collapsible:false">
+				<div id="unitContainer">
+
+				</div>
+			</div>
+		</div>
+		<div style="width:100%;text-align:center;margin-top:5px;">
+			<a href="JavaScript:void(0)" onclick="doConfirm()" class="easyui-linkbutton c6" style="width:120px;">确定</a>
+			<a href="JavaScript:void(0)" onclick="closeWindow()" class="easyui-linkbutton c6" style="width:120px;">关闭</a>
+		</div>
+
+		<div style="display:none;">
+			<div class="unitElement" id="unitModel">
+				<div class="unitElementName">99999</div>
+				<div class="unitElementDelete">
+					<a href="javascript:void(0)" onclick="deleteUnit(this)">删除</a>
+				</div>
+				<div style="clear:both;width:100%;float:left;height:1px;"></div>
+				<input type="hidden" name="deptId" value="88888">
+				<input type="hidden" name="deptName" value="99999">
+			</div>
+		</div>
+	</body>
+
+</html>

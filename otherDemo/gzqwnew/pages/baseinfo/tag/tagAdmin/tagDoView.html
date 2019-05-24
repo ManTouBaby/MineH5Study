@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../../../css/general.css" />
+
+	</head>
+
+	<body class="innerPage">
+		<div>
+			<section class="content-header">
+				<h1>
+					新建标签
+					<small>标签管理</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+					<li>
+						<a href="#">标签管理</a>
+					</li>
+					<li class="active">新建标签</li>
+				</ol>
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+				<!-- Default box -->
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">标签基本信息</h3>
+					</div>
+					<div class="box-body">
+						<div class="row">
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>标签名称</label>
+									<input type="text" class="form-control" readonly="readonly" value="近退休">
+								</div>
+
+							</div>
+							<div class="col-md-4">
+								<div class="form-group">
+									<label>标签所属对象</label>
+									<input type="text" class="form-control" readonly="readonly" value="人员">
+								</div>
+
+							</div>
+							<div class="col-md-4">
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+				<div class="box">
+					<div class="box-header with-border">
+						<h3 class="box-title">标签对象</h3>
+					</div>
+					<div class="box-body">
+						<div class="row">
+							<div class="col-md-6">
+								<label>人员列表</label>
+								<div class="row">
+									<div class="col-md-6">
+										<input type="text" id="objectUnit" value="越秀分局" />
+									</div>
+									<div class="col-md-6">
+										<div class="input-group ">
+											<input type="text" class="form-control" placeholder="请输入搜索名称">
+											<span class="input-group-btn">
+											<button type="button" class="btn btn-info btn-flat">搜索</button>
+										</span>
+										</div>
+									</div>
+								</div>
+								<br />
+								<div style="height:300px" id="allObjectContainer">
+									<div class="bg-green objectItem objectRemove">张三</div>
+									<div class="bg-green objectItem objectRemove">李四</div>
+
+								</div>
+							</div>
+							<div class="col-md-6" style="height: 300px;">
+								<label>标签对象</label>
+								<div id="tagObjectContainer" style="width:100%;height:300px;">
+									<div class="bg-green objectItem ">
+										王五
+										<span class="pull-right delButton">
+											<a href="#" onclick="delObject(this)">
+												<i class="fa fa-remove" style="color: #fff;"></i>
+											</a>
+										</span>
+									</div>
+									<div class="bg-green objectItem">
+										赵六
+										<span class="pull-right delButton">
+											<a href="#" onclick="delObject(this)">
+												<i class="fa fa-remove" style="color: #fff;"></i>
+											</a>
+										</span>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-12" style="text-align: center;">
+					<button class="btn btn-success">保存</button>
+					<button class="btn btn-danger" onclick="window.history.go(-1)">返回</button>
+				</div>
+			</section>
+			<!-- /.content -->
+		</div>
+		<br><br>
+		<!-- /.content-wrapper -->
+		<!-- jQuery -->
+		<script src="../../../../plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../../../../plugins/bootstrap/js/bootstrap.js"></script>
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="../../../../plugins/AdminLTE/js/adminlte.js"></script>
+		<!-- utilJS -->
+		<script type="text/javascript" src="../../../../js/util.js"></script>
+		<!-- easyUILoader -->
+		<script type="text/javascript" src="../../../../plugins/easyui/easyloader.js"></script>
+		<script>
+			$(document).ready(function() {
+				easyloader.load(['draggable', 'droppable'], function() {
+					$('.objectRemove').draggable({
+						revert: true,
+						proxy: 'clone',
+						onStartDrag: function() {
+							$(this).draggable('options').cursor = 'not-allowed';
+							$(this).draggable('proxy').css('z-index', 999);
+						},
+						onStopDrag: function() {
+							$(this).draggable('options').cursor = 'move';
+						}
+					});
+					$('#tagObjectContainer').droppable({
+						onDragEnter: function(e, source) {
+							$(source).draggable('options').cursor = 'auto';
+						},
+						onDragLeave: function(e, source) {
+							$(source).draggable('options').cursor = 'not-allowed';
+						},
+						onDrop: function(e, source) {
+							$(e.target).append(source)
+						}
+					});
+				});
+				easyloader.load('combotree', function() {
+					$('#objectUnit').combotree({
+						width: '100%',
+						height: 33,
+						data: treeData
+					});
+
+					$("#objectUnit").combotree('tree').tree("collapseAll");
+				});
+				easyloader.locale = "zh_CN";
+			});
+			var treeData = [{
+				id: 1,
+				text: '广州市公安局',
+				children: [{
+					id: 11,
+					text: '越秀分局',
+					children: [{
+						id: 111,
+						text: '北京派出所'
+					}]
+				}, {
+					id: 12,
+					text: '天河分局',
+					children: [{
+						id: 121,
+						text: '五山派出所'
+					}]
+				}, {
+					id: 13,
+					text: '番禺分局',
+					children: [{
+						id: 131,
+						text: '市桥派出所'
+					}]
+				}]
+			}]
+			function delObject(obj) {
+				var delObj = $(obj).parents(".objectItem").clone()
+				$(delObj).find(".delButton").remove();
+				$("#allObjectContainer").append(delObj);
+				easyloader.load(['draggable', 'droppable'], function() {
+					$(delObj).draggable({
+						revert: true,
+						proxy: 'clone',
+						onStartDrag: function() {
+							$(this).draggable('options').cursor = 'not-allowed';
+							$(this).draggable('proxy').css('z-index', 999);
+						},
+						onStopDrag: function() {
+							$(this).draggable('options').cursor = 'move';
+						}
+					});
+				})
+				$(obj).parents(".objectItem").remove();
+			}
+		</script>
+	</body>
+
+</html>

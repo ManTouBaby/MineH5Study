@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../plugins/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="../plugins/ivew/dist/styles/iview.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../css/general.css" />
+		
+		<script type="text/javascript" src="../plugins/vue/dist/vue.js"></script>
+		<script type="text/javascript" src="../plugins/ivew/dist/iview.js"></script>
+		<style>
+			
+			html, body{
+				position:relative;
+				width: 100%;
+				height:100%;
+			}
+			.popup-container {
+				display: block;
+				width: 100%;
+				height: 100%;
+				padding: 15px 10px;
+			}
+			.popup-content {
+				position: relative;
+				display: block;
+				width: 100%;
+				height: 100%;
+				padding: 15px 10px;
+			}
+			
+			
+		</style>
+		
+		<style>
+			.time {
+				font-size: 14px;
+				font-weight: bold;
+			}
+			.content {
+				padding-left: 10px;
+			}
+		</style>
+		
+	</head>
+	<body>
+		<div id="qwTrack" class="popup-container">
+			<div class="popup-content">
+				<div style="padding: 0 10px 15px 10px;">
+					<h2>张三</h2>
+				</div>
+				
+				<timeline>
+					<timeline-item color="green">
+						<p class="time">8:30</p>
+						<p class="content">上岗</p>
+					</timeline-item>
+					<timeline-item color="red">
+						<p class="time">10:30</p>
+						<p class="content">巡逻越界</p>
+					</timeline-item>
+					<timeline-item color="green">
+						<p class="time">17:30</p>
+						<p class="content">下班</p>
+					</timeline-item>
+				</timeline>
+				
+			</div>
+		</div>
+		
+		
+		<!-- jQuery -->
+		<script src="../plugins/jquery/jquery-3.2.1.js"></script>
+		<script>
+			var qwTrackVue = new Vue({
+				el: "#qwTrack",
+				data: {
+					timeLine: [
+						{
+							time: "8:30",
+							content: "上岗"
+						},
+						{
+							time: "10:12",
+							content: "巡逻越界"
+						},
+						{
+							time: "17:30",
+							content: "下班"
+						}
+					]
+				}
+				
+			})
+		</script>
+	</body>
+</html>

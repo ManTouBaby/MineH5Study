@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>区域等级响应</title>
+
+	<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../css/general.css" />
+		<!-- dataTables -->
+		<link rel="stylesheet" type="text/css" href="../plugins/bootstrap-table/bootstrap-table.css">
+		<!-- layer -->
+		<link rel="stylesheet" type="text/css" href="../plugins/layer/theme/default/layer.css">
+		
+		
+		<link rel="stylesheet" href="../plugins/ivew/dist/styles/iview.css" />
+		<link rel="stylesheet" href="../plugins/ivew/dist/styles/iview-reset.css" />
+		<link rel="stylesheet" type="text/css" href="../css/xCommon.css" />
+		
+		<link rel="stylesheet" type="text/css" href="../css/dutySupervise/dutySupervise.css" />
+		<link rel="stylesheet" type="text/css" href="../css/baseinfo/barrierMap/map.css" />
+		<link rel="stylesheet" type="text/css" href="http://10.41.219.142/arcgis_js_api/library/3.12/3.12/dijit/themes/tundra/tundra.css" />
+		<link rel="stylesheet" type="text/css" href="http://10.41.219.142/arcgis_js_api/library/3.12/3.12/esri/css/esri.css" />
+		<style>
+		
+			.content{
+				min-height: 10px;
+			     padding: 0px; 
+			     margin-right: auto; 
+			     margin-left: auto; 
+			     padding-left: 0px; 
+			     padding-right: 0px; 
+			}
+			.box-title-tab {
+				padding: 0 15px !important;
+				
+			}
+			
+			.box-title-tab .tab-item {
+				float: left;
+				display: inline-block;
+				width: auto;
+				height: 40px;
+				padding: 0 20px;
+				border-right: 1px solid #f4f4f4;
+				border-bottom: 2px solid transparent;
+				font-size: 13px;
+				line-height: 36px;
+				color: #aaa;
+			}
+			.box-title-tab .tab-item:hover,
+			.box-title-tab .tab-item.active {
+				border-bottom-color: #3c8dbc;
+    			color: #070707;
+			}
+			.box-title-tab .tab-item .fa {
+				margin-left: 15px;
+			}
+			.box-tab .box-tab-content {
+				display: none;
+			}
+			.box-tab .box-tab-content.active {
+				display: block !important;
+			}
+			
+			.map-box {
+				position: relative;
+				display: block;
+				width: 100%;
+				height:760px;
+			}
+			
+			.map-toolbar {
+				position: absolute;
+				top: 20px;
+				right: 20px;
+				display: block;
+				width: 350px;
+			}
+			.box-tab-content.active .table {
+				margin-bottom: 0;
+			}
+			
+		</style>
+
+		<script type="text/javascript" src="../plugins/vue/dist/vue.js"></script>
+		<script type="text/javascript" src="../plugins/ivew/dist/iview.js"></script>
+		
+	</head>
+	<body class="innerPage">
+		<div id="main">
+			<section class="content-header">
+				<h1>
+					动态勤务查询
+					<!--<small>路面巡逻防控组报备</small>-->
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+					<li class="active">动态勤务查询</li>
+				</ol>
+			</section>
+			<section class="content">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="box">	
+						<div class="box box-danger">
+							<div class="box-header with-border">
+								<h3 class="box-title">地图</h3>
+							</div>
+							</div>
+							<div class="box-body" style="position: relative;">
+								<div id="mapDiv" style="width: 100%; height: 740px;"></div>
+								<div class="map-toolbar">
+									<Row :gutter="12">
+										<i-col span="8">
+											<Dropdown style="margin-right: 10px" @on-click="selectBarrierType">
+										        <i-button type="info" href="javascript:void(0)" id="barrierButton">
+										        	岗位列表
+										        	<Icon type="arrow-down-b"></Icon>
+										        </i-button>
+										        <dropdown-menu slot="list">
+										        	<dropdown-item v-for="item in barrierType" :value="item.value" :name="item.value">{{item.name}}</dropdown-item>
+										        </dropdown-menu>
+										    </Dropdown>
+										</i-col>
+										<i-col span="8">
+											<Cascader :data="departmentData" :load-data="loadData" v-model="departmentValue"   @on-change="selectMapDepartment">
+												<i-button type="info" style="width:90px;">单位</i-button>
+											</Cascader>
+										</i-col>
+										<i-col span="8">
+											<!--<i-button type="info" style="width:90px;">热力图</i-button>-->
+											<i-button id="policeButton" type="info" style="width:90px;" @click="clickJy">警员</i-button>
+										</i-col>
+									</Row>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="box box-primary">
+							<div class="box-header with-border" style="display: none;">
+								<h3 class="box-title">搜索</h3>
+							</div>
+							<div class="box-body" style="height: 150px;">
+								<i-form :label-width="80">
+									<Row :gutter="12">
+										<i-col span="12">
+											<form-item label="名称">
+												<i-input ></i-input>
+											</form-item>
+										</i-col>
+										
+										<i-col span="12">
+											<form-item label="岗位类型">
+												<i-select v-model="barrierTypeValue">
+													<template v-for="item in barrierType">
+														<i-option :value="item.value" >{{item.name}}</i-option>
+													</template>
+												</i-select>
+											</form-item>
+										</i-col>
+										<i-col span="12">
+											<form-item label="所属单位">
+												<Cascader :data="departmentData"  :load-data="loadData"  v-model="departmentValue"  change-on-select @on-change="selectDepartment"></Cascader>
+											</form-item>
+										</i-col>
+										<i-col span="12">
+											<form-item label="异常类型">
+												<i-select v-model="abnormalTypeValue">
+													<template v-for="item in abnormalType">
+														<i-option :value="item.value" >{{item.name}}</i-option>
+													</template>
+												</i-select>
+											</form-item>
+										</i-col>
+									</Row>
+									<div style="padding: 5px 0; text-align: center;">
+										<i-button type="info" style="width:120px;">搜索</i-button>
+									</div>
+								</i-form>
+							</div>
+						</div>
+						
+						
+						
+						
+						
+						<div class="box box-primary box-tab">
+							<div class="box-header with-border box-title-tab">
+								<a class="box-title tab-item active">领导</a>
+								<a class="box-title tab-item">路面</a>
+								<a class="box-title tab-item">备勤</a>
+								<a class="box-title tab-item">任务</a>
+								
+								
+								<i-button  type="success" icon="android-add" @click="newTask" style="float: right;margin-top:5px;">新建任务</i-button>
+							</div>
+							<div class="box-body" style="height: 610px;">
+								
+								<div class=" box-tab-content active">
+									<table class="table table-bordered">
+										<colgroup>
+											<col width="15%" />
+											<col width="12%" />
+											<col width="20%" />
+											<col width="20%" />
+											<col width="13%" />
+											<col width="20%" />
+										</colgroup>
+										<tr>
+											<th v-for="colItem in leaderTableColumns">{{colItem}}</th>
+										</tr>
+										<tr v-for="dataItem in leaderTableData">
+											<td>{{dataItem.barrierName}}</td>
+											<td>{{dataItem.barrierType}}</td>
+											<td>{{dataItem.department}}</td>
+											<td>{{dataItem.dutyTime}}</td>
+											<td>{{dataItem.captain}}</td>
+											<td>
+												<i-button size="small" type="success" @click="onDuBian(dataItem)">督办</i-button>
+												<i-button size="small" type="info" @click="onTrack(dataItem)">跟踪</i-button>
+											</td>
+										</tr>
+									</table>
+									<div style="padding: 10px 0; text-align: center;">
+										<Page :total="30"></Page>
+									</div>
+								</div>
+								<div class=" box-tab-content">
+									<table class="table table-bordered">
+										<colgroup>
+											<col width="15%" />
+											<col width="12%" />
+											<col width="20%" />
+											<col width="20%" />
+											<col width="13%" />
+											<col width="20%" />
+										</colgroup>
+										<tr>
+											<th v-for="colItem in roadTableColumns">{{colItem}}</th>
+										</tr>
+										<tr v-for="dataItem in roadTableData">
+											<td>{{dataItem.barrierName}}</td>
+											<td>{{dataItem.barrierType}}</td>
+											<td>{{dataItem.department}}</td>
+											<td>{{dataItem.dutyTime}}</td>
+											<td>{{dataItem.captain}}</td>
+											<td>
+												<i-button size="small" type="success" @click="onDuBian(dataItem)">督办</i-button>
+												<i-button size="small" type="info" @click="onTrack(dataItem)">跟踪</i-button>
+											</td>
+										</tr>
+									</table>
+									<div style="padding: 10px 0; text-align: center;">
+										<Page :total="30"></Page>
+									</div>
+								</div>
+								<div class=" box-tab-content">
+									<table class="table table-bordered">
+										<colgroup>
+											<col width="15%" />
+											<col width="12%" />
+											<col width="20%" />
+											<col width="20%" />
+											<col width="13%" />
+											<col width="20%" />
+										</colgroup>
+										<tr>
+											<th v-for="colItem in reserveTableColumns">{{colItem}}</th>
+										</tr>
+										<tr v-for="dataItem in reserveTableData">
+											<td>{{dataItem.barrierName}}</td>
+											<td>{{dataItem.barrierType}}</td>
+											<td>{{dataItem.department}}</td>
+											<td>{{dataItem.dutyTime}}</td>
+											<td>{{dataItem.captain}}</td>
+											<td>
+												<i-button size="small" type="success" @click="onDuBian(dataItem)">督办</i-button>
+												<i-button size="small" type="info" @click="onTrack(dataItem)">跟踪</i-button>
+											</td>
+										</tr>
+									</table>
+									<div style="padding: 10px 0; text-align: center;">
+										<Page :total="30"></Page>
+									</div>
+								</div>
+								<div class=" box-tab-content">
+									<table class="table table-bordered">
+										<colgroup>
+											<col width="15%" />
+											<col width="12%" />
+											<col width="20%" />
+											<col width="20%" />
+											<col width="13%" />
+											<col width="20%" />
+										</colgroup>
+										<tr>
+											<th v-for="colItem in taskTableColumns">{{colItem}}</th>
+										</tr>
+										<tr v-for="dataItem in taskTableData">
+											<td>{{dataItem.barrierName}}</td>
+											<td>{{dataItem.barrierType}}</td>
+											<td>{{dataItem.department}}</td>
+											<td>{{dataItem.dutyTime}}</td>
+											<td>{{dataItem.captain}}</td>
+											<td>
+												<i-button size="small" type="success" @click="onDuBian(dataItem)">督办</i-button>
+												<i-button size="small" type="info" @click="onTrack(dataItem)">跟踪</i-button>
+											</td>
+										</tr>
+									</table>
+									<div style="padding: 10px 0; text-align: center;">
+										<Page :total="30"></Page>
+									</div>
+								</div>
+								
+								
+							</div>
+						</div>
+					
+					
+						<div class="box box-primary box-tab" style="display: none;">
+							<div class="box-header with-border box-title-tab">
+								<a class="box-title tab-item active">领导</a>
+								<a class="box-title tab-item">路面</a>
+								<a class="box-title tab-item">备勤</a>
+								<a class="box-title tab-item">任务</a>
+								
+								
+								<i-button  type="success" icon="android-add" @click="newTask" style="float: right;margin-top:5px;">新建任务</i-button>
+							</div>
+							<div class="box-body" style="height: 610px;">
+								
+								<div class=" box-tab-content active">
+									<i-table :height="550" :columns="leaderTableColumns" :data="leaderTableData"></i-table>
+									<div style="padding: 10px 0; text-align: center;">
+										<Page :total="30"></Page>
+									</div>
+								</div>
+								<div class=" box-tab-content">
+									<i-table :height="550" :columns="roadTableColumns" :data="roadTableData"></i-table>
+									<div style="padding: 10px 0; text-align: center;">
+										<Page :total="30"></Page>
+									</div>
+								</div>
+								<div class=" box-tab-content">
+									<i-table :height="550" :columns="reserveTableColumns" :data="reserveTableData"></i-table>
+									<div style="padding: 10px 0; text-align: center;">
+										<Page :total="30"></Page>
+									</div>
+								</div>
+								<div class=" box-tab-content">
+									<i-table :height="550" :columns="taskTableColumns" :data="taskTableData"></i-table>
+									<div style="padding: 10px 0; text-align: center;">
+										<Page :total="30"></Page>
+									</div>
+								</div>
+								
+								
+								
+								
+							</div>
+						</div>
+					
+					
+					</div>
+				</div>
+			</section>
+			
+			
+			<div id="newTask" style="display: none;">
+				<div style="width: 100%;height: 100%;padding: 15px;">
+					<i-form :label-width="100">
+						<form-item label="任务名称">
+							<i-input ></i-input>
+						</form-item>
+						<form-item label="任务地点">
+							<i-input >
+								<i-button slot="append" icon="location">标绘</i-button>
+							</i-input>
+						</form-item>
+						<form-item label="任务名称">
+							<i-input ></i-input>
+						</form-item>
+						<form-item label="任务开始时间">
+							<i-input ></i-input>
+						</form-item>
+						<form-item label="任务结束时间">
+							<i-input ></i-input>
+						</form-item>
+						<form-item label="任务成员">
+							
+							<i-button type="primary" icon="plus-round">添加成员</i-button>
+						</form-item>
+						<form-item label="备注">
+							<i-input type="textarea" :autosize="{minRows: 5,maxRows: 5}"></i-input>
+						</form-item>
+					</i-form>
+						
+				</div>
+			</div>
+			
+			
+		</div>
+		
+		<div style="display:none;">
+			<div id="statusModel">
+				<div style="width: 100%; height: 40px; margin-bottom: 10px;">
+					<div id="job"
+						style="width: 40px; height: 40px; float: left; line-height: 32px; margin-left: 2px;">
+						<div class="66666">77777</div>
+					</div>
+					<div id="work"
+						style="height: 40px; float: left; line-height: 32px; margin-left: 2px;">
+						<div class="statusDiv" style="88888">正常任务中</div>
+					</div>
+					<div id="history"
+						style="width: 57px; height: 40px; float: left; line-height: 32px; margin-left: 2px;">
+						<div class="statusDiv" style="55555" onclick="traceTrack('44444')">
+							<span style="cursor: pointer;">历史轨迹</span>
+						</div>
+					</div>
+				</div>
+			</div>		
+		</div>
+		
+		<!--<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=d49zEkYVt7sT7h5WKFlrNlB5eOD8lLex"></script>-->
+		<!--加载鼠标绘制工具-->
+		<!--<link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />-->
+		<!--<script type="text/javascript" src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>-->
+
+		
+		<script type="text/javascript" src="../plugins/jquery/jquery-3.2.1.js"></script>
+		<script type="text/javascript" src="../plugins/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="../plugins/jquery/jquery.easyui.min.js"></script>
+		<script type="text/javascript" src="../plugins/bootstrap/js/bootstrap.js"></script>
+		<script type="text/javascript" src="../js/common/common.js" ></script>
+		<script type="text/javascript" src="../plugins/layer/layer.js"></script>
+		<script type="text/javascript" src="../js/dynamicDuty-detail-vue.js" ></script>
+		
+		
+		<!-- 加载地图  -->
+		<script type="text/javascript" src="http://10.235.40.135:10000/arcgis_js_api/library/3.14/3.14/init.js"></script>
+		<script type="text/javascript" src="http://10.235.180.170:5080/PGIS_S_TileMapServer/CCFPGISLayer.js"></script>
+		<script type="text/javascript" src="../js/baseinfo/barrierMap/util_ds.js"></script>
+		<script>
+			var mapflag = "dynamicDuty";
+		</script>
+		<script type="text/javascript" src="../js/dynamicMap/policeStateAdminMapJS.js"></script>
+		<script type="text/javascript" src="../js/dynamicMap/locationsUpdate.js"></script>
+		
+		<script>
+		$(function(){
+			mapinit();
+			
+		})
+//			$(function(){
+//				var bmap = new BMap.Map('argMap');
+//				bmap.centerAndZoom(new BMap.Point(113.271015,23.130246), 17);
+//				var mapStyle = {
+//					features: ["road", "building", "water", "land"]
+//					,style: "dark" 
+//				}
+//				bmap.setMapStyle(mapStyle);
+//			})
+//			
+//			
+		</script>
+		
+	</body>
+</html>

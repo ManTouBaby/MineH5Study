@@ -1,0 +1,130 @@
+.report-police {
+	font-weight: bold;
+	margin: 5px;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	cursor: pointer;
+	padding: 5px 10px;
+	border-radius: 3px;
+	width: 65px;
+	float: left;
+	text-align: center;
+}
+
+.report-police.selected {
+	/*border: 1px solid #00c0ef;*/
+	background-color: #00c0ef !important;
+	color: #fff;
+}
+
+
+.removeButton {
+	cursor: pointer;
+}
+
+.report-table {
+	width: 100%;
+}
+
+.report-table th {
+	text-align: center;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #777;
+	padding: 0;
+	vertical-align: top;
+	background: #fafafa;
+}
+
+.report-table td {
+	text-align: center;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #777;
+	padding: 0;
+	vertical-align: top;
+	background: #fff;
+}
+
+.report-table .headerDate {
+	height: 30px;
+	line-height: 30px;
+}
+
+.report-table .report-duty {
+	min-height: 80px;
+}
+
+.report-table-policeContainer {
+	height: 80px;
+}
+
+.reportedPolice {
+	font-weight: bold;
+	margin: 3px auto;
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px;
+	padding: 5px 10px;
+	border-radius: 3px;
+	color: #fff;
+	/*width: 85px;*/
+	display: inline-block;
+	width: auto;
+	margin: 0 6px;
+	background-color: #00a65a !important;
+	background-color: #3c8dbc !important;
+}
+
+.leaderContainer {
+	border: 1px dotted rgba(0, 0, 123, 0.6);
+	border-radius: 3px;
+	min-height: 80px;
+	margin: 3px;
+}
+
+.leaderContainer:before {
+	content: "值班领导";
+	font-weight: bold;
+}
+
+.directorContainer {
+	border: 1px dotted rgba(0, 0, 123, 0.6);
+	border-radius: 3px;
+	min-height: 80px;
+	margin: 3px;
+}
+
+.directorContainer:before {
+	content: "值班主任";
+	font-weight: bold;
+}
+
+.teamLeaderContainer {
+	border: 1px dotted rgba(0, 0, 123, 0.6);
+	border-radius: 3px;
+	min-height: 80px;
+	margin: 3px;
+}
+
+.teamLeaderContainer:before {
+	content: "组长";
+	font-weight: bold;
+}
+
+.teamMemberContainer {
+	/*border: 1px dotted rgba(0, 0, 123, 0.6);*/
+	border-radius: 3px;
+	min-height: 80px;
+	/*padding: 10px 0;*/
+	/*margin: 3px;*/
+	padding: 5px;
+}
+
+/*.teamMemberContainer:before {
+	content: "组员";
+	font-weight: bold;
+}
+*/
+.reportingLeaderContainer {
+	background-color: #FF6666;
+}

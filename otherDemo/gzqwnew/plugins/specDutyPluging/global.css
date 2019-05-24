@@ -1,0 +1,143 @@
+@CHARSET "UTF-8";
+
+body {
+	font-family: "Microsoft YaHei" !important;
+	background-color: #F1F9FA;
+	margin: 0px;
+}
+
+.title {
+	width: 100%;
+	text-align: center;
+	height: 40px;
+	line-height: 40px;
+	color: #003366;
+	font-size: 20px;
+	font-weight: bold;
+	background: url(../img/element/contentline.png) no-repeat center bottom;
+}
+
+}
+.title2 {
+	width: 100%;
+	text-align: center;
+	height: 25px;
+	line-height: 25px;
+	color: #003366;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.searchTable {
+	margin-bottom: 10px;
+}
+
+.searchBoxButtonBox {
+	text-align: center;
+}
+
+.boxDiv {
+	width: 90%;
+	margin: 10px auto;
+	background-color: #fff;
+	overflow: hidden;
+	box-shadow: 0px 5px 10px #AFAEAE;
+	border-radius: 5px;
+	padding: 5px;
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=8, Direction=135, Color='#AFAEAE');
+}
+
+.boxDiv h1 {
+	margin: 20px 10px 5px 10px;
+	font-size: 20px;
+	color: #003366;
+	border-bottom: 1px dotted #ccc;
+	font-weight: inherit;
+}
+
+.littleTitle {
+	font-size: 16px;
+	font-weight: normal;
+}
+
+.mainTable {
+	margin: 5px 20px 5px 10px;
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 98%
+}
+
+.mainTable tr th {
+	padding: 5px 10px;
+	background: #439df8;
+	color: #fff;
+	font-size: 12px;
+	font-weight: inherit;
+	vertical-align: middle;
+	border: 2px solid #fff;
+}
+
+.mainTable tr td {
+	padding: 5px 10px;
+	background: #e6e5e5;
+	font-size: 12px;
+	font-weight: inherit;
+	vertical-align: middle;
+	border: 2px solid #fff;
+}
+
+.alignCenter {
+	text-align: center;
+}
+
+.dataGridFunctionDiv {
+	cursor: pointer;
+}
+
+/* mouseoverMenu */
+.mouseoverMenu {
+	display: none;
+	width: 200px;
+	height: 100px;
+	position: absolute;
+	left: 20px;
+	top: 10px;
+	z-index: 1000;
+	border: 1px solid #aaa;
+	border-radius: 5px;
+	background-color: #fff;
+	overflow: hidden;
+	box-shadow: 0px 5px 10px #AFAEAE;
+}
+
+.mouseoverMenuTitle {
+	width: 100%;
+	height: 20px;
+	font-size: 14px;
+	background-color: #ddd;
+	padding: 3px;
+}
+
+/* MultiCalendar */
+.multiCalendar {
+	display: none;
+	width: 820px;
+	height: 460px;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	z-index: 2000;
+	border: 1px solid #aaa;
+	border-radius: 5px;
+	background-color: #fff;
+	overflow: hidden;
+	box-shadow: 0px 5px 10px #AFAEAE;
+}
+
+.multiCalendarTitle {
+	width: 100%;
+	height: 20px;
+	font-size: 14px;
+	background-color: #ddd;
+	padding: 3px;
+}

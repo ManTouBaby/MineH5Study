@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+		<link rel="stylesheet" type="text/css" href="../../../plugins/layer/theme/default/layer.css" />
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<link rel="stylesheet" href="../../../plugins/ivew/dist/styles/iview.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../../css/general.css" />
+		<!-- ReportCSS -->
+		<link rel="stylesheet" type="text/css" href="../../../css/barrierReport/barrierReport.css" />
+		<link rel="stylesheet" type="text/css" href="../../../css/barrierReport/dailyReport.css" />
+		
+		<style>
+			::-webkit-scrollbar-track {
+			    background-color: #F5F5F5
+			}
+			
+			::-webkit-scrollbar {
+			    width: 6px;
+			    height: 6px;
+			    background-color: #F5F5F5;
+			    
+			}
+			
+			::-webkit-scrollbar-thumb {
+			    background-color: #c1c1c1;
+			    border-radius: 10px;
+			}
+			
+			.peopleItem {
+				font-weight: normal !important;
+			    min-width: 65px;
+    			width: auto !important;
+			}
+			.report-table>tr:first-child  th {
+				width: 12.5%;
+			}
+			.report-table>tr:first-child  th:first-child {
+				width: calc(12.5% - 65px);
+			}
+			
+			.box-title-tab {
+				padding: 0 15px !important;
+				
+			}
+			
+			.box-title-tab .tab-item {
+				float: left;
+				display: inline-block;
+				width: auto;
+				height: 40px;
+				padding: 0 20px;
+				border-right: 1px solid #f4f4f4;
+				border-bottom: 2px solid transparent;
+				font-size: 13px;
+				line-height: 36px;
+				color: #aaa;
+			}
+			.box-title-tab .tab-item:hover,
+			.box-title-tab .tab-item.active {
+				border-bottom-color: #3c8dbc;
+    			color: #070707;
+			}
+			.box-title-tab .tab-item .fa {
+				margin-left: 15px;
+			}
+			.box-tab .box-tab-content {
+				display: none;
+			}
+			.box-tab .box-tab-content.active {
+				display: block !important;
+			}
+			
+			.reportedPolice  {
+				padding:  0;
+				margin:5px;
+			}
+			.reportedPolice .policeName {
+				display: inline-block;
+				padding: 0 5px;
+				cursor: pointer;
+			}
+			
+			.reportedPolice .label-icon {
+				display: none;
+				width: 26px;
+				height: 26px;
+				text-align: center;
+				vertical-align: middle;
+				line-height: 24px;
+				cursor: pointer;
+			}
+			.label-icon.remove {
+				display: inline-block;
+			}
+			.label-icon.leader {
+				display: inline-block;
+			}
+			.label-icon.equipment {
+				display: inline-block;
+				font-size: 16px;
+			}
+			
+			.report-policeContainer:after {
+				display: block;
+				content:'.';
+				height: 0;
+				clear: both;
+				overflow: hidden;
+				visibility: hidden;
+			}
+			
+		</style>
+		
+		<script type="text/javascript" src="../../../plugins/vue/dist/vue.js"></script>
+		<script type="text/javascript" src="../../../plugins/ivew/dist/iview.js"></script>
+		
+		<style>
+			.xtag {
+				display: inline-block;
+			    line-height: 16px;
+			    margin: 2px 4px 2px 0;
+			    padding: 5px 5px 5px 10px;
+			    border: 1px solid #e9eaec;
+			    border-radius: 3px;
+			    background: #fff;
+			    font-size: 12px;
+			    vertical-align: middle;
+			    opacity: 1;
+			    overflow: hidden;
+			    cursor: pointer;
+			}
+			.xtag.selected {
+				border-color: #FF0000;
+			}
+			
+			.xtag .xtag-text {
+				color: #495060;
+			}
+			.xtag .xtag-icon {
+				display: inline-block;
+			    font-size: 14px;
+			    -webkit-transform: scale(1.42857143) rotate(0);
+			    transform: scale(1.42857143) rotate(0);
+			    cursor: pointer;
+			    margin-left: 8px;
+			    color: #666;
+			    opacity: .66;
+			    position: relative;
+			    top: 1px;
+			}
+			.xtag .xtag-icon:hover {
+				color: #f39c12;
+			}
+			
+		</style>
+		
+		
+		
+		
+	</head>
+
+	<body class="innerPage">
+		<div id="main">
+			<section class="content-header">
+				<h1>
+					岗位报备
+					<small>常态岗位报备</small>
+				</h1>
+				
+				<!--<div class="xtag">
+					<span class="xtag-text">标签三</span> 
+					<i class="xtag-icon">x</i>
+				</div>-->
+				
+				
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+					<li>
+						<a href="#">岗位报备</a>
+					</li>
+
+					<li class="active">常态岗位报备</li>
+				</ol>
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+				<div class="row">
+					<div class="col-md-2">
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">选择岗位</h3>
+							</div>
+							<div class="box-body">
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+											<label>搜索岗位</label>
+											<i-input v-model="postSearch" placeholder="请输入岗位名称">
+										        <i-button slot="append" icon="ios-search" @click="searchBarrier(postSearch)"></i-button>
+										    </i-input>
+										</div>
+									</div>
+								</div>
+							</div>
+							
+						</div>
+						
+						
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">岗位列表</h3>
+							</div>
+							<div class="box-body">
+								<Tree :data="postListData" @on-select-change="onPostTreeNodeSelected"></Tree>
+							</div>
+						</div>
+					
+					
+					</div>
+
+					<div class="col-md-10">
+						
+						
+						<div id="member-selecter-container" class="box box-primary box-tab">
+							<div class="box-header with-border box-title-tab">
+								<a class="box-title tab-item active">选择人员</a>
+								<a class="box-title tab-item">选择车辆</a>
+								<a class="box-title tab-item">选择装备</a>
+							</div>
+							<div class="box-body">
+								<!-- 选择人员 -->
+								<div class="row box-tab-content active">
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>人员所属单位</label>
+											<input class="deparment-select-value" type="hidden" value="" />
+											<Cascader :data="gzJigouData" size="large" :load-data="loadData" v-model="defaultGzJigou" change-on-select @on-change="onDeparmentCascaderChangeHandler"></Cascader>
+										</div>
+										<div class="form-group">
+											<label>搜索</label>
+											<i-input  v-model="memberSearch" placeholder="请输入姓名或标签">
+										        <i-button slot="append" icon="ios-search"></i-button>
+										    </i-input>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>历史排班人员</label>
+											<div class="report-policeContainer">
+												<template v-for="item in historyMembers">
+													<div class="report-police bg-gray-light peopleItem"  v-bind:class="{selected: item.isSelected}" @click="selectPeopleItem(item)">
+														<span class="name">{{ item.name }}</span>
+														<input type="hidden" class="policeType" :value="item.type" />
+														<input type="hidden" class="policeName" :value="item.name" />
+														<input type="hidden" class="policeId" :value="item.id" />
+														<template v-for="policeEquipment2 in item.policeEquipment">
+															<input type="hidden" class="policeEquipment" :value="policeEquipment2"  />
+														</template>
+													</div>
+												</template>
+											</div>
+											
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>人员列表</label>
+											<div class="report-policeContainer">
+												<template v-for="item2 in currentMembers">
+													<div class="report-police bg-gray-light peopleItem" v-bind:class="{selected: item2.isSelected}" @click="selectPeopleItem(item2)">
+														<span class="name">{{ item2.policeName }}</span>
+													</div>
+												</template>
+											</div>
+											<!--<div style="padding: 10px 0 0 0; text-align: center;">-->
+											<div v-if="currentMemberTotal > currentMemberPageSize" style="padding: 10px 0 0 0; text-align: center;">
+												<Page :total="currentMemberTotal" :page-size="currentMemberPageSize" @on-change="currentMembersPageChange"></Page>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- 选择车辆 -->
+								<div class="row box-tab-content">
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>车辆所属单位</label>
+											<Cascader :data="gzJigouData" :load-data="loadData" v-model="defaultGzJigou2" change-on-select  @on-change="onDeparmentCascaderChangeHandler"></Cascader>
+										</div>
+										<div class="form-group">
+											<label>搜索</label>
+											<i-input v-model="carSearch" placeholder="请输入车辆名称">
+										        <i-button slot="append" icon="ios-search"></i-button>
+										    </i-input>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>历史使用车辆</label>
+											<div class="report-policeContainer">
+												<template v-for="item3 in historyCars">
+													<div class="report-police bg-gray-light peopleItem" v-bind:class="{selected: item3.isSelected}" @click="selectPeopleItem(item2)">
+														<span class="name">{{ item3.name }}</span>
+														<input type="hidden" class="policeType" :value="item3.type" />
+														<input type="hidden" class="policeName" :value="item3.name" />
+														<input type="hidden" class="policeId" :value="item3.id" />
+													</div>
+												</template>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>车辆列表</label>
+											<div class="report-policeContainer">
+												<template v-for="item4 in currentCars">
+													<div class="report-police bg-gray-light peopleItem" v-bind:class="{selected: item4.isSelected}" @click="selectPeopleItem(item4)">
+														<span class="name">{{ item4.name }}</span>
+														<input type="hidden" class="policeType" :value="item4.type" />
+														<input type="hidden" class="policeName" :value="item4.name" />
+														<input type="hidden" class="policeId" :value="item4.id" />
+													</div>
+												</template>
+											</div>
+											<div v-if="currentVehicleTotal > currentVehiclePageSize" style="padding: 10px 0 0 0; text-align: center;">
+												<Page :total="currentVehicleTotal" :page-size="currentVehiclePageSize" @on-change="currentVehiclesPageChange"></Page>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- 选择装备 -->
+								<div class="row box-tab-content">
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>装备所属单位</label>
+											<Cascader :data="gzJigouData" :load-data="loadData" v-model="defaultGzJigou3" change-on-select  @on-change="onDeparmentCascaderChangeHandler"></Cascader>
+										</div>
+										<div class="form-group">
+											<label>搜索</label>
+											<i-input v-model="emuiqementSearch" placeholder="请输入车辆名称">
+										        <i-button slot="append" icon="ios-search"></i-button>
+										    </i-input>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>历史使用装备</label>
+											<div class="report-policeContainer">
+												<div class="report-police bg-gray-light peopleItem" v-for="item5 in historyEquipments" @click="selectEquipment(item5)">
+													<span class="name">{{ item5.name }}</span>
+													<input type="hidden" class="policeType" :value="item5.type" />
+													<input type="hidden" class="policeName" :value="item5.name" />
+													<input type="hidden" class="policeId" :value="item5.id" />
+												</div>
+												
+											</div>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label>装备列表</label>
+											<div class="report-policeContainer">
+												<div class="report-police bg-gray-light peopleItem" v-for="item6 in currentEquipments" @click="selectEquipment(item6)">
+													<span class="name">{{ item6.name }}</span>
+													<input type="hidden" class="policeType" :value="item6.type" />
+													<input type="hidden" class="policeName" :value="item6.name" />
+													<input type="hidden" class="policeId" :value="item6.id" />
+												</div>
+											</div>
+											<div v-if="currentEquipmentTotal > currentEquipmentPageSize" style="padding: 10px 0 0 0; text-align: center;">
+												<Page :total="currentEquipmentTotal" :page-size="currentEquipmentPageSize" @on-change="currentVehiclesPageChange"></Page>
+											</div>
+										</div>
+									</div>
+								</div>
+								
+								
+							</div>
+						</div>
+						
+						<div class="box box-warning" id="reportBox">
+							<div class="box-header with-border">
+								<h3 class="box-title">报备</h3>
+								<button class="btn btn-success pull-right" style="margin: 0 5px;" onclick="saveReportBarrier()">保存报备</button>
+								<button class="btn btn-primary pull-right" style="margin: 0 5px;">批量报备</button>
+								<button class="btn btn-default pull-right" style="margin: 0 60px 0 5px;" onclick="nextWeek()">下一周</button>
+								<button class="btn btn-default pull-right" style="margin: 0 5px;" onclick="prevWeek()">上一周</button>
+								
+							
+							</div>
+							<div id="week-container" class="box-body">
+								<table class="report-table">
+									<thead>
+										<tr>
+											<th>岗位名称</th>
+											<th style="width: 65px;">班次时间</th>
+											<th class="headerDate" v-for="item in currentWeek">{{item.daily}}&nbsp; {{item.day}}</th>										
+										</tr>
+									</thead>
+									<tbody>
+										<template v-for="barrier in barrierList">
+											<tr class="report-duty" v-for="(barrierClass, barrierClassIndex) in barrier.barrierClassList">
+												<th :rowspan="barrier.barrierClassList.length" v-if="barrierClassIndex == 0">{{barrier.barrierName}}</th>
+												<th>{{barrierClass.startTime}}<br>-<br>{{barrierClass.endTime}}</th>
+												<!--<th>{{barrierClass.watchTime}}</th>-->
+												<td v-for="weekItem in currentWeek">
+													<div class="teamMemberContainer" v-on:click.stop="selectBarrierClassDateItem(barrierClass, weekItem.date)">
+													<!--<div class="teamMemberContainer" onclick="onteamMemberClickHandler(this)">-->
+														<template v-for="(policeItem, policeIndex) in reportPoliceList">
+															<template v-if="policeItem.barrierId == barrier.barrierId && policeItem.barrierClassId == barrierClass.barrierClassId && policeItem.reportDate == weekItem.date">
+																<template v-if="policeItem.type == 'police'">
+																	<div class="reportedPolice-tag police">
+																		<span class="tag-content">
+																			<Tooltip content="点击取消组长" class="fl"  v-if="policeItem.isCaptain">
+																				<span class="label-icon leader" @click="policeItem.isCaptain = 'false';policeItem.teamRole = '2';policeItem.teamRoleName = '组员';">
+																					<Icon type="person"></Icon>
+																				</span>
+																			</Tooltip>	
+																			<Tooltip content="点击可以设置我为组长" class="fl" v-else>
+																				<span class="label-icon leader empty"  @click="policeItem.isCaptain = 'true';policeItem.teamRole = '1';policeItem.teamRoleName = '组长';">
+																					<Icon type="person"></Icon>
+																				</span>
+																			</Tooltip>
+																			<Tooltip content="点击查看和添加装备" class="fr">
+																				<span class="label-icon equipment" v-if="policeItem.equipmentList.length>0" @click="viewAndAddEquipment(policeItem)">
+																					<Icon type="iphone"></Icon>
+																					<template v-for="equipmentItem in policeItem.equipmentList">
+																						<input type="hidden" class="vEquipment" :equipmentType="equipmentItem.equipmentType" :equipmentId="equipmentItem.equipmentId" :equipmentName="equipmentItem.equipmentName" />
+																					</template>
+																				</span>
+																				
+																				<span class="label-icon equipment empty" v-else  @click="viewAndAddEquipment(policeItem)">
+																					<Icon type="iphone"></Icon>
+																				</span>
+																			</Tooltip>
+																			<!--<Tooltip content="按住可拖动" class="fr">-->
+																				<span class="policeName">{{policeItem.policeName}}</span>
+																			<!--</Tooltip>-->
+																			
+																		</span>
+																		<span class="tag-closer" v-on:click.stop.prevent="deletePoliceItem(policeItem)"><Icon type="android-close"></Icon></span>
+																		
+																		<div class="equipment-list-container">
+																			<ul class="equipment-list">
+																				<li  v-for="equipmentItem in policeItem.equipmentList">
+																					<!--<span class="equipment-type">{{equipmentItem.type}}</span>-->
+																					<span class="equipment-equipmentTypeName">{{equipmentItem.equipmentTypeName}}</span>
+																					<!--<span class="equipment-name">{{equipmentItem.name}}</span>-->
+																					<span class="equipment-equipmentName">{{equipmentItem.equipmentName}}</span>
+																					<!--<span class="equipment-equipmentType">{{equipmentItem.equipmentType}}</span>
+																					<span class="equipment-gpsnum">{{equipmentItem.gpsnum}}</span>
+																					<span class="equipment-mainUnit">{{equipmentItem.mainUnit}}</span>
+																					<span class="equipment-mainUnitName">{{equipmentItem.mainUnitName}}</span>
+																					<span class="equipment-equipmentNum">{{equipmentItem.equipmentNum}}</span>
+																					<span class="equipment-dutyUnit">{{equipmentItem.dutyUnit}}</span>
+																					<span class="equipment-dutyUnitName">{{equipmentItem.dutyUnitName}}</span>
+																					<span class="equipment-dutyUnit">{{equipmentItem.dutyUnit}}</span>
+																					<span class="equipment-id">{{equipmentItem.id}}</span>-->
+																					<!--<span class="equipment-remove" onclick="onEquipmentRemove(this)"><Icon type="android-close"></Icon></span>-->
+																					<span class="equipment-remove" v-on:click.stop="removeReportEquipmentItem(policeItem, equipmentItem)"><Icon type="android-close"></Icon></span>
+																				</li>
+																			</ul>
+																		</div>
+																	</div>
+																</template>
+																<template v-else-if="policeItem.type == 'vehicle'">
+																	<div class="reportedPolice-tag vehicle">
+																		<span class="tag-content">
+																			<span class="label-icon car">
+																				<Icon type="android-car"></Icon>
+																			</span>
+																			<span class="policeName">{{policeItem.policeName}}</span>
+																		</span>
+																		<span class="tag-closer" v-on:click.stop.prevent="deletePoliceItem(policeItem)"><Icon type="android-close"></Icon></span>
+																	</div>
+																</template>
+															</template>
+															
+														</template>
+													</div>
+												</td>
+											</tr>
+										</template>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- /.content -->
+		</div>
+		<br><br>
+		<!-- /.content-wrapper -->
+		<!-- jQuery -->
+		<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../../../plugins/bootstrap/js/bootstrap.js"></script>
+		<script src="../../../plugins/layer/layer.js"></script>
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="../../../plugins/AdminLTE/js/adminlte.js"></script>
+		<!-- utilJS -->
+		<!--<script type="text/javascript" src="../../../js/util.js"></script>-->
+		<!-- easyUILoader -->
+		<!--<script type="text/javascript" src="../../../plugins/easyui/easyloader.js"></script>-->
+
+		<script type="text/javascript" src="../../../js/common/common.js" ></script>
+		<script type="text/javascript" src="../../../js/report/dailyPostReport-vue-new.js" ></script>
+		<script type="text/javascript" src="../../../js/report/dailyPostReport-main-new.js" ></script>
+	</body>
+
+</html>

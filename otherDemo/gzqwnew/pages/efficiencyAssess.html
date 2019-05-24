@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>动态勤务管理</title>
+		<link rel="stylesheet" type="text/css" href="../plugins/layer/theme/default/layer.css" />
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<link rel="stylesheet" href="../plugins/ivew/dist/styles/iview.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../css/general.css" />
+		<link rel="stylesheet" type="text/css" href="../css/xCommon.css" />
+		
+		<style type="text/css">
+			.echart-box {
+				position: relative;
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+
+		<script type="text/javascript" src="../plugins/vue/dist/vue.js"></script>
+		<script type="text/javascript" src="../plugins/ivew/dist/iview.js"></script>
+
+	</head>
+
+	<body class="innerPage">
+		<div id="main">
+			<section class="content-header">
+				<h1>
+					能效评估
+					<!--<small>路面巡逻防控组报备</small>-->
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+					<li class="active">能效评估</li>
+				</ol>
+			</section>
+			<section class="content">
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">各单位能效评估</h3>
+					</div>
+					<div class="box-body">
+						<Row :gutter="15">
+							<template v-for="departmentItem in  dutyData.list">
+								<i-col span="4">
+									<template v-if="departmentItem.isAbnormal">
+										<div class="abnormal-box red" @click="viewDepartMentDetail(departmentItem)">
+											<div class="front">
+												<div class="num">{{departmentItem.text}}</div>
+												<div class="title">
+													<Tooltip :content="departmentItem.departmentName">
+														{{departmentItem.departmentName}}
+													</Tooltip>
+												</div>
+												<div class="right-tool">
+													<Tooltip content="查看下级单位">
+													 	<span class="btn-go" @click="getSubordinateList(departmentItem)">
+															<Icon type="ios-arrow-forward"></Icon>
+														</span>
+												    </Tooltip>
+												</div>
+											</div>
+										</div>
+									</template>
+									<template v-else>
+										<div class="abnormal-box green" @click="viewDepartMentDetail(departmentItem)">
+											<div class="front">
+												<div class="num">{{departmentItem.text}}</div>
+												<div class="title">
+													<Tooltip :content="departmentItem.departmentName">
+														{{departmentItem.departmentName}}
+													</Tooltip>
+												</div>
+												<div class="right-tool">
+													<Tooltip content="查看下级单位">
+													 	<span class="btn-go" @click="getSubordinateList(departmentItem)">
+															<Icon type="ios-arrow-forward"></Icon>
+														</span>
+												    </Tooltip>
+												</div>
+											</div>
+										</div>
+									</template>
+										
+								</i-col>
+							</template>
+						</Row>
+						
+						
+						<!--<div class="" style="padding: 20px 0; text-align: center;" v-if="!dutyData.isTopLevel">
+							<i-button type="ghost" style="width:120px" @click="backToPrevLevel">返回</i-button>
+						</div>-->
+						
+					</div>
+					
+				</div>
+				
+				<div class="box" style="margin-top: 30px;min-height: 400px;border-top: 0;">
+					<span class="box-arrow"></span>
+					<div class="box-body" style="position: relative;">
+						
+						<blockquote class="xblockquote" style="margin-bottom: 15px;">{{currentDepartment.departmentName}}</blockquote>
+						<div class="xfloat-tool-box">
+							<i-button type="success" @click="goToSubordinatePage(currentDepartment)">查看详情</i-button>
+						</div>
+						<Row :gutter="15">
+							<i-col span="8">
+								<div class="xshowbox ">
+									<div class="xshowbox-title"><Icon type="ios-bell-outline"></Icon>等级勤务</div>
+									<div class="xshowbox-content">
+										<div class="xshowbox-line">
+											<span class="line-left">昨日等级:</span>
+											<span class="line-right"><Tag type="border">四级</Tag></span>
+										</div>
+										<div class="xshowbox-line">
+											<span class="line-left">今日等级:</span>
+											<span class="line-right"><Tag type="border">四级</Tag></span>
+										</div>
+										<div class="xshowbox-line">
+											<span class="line-left">明日预测:</span>
+											<span class="line-right"><Tag type="border">四级</Tag></span>
+										</div>
+										
+									</div>
+								</div>
+							</i-col>
+							<i-col span="8">
+								<div class="xshowbox success">
+									<div class="xshowbox-title"><Icon type="android-people"></Icon>出勤人数</div>
+									<div class="xshowbox-content">
+										<div class="xshowbox-line">
+											<span class="line-left">民警:</span>
+											<span class="line-right"><Tag type="border">1244</Tag></span>
+										</div>
+										<div class="xshowbox-line">
+											<span class="line-left">辅警:</span>
+											<span class="line-right">2123</span>
+										</div>
+									</div>
+								</div>
+							</i-col>
+							<i-col span="8">
+								<div class="xshowbox info">
+									<div class="xshowbox-title"><Icon type="ios-star-outline"></Icon>警力能效比</div>
+									<div class="xshowbox-content">
+										<div id="echart-pie" class="echart-box"></div>
+									</div>
+								</div>
+							</i-col>
+						</Row>
+						<Row :gutter="15">	
+							<i-col span="8">
+								<div class="xshowbox info">
+									<div class="xshowbox-title"><Icon type="ios-star-outline"></Icon>突出警情</div>
+									<div class="xshowbox-content">
+										<div class="xshowbox-line">
+											<span class="line-left">盗窃:</span>
+											<span class="line-right">3起</span>
+										</div>
+										<div class="xshowbox-line">
+											<span class="line-left">诈骗:</span>
+											<span class="line-right">4起</span>
+										</div>
+										<div class="xshowbox-line">
+											<span class="line-left">飞车抢夺:</span>
+											<span class="line-right">1起</span>
+										</div>
+									</div>
+								</div>
+							</i-col>
+							<i-col span="8">
+								<div class="xshowbox grass">
+									<div class="xshowbox-title">
+										<Icon type="ios-lightbulb-outline"></Icon>
+										高案发</div>
+									<div class="xshowbox-content">
+										<div class="xshowbox-line">
+											<span class="line-left">盗窃、诈骗:</span>
+											<span class="line-right"><Tag type="border">黄阁</Tag><Tag type="border">东涌</Tag></span>
+										</div>
+										<div class="xshowbox-line">
+											<span class="line-left">两抢:</span>
+											<span class="line-right"><Tag type="border">嘉禾</Tag></span>
+										</div>
+										<div class="xshowbox-line">
+											<span class="line-left">伤害:</span>
+											<span class="line-right"><Tag type="border">嘉禾</Tag><Tag type="border">琶洲</Tag></span>
+										</div>
+									</div>
+								</div>
+							</i-col>
+							<i-col span="8">
+								<div class="xshowbox info">
+									<div class="xshowbox-title"><Icon type="arrow-graph-up-right"></Icon>警情警力时段分布</div>
+									<div class="xshowbox-content">
+										<div id="echart-line" class="echart-box"></div>
+									</div>
+								</div>
+							</i-col>
+							
+						
+					</div>
+					
+				</div>
+				
+			</section>	
+		</div>
+		
+		
+		
+		
+		<script type="text/javascript" src="../plugins/ehcart3/echarts.all.min.js" ></script>
+		<script src="../plugins/jquery/jquery-3.2.1.js"></script>
+		<script type="text/javascript" src="../js/common/common.js" ></script>
+		<script type="text/javascript" src="../js/efficiencyAssess-vue.js" ></script>
+		
+		<script>
+			
+			
+		</script>
+		
+		
+	</body>
+
+</html>

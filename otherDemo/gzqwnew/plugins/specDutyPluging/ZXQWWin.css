@@ -1,0 +1,31 @@
+@CHARSET "UTF-8";
+body a {color:#444;text-decoration:none}
+
+.commonTitle {font-weight:bold;border-bottom: 1px dotted #ccc;padding-bottom:4px;}
+
+.reportClassDiv {margin:5px 5px 10px 5px;border:2px solid #888;border-radius: 5px;min-height:120px;overflow:auto;width:350px;padding:5px;}
+.reportClassDivTitle {font-weight:bold;border-bottom: 1px dotted #ccc;padding-bottom:4px;font-size:14px;}
+.reportClassDivNoNeedBB {background-color:#00CC00;}
+.reportClassDivElementTitle{font-weight:normal;font-size:12px;border-bottom: 1px dotted #ccc;text-align:center;margin:5px 20px;}
+
+.reportElement {margin:5px;border:1px solid #aaa;width:45%;min-height:30px;float:left;border-radius: 5px;}
+.reportElementSelect {background-color:#FF0040;}
+.reportElementTitle {margin:3px;border-bottom: 1px dotted #ccc;font-weight:bold;font-size:14px;}
+.reportElementDel {float:right;}
+.reportElementPeopleName {width:75px;overflow:hidden;float:left;}
+.reportElementDel a{float:right;font-size:10px;text-decoration:underline;}
+
+.reportElementPDT {width:75px;overflow:hidden;float:left;}
+.reportElementPDTDel a{float:right;font-size:10px;text-decoration:underline;}
+
+
+.peopleContainer {margin:3px;}
+.peopleContainer div{font-size:14px;}
+.vehicleContainer {margin:3px;}
+.vehicleContainer div{font-size:14px;}
+
+.barrierInfo {width:900px;margin:0 auto;}
+
+.unitElement {margin:5px;padding:5px 0 5px 15px;width:92%;height:35px;line-height:35px;border:1px solid #aaa;border-radius: 5px;font-size:14px;}
+.unitElementName {width:80%;float:left;}
+.unitElementDelete {width:15%;float:right;text-align:right;padding-right:10px;}

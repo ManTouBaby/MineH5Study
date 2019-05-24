@@ -1,0 +1,306 @@
+::-webkit-scrollbar-track {
+    background-color: #F5F5F5
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: #F5F5F5;
+    
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    border-radius: 10px;
+}
+
+
+.abnormal-box {
+	/*float: left;*/
+	position: relative;
+	width: 100%;
+	height: 120px;
+	max-width: 200px;
+	padding-bottom: 42px;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	border: 1px solid #e4e4e4;
+	border: 1px solid #fdcfcf;
+}
+
+.abnormal-box>.front {
+	width: 100%;
+	height: 100%;
+}
+
+.abnormal-box>.front>.num {
+	width: 100%;
+	height: 100%;
+	font-size: 32px;
+	line-height: 76px;
+	color: #FF0000;
+	text-align: center;
+	transition: all .3s;
+}
+
+.abnormal-box>.front>.title {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	height: 42px;
+	padding: 0 32px;
+	font-size: 16px;
+	line-height: 40px;
+	text-align: center;
+	background: #D33724;
+	background: #fdcfcf;
+	
+}
+
+.abnormal-box>.front>.title .ivu-tooltip {
+	width: 100%;
+}
+.abnormal-box>.front>.title .ivu-tooltip .ivu-tooltip-rel {
+	width: 100%;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.abnormal-box>.front .right-tool {
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	display: inline-block;
+	width: 32px;
+	height: 42px;
+	z-index: 20;
+}
+
+.abnormal-box>.front .right-tool .btn-go {
+	display: inline-block;
+    width: 32px;
+    height: 42px;
+    color: #FFF;
+    font-size: 16px;
+    line-height: 42px;
+    opacity: .6;
+    text-align: center;
+    border-radius: 3px;
+    transition: all .2s;
+}
+.abnormal-box>.front .right-tool .btn-go:hover {
+	font-size: 20px;
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+
+.abnormal-box>.behind {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	background: rgba(0, 0, 0, .75);
+	color: #fff;
+	padding: 10px 5px !important;
+}
+
+.abnormal-box>.behind>.txt {
+	padding: 5px 5px;
+	font-size: 13px;
+}
+
+.abnormal-box>.behind>.txt>.label {
+	margin-right: 15px;
+}
+
+.abnormal-box.green {
+	/*border-color: #42e038;*/
+	border-color: #2fda93;
+	cursor: pointer;
+}
+.abnormal-box.green>.front>.num {
+	/*color: #42e038;*/
+	color: #2fda93;
+}
+.abnormal-box.green>.front>.title {
+	/*background: #42e038;*/
+	background: #2fda93;
+	color: #fff;
+}
+
+.abnormal-box.red {
+	border-color: #ff5858;
+	cursor: pointer;
+}
+.abnormal-box.red>.front>.num {
+	color: #ff5858;
+}
+.abnormal-box.red>.front>.title {
+	background: #ff5858;
+	color: #fff;
+}
+
+
+.abnormal-box:hover >.front>.num {
+	font-size: 36px;
+}
+
+
+.box{
+	position: relative;
+}
+.box-arrow {
+	position: absolute;
+	top: -16px;
+	left: 100px;
+	display: block;
+	border-left: 20px solid #ecf0f5;
+	border-right: 20px solid #ecf0f5;
+	border-bottom: 16px solid #fff;
+}
+
+
+
+.xblockquote {
+	position: relative;
+	display: inline-block;
+	padding: 6px 10px;
+	padding-left: 15px;
+	line-height: 24px;
+	font-size: 20px;
+	color: #333;
+	border: 0;
+	
+}
+.xblockquote:before {
+	position: absolute;
+	top: 6px;
+	left: 0;
+	display: block;
+	content: '';
+	width: 6px;
+	height: 24px;
+	background: #F16543;
+}
+
+.xshowbox {
+	position: relative;
+	display: inline-block;
+	min-width: 300px;
+	width: 100%;
+	height: 120px;
+	padding-left: 120px;
+	background: #f5f6fa;
+	margin-bottom: 15px;
+	
+}
+
+
+
+.xshowbox .xshowbox-title {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: inline-block;
+	width: 120px;
+	height: 120px;
+	background: #2fc4da;
+	padding: 20px 15px;
+	font-size: 18px;
+	color: #fff;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.xshowbox-title .ivu-icon {
+	display: block;
+	font-size: 36px;
+    margin-bottom: 6px;
+}
+
+.xshowbox .xshowbox-content {
+	display: block;
+	width: 100%;
+	height: 100%;
+	padding: 10px;
+}
+
+.xshowbox-small {
+	padding-left: 32px;
+	height: 32px;
+}
+.xshowbox-small .xshowbox-title {
+	width: 32px;
+	height: 32px;
+	font-size: 15px;
+	padding: 0;
+	line-height: 30px;
+}
+.xshowbox-small .xshowbox-content {
+	line-height: 30px;
+	/*padding: 0 42px 0 10px;*/
+	padding: 0 10px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	cursor: pointer;
+}
+.xshowbox-small .xshowbox-go {
+	position: absolute;
+	top: 0;
+	right: 0;
+	display: block;
+	width: 32px;
+	height: 32px;
+}
+
+.xshowbox.danger .xshowbox-title {background: #ff4d4d;}
+.xshowbox.info .xshowbox-title {background: #66c5f3;}
+.xshowbox.primary .xshowbox-title {background: #89abf5;}
+.xshowbox.success .xshowbox-title {background: #9ad459;}
+.xshowbox.grass .xshowbox-title {background: #4cc9ab;}
+.xshowbox.purple .xshowbox-title {background: #9f9cf5;}
+
+
+.xshowbox-line {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 36px;
+	overflow: hidden;
+}
+.xshowbox-line > .line-left {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 50%;
+	padding: 5px 10px 5px 0;
+	font-size: 15px;
+	line-height: 26px;
+	text-align: right;
+}
+.xshowbox-line > .line-right {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	display: block;
+	width: 50%;
+	padding: 5px 0;
+	font-size: 15px;
+	line-height: 26px;
+}
+
+.xfloat-tool-box {
+	position: absolute;
+	top: 10px;
+	right: 15px;
+}
+

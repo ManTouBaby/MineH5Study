@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>动态勤务管理云应用</title>
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../../css/general.css" /> 
+		
+		<link rel="stylesheet" type="text/css" href="../../../css/baseinfo/equipment/equipment.css" /> 
+</head>
+<body>
+	<div id="bodyDiv" style="padding: 5px">
+		<div class="row" style="height: 100%">
+			<div class="col-xs-6" style="height: 100%">
+				<div class="box box-primary" style="margin-bottom: 20px;" id="searchBox">
+					<div class="box-header with-border">
+						<h3 class="box-title">装备搜索</h3>
+					</div>
+					<div class="box-body" style="overflow: hidden;">
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label>装备名称</label>
+								<input type="text" class="form-control" id="equipmentName" name="equipmentName">
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label>装备号码</label>
+								<input type="text" class="form-control" id="equipmentNum" name="equipmentNum">
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label>装备所属单位</label>
+								<input type="text" class="form-control" validate="validate:true" id="equipmentDept">
+								<input type="hidden" id="equipmentDeptID" name="mainUnit">
+								<input type="hidden" id="equipmentDeptNAME">
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label>装备类型</label>
+								<input type="text" class="form-control" id="equipmentType">
+								<input type="hidden" id="equipmentTypeID" name="equipmentType">
+								<input type="hidden" id="equipmentTypeNAME">
+							</div>
+						</div>
+						<div class="col-xs-12">
+							<a class="btn btn-sm btn-primary form-control" @click="doSearch()"> 搜索</a>
+						</div>
+					</div>
+				</div>
+				<div class="box box-primary" style="margin-bottom: 0px;" id="equSelectedBox">
+					<div class="box-header with-border">
+						<h3 class="box-title">已选装备</h3>
+					</div>
+					<div class="box-body" style="overflow: hidden;">
+						<div id="equipmentSelectedContainer" style="overflow: auto;">
+							<div class="selectEquipment-item bg-green" v-for="equ in selectedEquipmentList">
+								<div class="selectEquipment-item-text selectEquipment-item-equName" :title="equ.equipmentName">
+									{{ equ.equipmentName }} <i class="fa fa-remove pull-right pointerCursor" @click="doRemoveSelectedEquipment(equ)"></i>
+								</div>
+								<div class="selectEquipment-item-text selectEquipment-item-equNum">{{ equ.equipmentNum }}</div>
+								<div class="selectEquipment-item-text selectEquipment-item-equType">{{ equ.equipmentTypeName }}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-6">
+				<div class="box box-primary" style="margin-bottom: 0px;" id="equSelectBox">
+					<div class="overlay" v-if="isLoadingSelectEquipment">
+						<i class="fa fa-refresh fa-spin"></i>
+					</div>
+					<div class="box-header with-border">
+						<h3 class="box-title">装备列表</h3>
+					</div>
+					<div class="box-body" style="overflow: hidden;">
+						<div id="equipmentSelectContainer">
+							<div class="selectEquipment-item pointerCursor bg-green" v-for="equ in selectEquipmentList" @click="doSelectEquipment(equ)">
+								<div class="selectEquipment-item-text selectEquipment-item-equName" :title="equ.equipmentName">{{ equ.equipmentName }}</div>
+								<div class="selectEquipment-item-text selectEquipment-item-equNum">{{ equ.equipmentNum }}</div>
+								<div class="selectEquipment-item-text selectEquipment-item-equType">{{ equ.equipmentTypeName }}</div>
+							</div>
+							<div v-show="isNullSelectEquipment" style="text-align: center;">无可选装备</div>
+						</div>
+						<div style="text-align: center;">
+							<ul id="equipmentSelect_pagination" class="pagination-sm"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- JS -->
+	<!-- jQuery -->
+	<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+	<!-- Bootstrap 3.3.7 -->
+	<script src="../../../plugins/bootstrap/js/bootstrap.js"></script>
+	<!-- AdminLTE App -->
+	<script type="text/javascript" src="../../../plugins/AdminLTE/js/adminlte.js"></script>
+	<!-- utilJS -->
+	<script type="text/javascript" src="../../../js/common/common.js"></script>
+		<script type="text/javascript" src="../../../js/util.js"></script>
+	<!-- easyUILoader -->
+	<script type="text/javascript" src="../../../plugins/easyui/easyloader.js"></script>
+		
+	<script type="text/javascript" src="../../../plugins/vue/dist/vue.js"></script>
+	<script type="text/javascript" src="../../../plugins/tools/jquery.extend.js"></script>
+	<!-- easyUILoader -->
+	<script type="text/javascript" src="../../../plugins/twbsPagination/jquery.twbsPagination.min.js"></script>
+	<script>
+		// 	窗口高度适应
+		$(function() {
+			window.setTimeout(function(){
+				$("#bodyDiv").height($(window).height() - 10);
+				$("#searchBox").height(245);
+				$("#equSelectedBox").height($(window).height() - $("#searchBox").height() - 50);
+				$("#equSelectBox").height($(window).height() - 25);
+				$("#equipmentSelectContainer").height($("#equSelectBox").height() - 120)
+				$("#equipmentSelectedContainer").height($("#equSelectedBox").height() - 50)
+			},500)
+			
+		})
+		// 控件加载
+		$(function() {
+			$("#equipmentDept").comboDeptTree();
+			$("#equipmentType").comboDictionaryAndSelectedFirst("equipmentType");		
+		})
+		// 分页控件初始化参数
+		var equipmentSelectPaginationDefaultOpts = {
+			totalPages : 20,
+			visiblePages : 4
+		};
+		// 分页查询参数
+		$(function() {
+			vm = new Vue({
+				el : '#bodyDiv',
+				data : {
+					selectEquipmentList : new Array(),
+					selectedEquipmentList : new Array(),
+					isLoadingSelectEquipment : true,
+					isNullSelectEquipment : false,
+					selectEquipmentQueryParam : {
+						limit : 12,
+						offset : 0,
+						mainUnit : $("#equipmentDeptID").val(),
+						initQuery: true
+}
+},
+methods: {
+		initEquipmentSelect: function() {
+				isNullSelectEquipment = false;
+				this.selectEquipmentQueryParam.offset = 0;
+				this.selectEquipmentQueryParam.type = 'equipment'; 	
+				
+				
+				ajaxGetDatas(BASEPATH +"/equipment/getEquipmentList.do", 
+				 	vm.selectEquipmentQueryParam, function(data){
+						var totalPages = Math.ceil(parseInt(data.total) / vm.selectEquipmentQueryParam.limit);
+								if (0 == totalPages) {
+									vm.isNullSelectEquipment = true;
+									totalPages = 1;
+								}
+								$('#equipmentSelect_pagination').twbsPagination('destroy');
+								$('#equipmentSelect_pagination').twbsPagination($.extend({}, equipmentSelectPaginationDefaultOpts, {
+									totalPages : totalPages,
+									onPageClick : function(evt, page) {
+										vm.getSelectEquipmentList(page)
+									}
+								}));
+								if (data.rows && data.rows.length > 0) {
+									for (var i = 0; i < data.rows.length; i++) {
+										vm.selectEquipmentList.push(data.rows[i])
+									}
+								}
+								vm.isLoadingSelectEquipment = false;
+					},"application/x-www-form-urlencoded","get");
+				
+//						$.ajax({
+//							url : BASEPATH +"/equipment/getEquipmentList.do",
+//							data : vm.selectEquipmentQueryParam,
+//							success : function(data) {
+//								var totalPages = Math.ceil(parseInt(data.total) / vm.selectEquipmentQueryParam.limit);
+//								if (0 == totalPages) {
+//									vm.isNullSelectEquipment = true;
+//									totalPages = 1;
+//								}
+//								$('#equipmentSelect_pagination').twbsPagination('destroy');
+//								$('#equipmentSelect_pagination').twbsPagination($.extend({}, equipmentSelectPaginationDefaultOpts, {
+//									totalPages : totalPages,
+//									onPageClick : function(evt, page) {
+//										vm.getSelectEquipmentList(page)
+//									}
+//								}));
+//								if (data.rows && data.rows.length > 0) {
+//									for (var i = 0; i < data.rows.length; i++) {
+//										vm.selectEquipmentList.push(data.rows[i])
+//									}
+//								}
+//								vm.isLoadingSelectEquipment = false;
+//							}
+//						})
+					},
+					getSelectEquipmentList : function(page) {
+						vm.isLoadingSelectEquipment = true;
+						if (this.selectEquipmentQueryParam.initQuery) {
+							this.selectEquipmentQueryParam.initQuery = false;
+							return;
+						}
+						this.selectEquipmentQueryParam.offset = (page - 1) * this.selectEquipmentQueryParam.limit
+					
+					ajaxGetDatas( BASEPATH +"/equipment/getEquipmentList.do",
+				 		vm.selectEquipmentQueryParam, function(data){
+							vm.selectEquipmentList.clearArr();
+								for (var i = 0; i < data.rows.length; i++) {
+									vm.selectEquipmentList.push(data.rows[i])
+								}
+								vm.isLoadingSelectEquipment = false;
+					},"application/x-www-form-urlencoded","get");
+					
+//						$.ajax({
+//							url :  BASEPATH +"/equipment/getEquipmentList.do",
+//							data : vm.selectEquipmentQueryParam,
+//							success : function(data) {
+//								vm.selectEquipmentList.clearArr();
+//								for (var i = 0; i < data.rows.length; i++) {
+//									vm.selectEquipmentList.push(data.rows[i])
+//								}
+//								vm.isLoadingSelectEquipment = false;
+//							}
+//						})
+					},
+					doSelectEquipment : function(equ) {
+						for (var i = 0; i < vm.selectedEquipmentList.length; i++) {
+							if (vm.selectedEquipmentList[i].id == equ.id) {
+								return;
+							}
+						}
+						vm.selectedEquipmentList.push(equ)
+					},
+					doRemoveSelectedEquipment : function(equ) {
+						for (var i = 0; i < vm.selectedEquipmentList.length; i++) {
+							if (vm.selectedEquipmentList[i].id == equ.id) {
+								vm.selectedEquipmentList.splice(i, 1)
+								return;
+							}
+						}
+					},
+					doSearch : function() {
+						vm.selectEquipmentQueryParam.equipmentName = $("input[name='equipmentName']").val();
+						vm.selectEquipmentQueryParam.equipmentNum = $("input[name='equipmentNum']").val();
+						vm.selectEquipmentQueryParam.equipmentType = $("input[name='equipmentType']").val();
+						vm.selectEquipmentQueryParam.mainUnit = $("#equipmentDeptID").val();
+						vm.initEquipmentSelect();
+					}
+				},
+				mounted : function() {
+					// 初始化分页控件
+					$('#equipmentSelect_pagination').twbsPagination(equipmentSelectPaginationDefaultOpts);
+					this.$nextTick(function() {
+						vm.initEquipmentSelect();
+					})
+				}
+			})
+		})
+
+		function getSelectedList() {
+			return vm.selectedEquipmentList;
+		}
+	</script>
+	<!-- /.JS -->
+</body>
+</html>

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../css/general.css" />
+		
+		<link rel="stylesheet" href="../../plugins/ivew/dist/styles/iview.css" />
+		<link rel="stylesheet" href="../../plugins/ivew/dist/styles/iview-reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/xCommon.css" />
+		
+		<link rel="stylesheet" type="text/css" href="../../css/dutySupervise/dutySupervise.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/baseinfo/barrierMap/map.css" />
+		<link rel="stylesheet" type="text/css" href="http://10.41.219.142/arcgis_js_api/library/3.12/3.12/dijit/themes/tundra/tundra.css" />
+		<link rel="stylesheet" type="text/css" href="http://10.41.219.142/arcgis_js_api/library/3.12/3.12/esri/css/esri.css" />
+		<style type="text/css">
+			.box-row-12 {height: 100% !important;}
+			.box-row-11 {height: 91.66666667% !important;}
+			.box-row-10 {height: 83.33333333% !important;}
+			.box-row-9 {height: 75% !important;}
+			.box-row-8 {height: 66.66666667% !important;}
+			.box-row-7 {height: 58.33333333% !important;}
+			.box-row-6 {height: 50% !important;}
+			.box-row-5 {height: 41.66666667% !important;}
+			.box-row-4 {height: 33.33333333% !important;}
+			.box-row-3 {height: 25% !important;}
+			.box-row-2 {height: 16.66666667% !important;}
+			.box-row-1 {height: 8.33333333% !important;}
+			.box-row-12, .box-row-11, .box-row-10, .box-row-9, .box-row-8, .box-row-7, 
+			.box-row-6, .box-row-5, .box-row-4, .box-row-3, .box-row-2, .box-row-1 {
+			    float: left;
+			}
+			
+			.map-toolbar {
+				position: absolute;
+				top: 20px;
+				right: 20px;
+				display: block;
+				width: 300px;
+			}
+			.content{
+				min-height: 10px;
+			     padding: 0px; 
+			     margin-right: auto; 
+			     margin-left: auto; 
+			     padding-left: 0px; 
+			     padding-right: 0px; 
+			}
+		</style>
+	</head>
+
+	<body class="innerPage">
+		<div id="main">
+			<section class="content-header">
+				<h1>
+					实时勤务
+					<small>统计分析</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+					<li>
+						<a href="#">统计分析</a>
+					</li>
+					<li class="active">实时勤务</li>
+				</ol>
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+				<div class="box">
+					<div class="box-header with-border">
+						<div class="row">
+							<div class="col-md-9">
+								<!--<div id="mainMap" style="height:450px;">
+								<div id="map" style="height:100%;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;"></div>-->
+								<div id="mapDiv" style="height:100%;-webkit-transition: all 0.5s ease-in-out;transition: all 0.5s ease-in-out;"></div>
+								<div class="map-toolbar">
+									<Row :gutter="12">
+										<i-col span="8">
+											<Dropdown style="margin-right: 10px" @on-click="selectBarrierType">
+										        <i-button type="info" href="javascript:void(0)">
+										        	岗位列表
+										        	<Icon type="arrow-down-b"></Icon>
+										        </i-button>
+										        <dropdown-menu slot="list">
+										        	<dropdown-item v-for="item in barrierType" :value="item.value" :name="item.value">{{item.name}}</dropdown-item>
+										        </dropdown-menu>
+										    </Dropdown>
+										</i-col>
+										<i-col span="8">
+											<Cascader :data="departmentData" :load-data="loadData" v-model="departmentValue"   @on-change="selectMapDepartment">
+												<i-button type="info" style="width:90px;">单位</i-button>
+											</Cascader>
+										</i-col>
+										<i-col span="8">
+											<i-button type="info" style="width:90px;" @click="clickJy">警员</i-button>
+										</i-col>
+									</Row>
+								</div>	
+							</div>
+							<div class="col-md-3">
+								<div class="box-row-4">
+									<div id="container1" style="min-height: 150px;width: 30%;"></div>
+								</div>
+								<div class="box-row-4">
+									<div id="container2" style="min-height: 150px;width: 30%;"></div>
+								</div>
+								<div class="box-row-4">
+									<div id="container3" style="min-height: 150px;width: 30%;"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="box-body">
+						<div class="row">
+							<div id="container" style="min-width: 800px;height:220px;"></div>
+						</div>
+					</div>
+				</div>
+				<div class="box">
+					
+					
+				</div>
+
+			</section>
+			<!-- /.content -->
+			<div id="container" align="left" style="min-width:200px;height:400px" class="col-md-6">
+		</div>
+		</div>
+		
+		<div style="display:none;">
+			<div id="statusModel">
+				<div style="width: 100%; height: 40px; margin-bottom: 10px;">
+					<div id="job"
+						style="width: 40px; height: 40px; float: left; line-height: 32px; margin-left: 2px;">
+						<div class="66666">77777</div>
+					</div>
+					<div id="work"
+						style="height: 40px; float: left; line-height: 32px; margin-left: 2px;">
+						<div class="statusDiv" style="88888">正常任务中</div>
+					</div>
+					<div id="history"
+						style="width: 57px; height: 40px; float: left; line-height: 32px; margin-left: 2px;">
+						<div class="statusDiv" style="55555" onclick="traceTrack('44444')">
+							<span style="cursor: pointer;">历史轨迹</span>
+						</div>
+					</div>
+				</div>
+			</div>		
+		</div>
+		<!-- /.content-wrapper -->
+		<!-- jQuery -->
+		<script src="../../plugins/jquery/jquery-3.2.1.js"></script>
+		<script type="text/javascript" src="../../plugins/jquery/jquery.min.js"></script>
+		<script type="text/javascript" src="../../plugins/jquery/jquery.easyui.min.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../../plugins/bootstrap/js/bootstrap.js"></script>
+		
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="../../plugins/AdminLTE/js/adminlte.js"></script>
+
+		<!-- utilJS -->
+		<script type="text/javascript" src="../../js/util.js"></script>
+		
+		<script type="text/javascript" src="../../js/common/common.js" ></script>
+		<!-- easyUILoader -->
+		<script type="text/javascript" src="../../plugins/easyui/easyloader.js"></script>
+
+		<!-- SlimScroll -->
+		<script type="text/javascript" src="../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+		<!-- FastClick -->
+		<script type="text/javascript" src="../../plugins/fastclick/fastclick.min.js"></script>
+
+		<!-- dataTable -->
+		<script type="text/javascript" src="../../plugins/bootstrap-table/bootstrap-table.js"></script>
+		<script type="text/javascript" src="../../plugins/bootstrap-table/bootstrap-table-zh-CN.min.js"></script>
+
+		<!--highcharts-->
+		<script type="text/jscript" src="../../plugins/highcharts/highcharts.js"></script>
+		
+		<script type="text/javascript" src="../../plugins/vue/dist/vue.js"></script>
+		<script type="text/javascript" src="../../plugins/ivew/dist/iview.js" ></script>
+		<!-- 加载地图  -->
+		<script type="text/javascript" src="http://10.235.40.135:10000/arcgis_js_api/library/3.14/3.14/init.js"></script>
+		<!--<script type="text/javascript" src="http://10.235.180.170:5080/PGIS_S_TileMapServer/CCFPGISLayer2.0.js"></script>-->
+		<script type="text/javascript" src="http://10.235.180.170:5080/PGIS_S_TileMapServer/CCFPGISLayer.js"></script>
+		<script type="text/javascript" src="../../js/baseinfo/barrierMap/util_ds.js"></script>
+		<script>
+			var mapflag = "dutyStatis";
+			</script>
+		<script type="text/javascript" src="../../js/dynamicMap/policeStateAdminMapJS.js"></script>
+		
+		<script>
+			var mapflag = "dutyStatis";
+			$(function(){
+				mapinit();
+				var layerArr = ['zx','sq','sp','zdmb','sdfx'];
+				var pyflag  =  0;
+				var vueData = {
+					//搜索-所属单位
+					selectedDapartmentValue: '440100000000',
+					departmentValue: ['440100000000'],//选择装备
+				    departmentData: [
+				        {
+				            value: '440100000000',
+				            label: '广州市公安局',
+				            children: [],
+				            loading: false
+				        }
+				    ],
+					
+					//搜索-岗位类型
+					barrierTypeValue : '1',
+					barrierType:[
+						{name:'路面巡逻防控网', value: 'zx'},
+						{name:'社区防控网', value: 'sq'},
+						{name:'视频监控网', value: 'sp'},
+						{name:'重点目标网', value: 'zdmb'},
+						{name:'三道防线', value: 'sdfx'}
+					],
+					
+					mapDepartmentValue: "",
+					
+				}
+				
+				var vueMethods = {
+					loadData (item, callback) {
+				        item.loading = true;
+				    	$.ajax({
+							type:"post",
+							url:BASEPATH + "/unitRest/getUnitListByParentId.do",
+							async:true,
+							data: {id: item.value},
+							success: function(res){
+								var arrChildren = [];
+								if(res && res.data){
+									for(var i=0; i<res.data.length; i++){
+										var obj = res.data[i];
+										if(obj.isEnd == "1"){
+											arrChildren.push({
+												value: obj.id,
+												label: obj.name
+											});
+										}else{
+											arrChildren.push({
+												value: obj.id,
+												label: obj.name,
+												children: [],
+				                        		loading: false
+											});
+										}
+									}
+								}
+								item.children = arrChildren;
+								item.loading = false;
+								callback();
+							},
+							error: function(err){
+								console.log("-----------------"+err);
+							}
+						});
+					}
+					,selectDepartment(labels, selectedData){
+						thisselectedDapartmentValue = selectedData[selectedData.length - 1].value;
+					}
+					,selectMapDepartment(labels, selectedData){
+					},
+					selectBarrierType (name){
+						if(name!=null&&name!=""&&name!=undefined){
+							var layer_temp = map.getLayer(name);
+							if(layer_temp!=null){
+								layer_temp.show();
+							}
+							for(var i=0;i<layerArr.length;i++){
+								if(layerArr[i]!=name){
+									var layer_temp1 = map.getLayer(layerArr[i]);
+									if(layer_temp1!=null){
+										layer_temp1.hide();
+									}
+								}
+							}
+						}
+					},
+					clickJy (name){
+							var layer_temp = map.getLayer('jyLayer');
+							if(layer_temp!=null){
+								if(pyflag==0){
+									layer_temp.hide();
+									pyflag++;	
+								}else{
+									layer_temp.show();
+									pyflag--;
+								}
+						}
+	}
+				}
+				var dynamicDutyDetailVue = new Vue({
+					el: "#main",
+					data: vueData,
+					methods: vueMethods
+				
+				});
+				
+			})
+		</script>
+		
+		<script>
+			$(function () {
+			    $('#container').highcharts({
+			        chart: {
+			            type: 'column'
+			        },
+			        title: {
+			            text: '警力分布'
+			        },
+			        subtitle: {
+			            //text: '数据来源: WorldClimate.com'
+			        },
+			        xAxis: {
+			            categories: [
+			                '越秀',
+			                '天河',
+			                '黄埔',
+			                '海珠',
+			                '白云',
+			                '越秀',
+			                '天河',
+			                '黄埔',
+			                '海珠',
+			                '白云',
+			            ],
+			            crosshair: true
+			        },
+			        yAxis: {
+			            min: 0,
+			            title: {
+			                text: '人'
+			            }
+			        },
+			        tooltip: {
+			            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+			            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+			            '<td style="padding:0"><b>{point.y:.1f} 人</b></td></tr>',
+			            footerFormat: '</table>',
+			            shared: true,
+			            useHTML: true
+			        },
+			        plotOptions: {
+			            column: {
+			                borderWidth: 0
+			            }
+			        }, credits: {
+		            	text: '航天长峰',
+		            	href: '#'
+		        	},
+			        series: [{
+			            name: '民警',
+			            data: [350, 200, 200, 300, 50, 50, 50, 50, 50, 50],
+			            color: '#3498db'
+			        }, {
+			            name: '辅警',
+			            data: [100, 250, 100, 100, 100, 100, 100, 100, 100, 100],
+			            color: '#16a085'
+			        }, {
+			            name: '总警力',
+			            data: [450, 450, 300, 400, 150, 150, 150, 150, 150, 150],
+			            color: '#d35400'
+			        }]
+			    });
+			});
+		</script>
+		<script type="text/javascript">
+			$(function () {
+			    // Radialize the colors
+			    Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+			        return {
+			            radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
+			            stops: [
+			                [0, color],
+			                [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+			            ]
+			        };
+			    });
+			    // 构建图表
+			    $('#container1').highcharts({
+			        chart: {
+			            plotBackgroundColor: null,
+			            plotBorderWidth: null,
+			            plotShadow: false
+			        },
+			        title: {
+			            text: '民警分布占比'
+			        },
+			        tooltip: {
+			            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+			        },
+			        plotOptions: {
+			            pie: {
+			                allowPointSelect: true,
+			                cursor: 'pointer',
+			                dataLabels: {
+			                    enabled: true,
+			                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+			                    style: {
+			                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+			                    },
+			                    connectorColor: 'silver'
+			                }
+			            }
+			        },
+			        series: [{
+			            type: 'pie',
+			            name: '分布占比',
+			            data: [
+			                ['路面',   45.0],
+			                ['卡点',       26.8],
+			                {
+			                    name: '社区',
+			                    y: 12.8,
+			                    sliced: true,
+			                    selected: true
+			                },
+			                ['重点目标',    8.5],
+			                ['应急备勤',     6.2],
+			                ['视频',   0.7]
+			            ]
+			        }]
+			    });
+			    // 构建图表
+			    $('#container2').highcharts({
+			        chart: {
+			            plotBackgroundColor: null,
+			            plotBorderWidth: null,
+			            plotShadow: false
+			        },
+			        title: {
+			            text: '辅警分布占比'
+			        },
+			        tooltip: {
+			            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+			        },
+			        plotOptions: {
+			            pie: {
+			                allowPointSelect: true,
+			                cursor: 'pointer',
+			                dataLabels: {
+			                    enabled: true,
+			                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+			                    style: {
+			                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+			                    },
+			                    connectorColor: 'silver'
+			                }
+			            }
+			        },
+			        series: [{
+			            type: 'pie',
+			            name: '分布占比',
+			            data: [
+			                ['路面',   45.0],
+			                ['卡点',       26.8],
+			                {
+			                    name: '社区',
+			                    y: 12.8,
+			                    sliced: true,
+			                    selected: true
+			                },
+			                ['重点目标',    8.5],
+			                ['应急备勤',     6.2],
+			                ['视频',   0.7]
+			            ]
+			        }]
+			    });
+			    // 构建图表
+			    $('#container3').highcharts({
+			        chart: {
+			            plotBackgroundColor: null,
+			            plotBorderWidth: null,
+			            plotShadow: false
+			        },
+			        title: {
+			            text: '总警力分布占比'
+			        },
+			        tooltip: {
+			            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+			        },
+			        plotOptions: {
+			            pie: {
+			                allowPointSelect: true,
+			                cursor: 'pointer',
+			                dataLabels: {
+			                    enabled: true,
+			                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+			                    style: {
+			                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+			                    },
+			                    connectorColor: 'silver'
+			                }
+			            }
+			        },
+			        series: [{
+			            type: 'pie',
+			            name: '分布占比',
+			            data: [
+			                ['路面',   45.0],
+			                ['卡点',       26.8],
+			                {
+			                    name: '社区',
+			                    y: 12.8,
+			                    sliced: true,
+			                    selected: true
+			                },
+			                ['重点目标',    8.5],
+			                ['应急备勤',     6.2],
+			                ['视频',   0.7]
+			            ]
+			        }]
+			    });
+			});
+
+		</script>
+		
+	</body>
+
+</html>

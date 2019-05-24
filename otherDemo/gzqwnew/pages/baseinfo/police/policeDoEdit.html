@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../../css/general.css" /> 
+		
+		<!-- flatpickr -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/flatpickr/flatpickr.css">
+		
+		<link rel="stylesheet" type="text/css" href="../../../css/baseinfo/equipment/equipment.css" /> 
+		<style>
+			.picture-box {
+				position: relative;
+				display: block;
+				width: 130px;
+				height: 150px;
+				border: 1px solid #e4e4e4;
+				background: url(../../../img/user-128.png);
+				background-size: 128px 128px;
+				background-position: top center;
+				background-repeat: no-repeat;
+				margin: 0 auto;
+			}
+			.picture-box>.btn {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				display: block;
+				width: 100%;
+				height: 32px;
+				border: 0;
+				border-radius: 0;
+				background: rgba(0,0,0,.5);
+				color: #fff;
+				background: #fff;
+				color: #000;
+				border-top: 1px solid #e4e4e4;
+			}
+			.picture-box>.btn:hover {
+				background-color: #bfe8ff;
+			}
+		</style>
+
+	</head>
+
+	<body class="innerPage">
+		<div>
+			<section class="content-header">
+				<h1>
+					基础信息管理
+					<small>警员新建</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+					<li>
+						<a href="#">基础信息管理</a>
+					</li>
+					<li>
+						<a href="#">警员列表</a>
+					</li>
+					<li class="active">警员新建</li>
+				</ol>
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+				<form id="mainForm">
+				<div class="rows" id="policeInfo">
+				<div class="col-sm-8">
+				<!-- Default box -->
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">警员基础信息</h3>
+					</div>
+					<div class="box-body">
+						<div class="row">
+							<div class="col-md-2 col-sm-3 col-xs-4">
+								<div class="picture-box">
+									<button class="btn btn-default">上传照片</button>
+								</div>
+							</div>
+							<div class="col-md-10 col-sm-9 col-xs-8">
+								<div class="row">
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>警员名称</label>
+											<input type="text" class="form-control" placeholder="请输入警员姓名(必填)" validate="validate:true" name="police.policeName" v-model="policeInfo.policeName">
+											<input type="hidden" name="police.id" v-model="policeInfo.id">
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>警号</label>
+											<input type="text" class="form-control" placeholder="请输入警员警号(必填)" validate="validate:true" 
+												onblur="isExistPoliceNum(this)" name="police.policeNum" v-model="policeInfo.policeNum"/>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>身份证号码</label>
+											<input type="text" class="form-control" name="police.idNum" v-model="policeInfo.idNum" onblur="validateAndGenerateID(this)"/>
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>警员类型</label>
+											<input type="text" id="policeType" v-model="policeInfo.policeTypeName">
+											<input type="hidden" id="policeTypeID" name="police.policeType" v-model="policeInfo.policeType">
+											<input type="hidden" id="policeTypeNAME" name="police.policeTypeName" v-model="policeInfo.policeTypeName">
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>手机号码</label>
+											<input type="text" class="form-control" id="iphone" name="police.mobilePhone" v-model="policeInfo.mobilePhone">
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>性别</label>
+											<input type="text" id="genderSelect" v-model="policeInfo.gender">
+											<input type="hidden" id="genderSelectID" name="police.gender" v-model="policeInfo.gender">
+										</div>
+									</div>
+									<div class="col-md-3">
+										<div class="form-group">
+											<label>出生日期</label>
+											<div class="input-group date">
+												<input type="text" class="form-control" placeholder="选择出生日期" id="birthday" 
+													 name="police.birthday" v-model="policeInfo.birthday">
+												<span class="input-group-addon">
+													<i class="fa fa-calendar"></i>
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						
+						</div>
+					</div>
+					</div>
+					
+				<div class="box box-primary">
+					<div class="box-header with-border">
+						<h3 class="box-title">单位信息</h3>
+					</div>
+					<div class="box-body">
+						<div class="rows">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>所属单位</label>
+									<input type="text" class="form-control" id="mainUnit" v-model="policeInfo.mainUnitName">
+									<input type="hidden" id="mainUnitID" v-model="policeInfo.mainUnit" name="police.mainUnit">
+									<input type="hidden" id="mainUnitNAME" v-model="policeInfo.mainUnitName" name="police.mainUnitName">
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label>工作单位</label>
+									<input type="text" class="form-control" id="dutyUnit"  v-model="policeInfo.dutyUnitName">
+									<input type="hidden" id="dutyUnitID" v-model="policeInfo.dutyUnit" name="police.dutyUnit">
+									<input type="hidden" id="dutyUnitNAME"  v-model="policeInfo.dutyUnitName" name="police.dutyUnitName">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">职务信息</h3>
+							</div>
+							<div class="box-body">
+								<div class="rows">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>警员职务</label>
+											<input type="text" id="jobSelect" v-model="policeInfo.jobName">
+											<input type="hidden" id="jobSelectID" name="police.job" v-model="policeInfo.job">
+											<input type="hidden" id="jobSelectNAME" name="police.jobName" v-model="policeInfo.jobName">	
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>是否领导</label>
+											<input type="text" id="isLeaderSelect" v-model="policeInfo.isLeader ">
+											<input type="hidden" id="isLeaderSelectID" name="police.isLeader" v-model="policeInfo.isLeader">
+										</div>
+									</div>
+								</div>
+							</div>
+				</div>
+							
+				</div>
+				
+				<div class="col-sm-4">
+						<div class="box box-primary" style="min-height: 535px;">
+							<div class="box-header with-border">
+								<h3 class="box-title">警员绑定装备</h3>
+							</div>
+							<div class="box-body">
+								<div>
+									<div style="text-align: center">
+										<a class="btn btn-success" onclick="equipmentSelectWin()">添加装备</a>
+									</div>
+									<div class="divideLine"></div>
+									<div class="equipmentsContainer">
+										
+										<template v-for="equipment in equipmentList">
+											<div class="selectEquipment-itemContent bg-green" style="font-weight: bold; margin: 5px; box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px; text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px; padding: 5px 10px; border-radius: 3px; width: 96%; text-align: center;">
+												<div class="selectEquipment-item-text selectEquipment-item-equName">
+													<span class="selectEquipment-item-equName-text" style="font-size: 16px;">{{equipment.equipmentName}}</span>
+													<i class="fa fa-remove pull-right pointerCursor" onclick="doRemoveSelectedEquipment(this)"></i>
+												</div>
+												<div class="selectEquipment-item-text selectEquipment-item-equNum">{{equipment.equipmentNum}}</div>
+												<div class="selectEquipment-item-text selectEquipment-item-equType">{{equipment.equipmentTypeName}}</div>
+												<input type="hidden" name="equipment.id" v-model="equipment.id">
+												<input type="hidden" name="equipment.equipmentName" v-model="equipment.equipmentName">
+												<input type="hidden" name="equipment.equipmentNum"  v-model="equipment.equipmentNum">
+												<input type="hidden" name="equipment.equipmentType" v-model="equipment.equipmentType">
+												<input type="hidden" name="equipment.equipmentTypeName" v-model="equipment.equipmentTypeName">
+											</div>
+										</template>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div style="clear: both;"></div>
+				
+				</div>
+				</form>
+				<div class="col-md-12" style="text-align: center;">
+					<button class="btn btn-success" style="width: 120px;" onclick="doValidate('update')">保存</button>
+					<button class="btn btn-danger" style="width: 120px;" onclick="window.history.go(-1)">返回</button>
+				</div>
+			</section>
+			<!-- /.content -->
+		</div>
+		<br><br>
+		<div style="display: none">
+		<div id="equipmentModel" class="selectEquipment-itemContent bg-green" style="font-weight: bold; margin: 5px; box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px; text-shadow: rgba(0, 0, 0, 0.1) 0px 1px 1px; padding: 5px 10px; border-radius: 3px; width: 96%; text-align: center;">
+			<div class="selectEquipment-item-text selectEquipment-item-equName">
+				<span class="selectEquipment-item-equName-text" style="font-size: 16px;"></span>
+				<i class="fa fa-remove pull-right pointerCursor" onclick="doRemoveSelectedEquipment(this)"></i>
+			</div>
+			<div class="selectEquipment-item-text selectEquipment-item-equNum"></div>
+			<div class="selectEquipment-item-text selectEquipment-item-equType"></div>
+			<input type="hidden" name="equipment.id" value="">
+			<input type="hidden" name="equipment.equipmentName" value="">
+			<input type="hidden" name="equipment.equipmentNum" value="">
+			<input type="hidden" name="equipment.equipmentType" value="">
+			<input type="hidden" name="equipment.equipmentTypeName" value="">
+		</div>
+	</div>
+		<!-- /.content-wrapper -->
+		<!-- jQuery -->
+		<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../../../plugins/bootstrap/js/bootstrap.js"></script>
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="../../../plugins/AdminLTE/js/adminlte.js"></script>
+		<!-- utilJS -->
+		<script type="text/javascript" src="../../../js/common/common.js"></script>
+		<script type="text/javascript" src="../../../js/util.js"></script>
+		<!-- easyUILoader -->
+		<script type="text/javascript" src="../../../plugins/easyui/easyloader.js"></script>
+		<!-- datepick -->
+		<script type="text/javascript" src="../../../plugins/flatpickr/flatpickr.js"></script>
+		<script type="text/javascript" src="../../../plugins/flatpickr/flatpickr_zh.js"></script>
+		<script type="text/javascript" src="../../../plugins/tools/validate.js"></script>
+		<script type="text/javascript" src="../../../plugins/tools/TipsModal.js"></script>
+		<script type="text/javascript" src="../../../plugins/tools/jquery.extend.js"></script>
+		<script type="text/javascript" src="../../../plugins/vue/dist/vue.js"></script>
+		<script type="text/javascript" src="../../../plugins/tools/IDNumValidate.js"></script>
+		
+		<script type="text/javascript" src="../../../js/baseinfo/police/policeDo.js"></script>
+		
+		
+		<script type="text/javascript" src="../../../js/baseinfo/equipment/EquipmentSelect.js"></script>
+	</body>
+
+</html>

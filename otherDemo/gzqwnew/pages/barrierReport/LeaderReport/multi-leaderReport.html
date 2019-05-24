@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>动态勤务管理云应用</title>
+
+		<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../../css/general.css" />
+		<!-- fullCalendar -->
+		<link rel="stylesheet" href="../../../plugins/fullcalendar/fullcalendar.min.css">
+		<link rel="stylesheet" href="../../../plugins/fullcalendar/fullcalendar.print.css" media="print">
+	</head>
+
+	<body class="innerPage">
+		<div>
+			<section class="content-header">
+				<h1>
+					岗位报备
+					<small>值班领导批量报备</small>
+				</h1>
+				<ol class="breadcrumb">
+					<li>
+						<a href="#"><i class="fa fa-dashboard"></i> 首页</a>
+					</li>
+					<li>
+						<a href="#">报备查询</a>
+					</li>
+					<li class="active">值班领导报备查询</li>
+				</ol>
+			</section>
+
+			<!-- Main content -->
+			<section class="content">
+				<div class="box box-primary">
+					<div class="box-body no-padding">
+						<div id="calendar"></div>
+					</div>
+				</div>
+			</section>
+		</div>
+		<!-- /.content-wrapper -->
+		<!-- jQuery -->
+		<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../../../plugins/bootstrap/js/bootstrap.js"></script>
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="../../../plugins/AdminLTE/js/adminlte.js"></script>
+		<!-- utilJS -->
+		<script type="text/javascript" src="../../../js/util.js"></script>
+		<!-- easyUILoader -->
+		<script type="text/javascript" src="../../../plugins/easyui/easyloader.js"></script>
+		<!-- fullCalendar -->
+		<script src="../../../plugins/fullcalendar/moment.js"></script>
+		<script src="../../../plugins/fullcalendar/fullcalendar.js"></script>
+		<script>
+			var calHeight = 700;
+			var windowH = $(window).height()
+			calHeight = windowH - 100
+			if(calHeight < 600) {
+				calHeight = 600
+			}
+			$(function() {
+				var date = new Date();
+				var d = date.getDate(),
+					m = date.getMonth(),
+					y = date.getFullYear();
+				$('#calendar').fullCalendar({
+					height: calHeight,
+					header: {
+						left: 'prev,next today',
+						center: 'title',
+						right: 'month,agendaWeek,agendaDay'
+					},
+					buttonText: {
+						today: '今日',
+						month: '月视图',
+						week: '周视图',
+						day: '日视图'
+					},
+					eventRender: function(event, element) {
+						element.html(event.title);
+					},
+					events: [{
+						title: '值班领导:张三<br>值班主任:李四<br>值班员:王五、赵六<br>值班民警:3人&nbsp;&nbsp;值班辅警:4人',
+						start: new Date(y, m, d),
+						allDay: true,
+						backgroundColor: "#3c8dbc", //red
+						borderColor: "#3c8dbc" //red
+					}, {
+						title: '值班领导:张三<br>值班主任:李四<br>值班员:王五、赵六<br>值班民警:3人&nbsp;&nbsp;值班辅警:4人',
+						start: new Date(y, m, d - 1),
+						allDay: true,
+						backgroundColor: "#3c8dbc", //red
+						borderColor: "#3c8dbc" //red
+					}, {
+						title: '值班领导:张三<br>值班主任:李四<br>值班员:王五、赵六<br>值班民警:3人&nbsp;&nbsp;值班辅警:4人',
+						start: new Date(y, m, d + 5),
+						allDay: true,
+						backgroundColor: "#3c8dbc", //red
+						borderColor: "#3c8dbc" //red
+					}]
+
+				});
+			})
+		</script>
+	</body>
+
+</html>

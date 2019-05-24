@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>警力资源及勤务管理系统</title>
+	<!-- Bootstrap 3.3.7 -->
+	<link rel="stylesheet" type="text/css" href="../../../plugins/bootstrap/css/bootstrap.min.css" />
+	<!-- Font Awesome -->
+	<link rel="stylesheet" type="text/css" href="../../../plugins/font_awesome/css/font-awesome.min.css" />
+	<!-- Ionicons -->
+	<link rel="stylesheet" type="text/css" href="../../../plugins/ionicons/css/ionicons.min.css" />
+	<!-- AdminLTE -->
+	<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/AdminLTE.css" />
+	<!-- AdminLTE skin -->
+	<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+	<!-- general -->
+	<link rel="stylesheet" type="text/css" href="../../../css/general.css" /> 
+	
+	<link rel="stylesheet" type="text/css" href="../../../plugins/ivew/dist/styles/iview.css" />
+</head>
+<body class="innerPage">
+	<div>
+		<section class="content-header">
+			<h1>
+				编辑车辆 <small>基础信息管理</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="#" onclick="window.parent.toIndex()"><i class="fa fa-home"></i>首页</a></li>
+				<li><a href="#" onclick="toPage('/system/UserAdmin/toPersonalAdmin.do')"><i class="fa fa-clipboard"></i>基础信息管理</a></li>
+				<li><a href="#" onclick="toPage('/vehicle/toVehicleAdmin.do')">车辆管理</a></li>
+				<li class="active">编辑车辆</li>
+			</ol>
+		</section>
+
+		<!-- Main content -->
+		<section class="content">
+			<form id="mainForm">
+				<div id="vehicleInfo">
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">车辆基本信息</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" onClick="toggleThisBox(this)" id="serarchBoxToggleButton">
+										<i class="fa fa-minus"></i>
+									</button>
+								</div>
+							</div>
+							<div class="box-body">
+								<div class="rows">
+									<div class="col-sm-3">
+										<div class="form-group">
+											<label>车辆名称</label> 
+											<input type="text" class="form-control" placeholder="请输入车辆名称" v-model="vehicleInfo.equipmentName" validate="validate:true">
+											<input type="hidden" v-model="vehicleInfo.type" value='vehilce'/>
+											<input type="hidden" v-model="vehicleInfo.id" name="id">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<div class="form-group">
+											<label>车牌</label> 
+											<input type="text" class="form-control" placeholder="请输入车牌" v-model="vehicleInfo.equipmentNum" validate="validate:true">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<div class="form-group">
+											<label>车辆GPS</label> 
+											<input type="text" class="form-control" placeholder="请输入车辆GPS" validate="validate:true" v-model="vehicleInfo.gpsnum">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<div class="form-group">
+											<label>车辆类型</label> 
+											<input type="text" id="vehicleType" class="form-control"> 
+											<input type="hidden" id="vehicleTypeID" v-model="vehicleInfo.equipmentType"> 
+											<input type="hidden"  id="vehicleTypeNAME" v-model="vehicleInfo.equipmentTypeName">
+										</div>
+									</div>
+									<div style="clear: both"></div>
+								</div>
+							</div>
+						</div>
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">单位信息</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" onClick="toggleThisBox(this)" id="serarchBoxToggleButton">
+										<i class="fa fa-minus"></i>
+									</button>
+								</div>
+							</div>
+							<div class="box-body">
+								<div class="rows">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>所属单位</label> 
+											<input type="hidden" id="mainUnitID"  v-model="vehicleInfo.mainUnit"> 
+											<input type="hidden" id="mainUnitNAME"  v-model="vehicleInfo.mainUnitName">
+											<Cascader :data="gzJigouData" size="large" :load-data="loadData" id='mainUnit'
+												v-model="defaultGzJigou"   change-on-select filterable
+												@on-change="setMainUnitValue"></Cascader>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>工作单位</label>
+											<input type="hidden" id="dutyUnitID"  v-model="vehicleInfo.dutyUnit"> 
+											<input type="hidden" id="dutyUnitNAME"  v-model="vehicleInfo.dutyUnitName">
+											
+											<Cascader :data="gzJigouData" size="large" :load-data="loadData" id='dutyUnit'
+											v-model="defaultGzJigou1"   change-on-select filterable
+											@on-change="setDutyUnitValue"></Cascader>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					<div style="clear: both;"></div>
+				</div>
+			</form>
+			<div class="rows" style="text-align: center;">
+				<button class="btn btn-success btn-sm" style="width: 120px;" onclick="doValidate('update')">保存</button>
+				&nbsp;
+				<button class="btn btn-danger btn-sm" style="width: 120px;" onclick="history.go(-1)">取消</button>
+				&nbsp;
+			</div>
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+	<!-- JS -->
+		<!-- jQuery -->
+	<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+	<!-- Bootstrap 3.3.7 -->
+	<script src="../../../plugins/bootstrap/js/bootstrap.js"></script>
+	<!-- AdminLTE App -->
+	<script type="text/javascript" src="../../../plugins/AdminLTE/js/adminlte.js"></script>
+	<!-- utilJS -->
+	<script type="text/javascript" src="../../../js/common/common.js" ></script> 
+	<script type="text/javascript" src="../../../js/util.js"></script>
+	<script type="text/javascript" src="../../../js/comboBoxUtil.js"></script>
+	<!-- easyUILoader -->
+	<script type="text/javascript" src="../../../plugins/easyui/easyloader.js"></script>
+	<script type="text/javascript" src="../../../plugins/tools/validate.js"></script>
+	<script type="text/javascript" src="../../../plugins/tools/TipsModal.js"></script>
+	<script type="text/javascript" src="../../../plugins/tools/jquery.extend.js"></script>
+	<script type="text/javascript" src="../../../plugins/vue/dist/vue.js"></script>
+	<script type="text/javascript" src="../../../plugins/ivew/dist/iview.js"></script>
+	<script type="text/javascript" src="../../../js/baseinfo/vehicle/vehicleDo.js"></script>
+	<!-- /.JS -->
+</body>
+
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>警力资源及勤务管理系统</title>
+<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../../css/general.css" /> 
+		<!-- PageCSS -->
+		<link rel="stylesheet" type="text/css" href="../../../css/barrierReport/barrierReportWatchByWeek.css" />
+		<!-- datepick -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/flatpickr/flatpickr.css">
+</head>
+<body class="innerPage">
+	<div>
+		<section class="content-header">
+			<h1>
+				岗位排班查询 <small>报备查询</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li>
+					<a href="#" onclick="window.parent.toIndex()">
+						<i class="fa fa-home"></i>首页
+					</a>
+				</li>
+				<li>
+					<a href="#" onclick="">
+						<i class="fa fa-search"></i>报备查询
+					</a>
+				</li>
+				<li class="active">岗位报备详细</li>
+			</ol>
+		</section>
+
+		<!-- Main content -->
+		<section class="content" id="mainSection">
+			<div class="box box-primary">
+				<div class="box-header with-border">
+					<h3 class="box-title">查询信息</h3>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" onClick="toggleThisBox(this)" id="serarchBoxToggleButton">
+							<i class="fa fa-minus"></i>
+						</button>
+					</div>
+				</div>
+				<div class="box-body">
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label>岗位名称</label>
+								<input type="text" class="form-control" readonly="readonly" v-model="barrierWithClass.barrierName">
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label>岗位所属辖区</label>
+								<input type="text" class="form-control" readonly="readonly" v-model="barrierWithClass.xlDeptName">
+							</div>
+						</div>
+						<div class="col-sm-4">
+							<div class="form-group">
+								<label>开始日期</label>
+								<div class="input-group date">
+									<input type="text" class="form-control" id="datePicker" v-model="firstDayDateStr">
+									<span class="input-group-addon" style="cursor: pointer;" @click="openDatePicker()">
+										<i class="fa fa-calendar"></i>
+									</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="box box-primary" id="reportBox">
+				<div class="box-header with-border">
+					<h3 class="box-title">排班信息</h3>
+					<div class="box-tools pull-right">
+						<button type="button" class="btn btn-box-tool" onClick="toggleThisBox(this)" id="serarchBoxToggleButton">
+							<i class="fa fa-minus"></i>
+						</button>
+					</div>
+				</div>
+				<div class="box-body">
+					<table class="report-table">
+						<thead>
+							<tr>
+								<th style="background-color: #eee; width: 8%; vertical-align: middle;">岗位名称</th>
+								<th style="background-color: #eee; width: 8%; vertical-align: middle;">岗位班次</th>
+								<th class="headerDate" v-for="d in dateList" style="background-color: #eee; width: 12%">
+									<div style="height: 20px;">
+										<span>{{ d }}</span>
+									</div>
+									<div style="height: 25px;">{{ getDayOfWeekOfDate(d) }}</div>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="classes in barrierWithClass.classList">
+								<th v-if="classes.isFirstRow" :rowspan="barrierWithClass.classList.length" style="vertical-align: middle;">{{ barrierWithClass.barrierName }}</th>
+								<th style="vertical-align: middle;">{{ classes.className }}</th>
+								<th class="reportedPeopleTH" v-for="d in dateList" style="vertical-align: middle;">
+									<div class="reportedPeopleContainer">
+										<template v-for="reportPolice in reportedPoliceList">
+										<div class="reportedPolice-item bg-green" v-if="reportPolice.barrierClassId == classes.id && reportPolice.reportDate == d">
+											<div>
+												<div class="policeItem_policeNameDiv">{{ reportPolice.policeName }}</div>
+												<div class="policeItem_policeEquipmentContainer" style="width: 100%">
+													<template v-if="!reportPolice.equipmentList  || reportPolice.equipmentList.length == 0">
+													<div style="color: #ddd">无绑定装备</div>
+													</template>
+													<div v-for="equipment in reportPolice.equipmentList" :title="equipment.equipmentName">{{ equipment.equipmentName }}</div>
+												</div>
+											</div>
+										</div>
+										</template>
+									</div>
+								</th>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div style="text-align: center;width:100%;">
+				<a href="javascript:void(0)" class="btn btn-danger" style="width: 120px;" @click="doGoBack()">返回</a>
+			</div>
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+	<!-- jQuery -->
+	<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+	<!-- Bootstrap 3.3.7 -->
+	<script src="../../../plugins/bootstrap/js/bootstrap.js"></script>
+	<!-- SlimScroll -->
+	<script type="text/javascript" src="../../../plugins/slimScroll/jquery.slimscroll.min.js"></script>
+	<!-- FastClick -->
+	<script type="text/javascript" src="../../../plugins/fastclick/fastclick.min.js"></script>
+	<!-- AdminLTE App -->
+	<script type="text/javascript" src="../../../plugins/AdminLTE/js/adminlte.js"></script>
+	<script type="text/javascript" src="../../../plugins/tools/jquery.extend.js"></script>
+	<script type="text/javascript" src="../../../js/util.js"></script>
+	<script type="text/javascript" src="../../../js/common/common.js"></script>
+	<script type="text/javascript" src="../../../plugins/tools/TipsModal.js"></script>
+	<script type="text/javascript" src="../../../plugins/vue/dist/vue.js"></script>
+	<script type="text/javascript" src="../../../plugins/flatpickr/flatpickr.js"></script>
+	<script type="text/javascript" src="../../../plugins/flatpickr/flatpickr_zh.js"></script>
+	<script type="text/javascript" src="../../../js/barrierReportWatch/barrierReport/barrierWatchDetailByWeek.js"></script>
+	<!-- /.JS -->
+</body>
+
+</html>

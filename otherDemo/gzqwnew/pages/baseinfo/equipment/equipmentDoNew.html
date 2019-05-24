@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>警力资源及勤务管理系统</title>
+<!-- Bootstrap 3.3.7 -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/bootstrap/css/bootstrap.min.css" />
+		<!-- Font Awesome -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/font_awesome/css/font-awesome.min.css" />
+		<!-- Ionicons -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/ionicons/css/ionicons.min.css" />
+		<!-- AdminLTE -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/AdminLTE.css" />
+		<!-- AdminLTE skin -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/AdminLTE/css/skins/_all-skins.min.css" />
+		<!-- general -->
+		<link rel="stylesheet" type="text/css" href="../../../css/general.css" /> 
+		<!-- flatpickr -->
+		<link rel="stylesheet" type="text/css" href="../../../plugins/flatpickr/flatpickr.css">
+</head>
+<body class="innerPage">
+	<div>
+		<section class="content-header">
+			<h1>
+				新建装备 <small>基础信息管理</small>
+			</h1>
+			<ol class="breadcrumb">
+				<li><a href="#" onclick="window.parent.toIndex()"><i class="fa fa-home"></i>首页</a></li>
+				<li><a href="#" onclick="toPage('/system/UserAdmin/toPersonalAdmin.do')"><i class="fa fa-clipboard"></i>基础信息管理</a></li>
+				<li><a href="#" onclick="toPage('/equipment/toEquipmentAdmin.do')">装备管理</a></li>
+				<li class="active">新建装备</li>
+			</ol>
+		</section>
+
+		<!-- Main content -->
+		<section class="content">
+			<form id="mainForm">
+				<div class="rows" id="equipmentInfo">
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">装备基本信息</h3>
+							</div>
+							<div class="box-body">
+								<div class="rows">
+									<div class="col-sm-3">
+										<div class="form-group">
+											<label>装备名称</label> 
+											<input type="text" class="form-control" placeholder="请输入装备名称" name="equipment.equipmentName" validate="validate:true">
+											<input type="hidden" id="type" name="equipment.type" value="equipment"> 
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<div class="form-group">
+											<label>装备编号</label> 
+											<input type="text" class="form-control" placeholder="请输入装备编号" name="equipment.equipmentNum">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<div class="form-group">
+											<label>定位装备编号</label> 
+											<input type="text" class="form-control" placeholder="请输入定位装备编号"  name="equipment.GPSNum">
+										</div>
+									</div>
+									<div class="col-sm-3">
+										<div class="form-group">
+											<label>装备类型</label>
+											<input type="text" class="form-control" id="equipmentType"> 
+											<input type="hidden" id="equipmentTypeID" name="equipment.equipmentType"> 
+											<input type="hidden" id="equipmentTypeNAME" name="equipment.equipmentTypeName">
+										</div>
+									</div>
+									<div style="clear: both"></div>
+								</div>
+							</div>
+						</div>
+						<div class="box box-primary">
+							<div class="box-header with-border">
+								<h3 class="box-title">单位信息</h3>
+								<div class="box-tools pull-right">
+									<button type="button" class="btn btn-box-tool" onClick="toggleThisBox(this)" id="serarchBoxToggleButton">
+										<i class="fa fa-minus"></i>
+									</button>
+								</div>
+							</div>
+							<div class="box-body">
+								<div class="rows">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>所属单位</label> 
+											<input type="text" class="form-control" id="mainUnit" > 
+											<input type="hidden" id="mainUnitID" name="equipment.mainUnit"> 
+											<input type="hidden" id="mainUnitNAME" name="equipment.mainUnitName">
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>工作单位</label> <input type="text" class="form-control" id="dutyUnit" > 
+											<input type="hidden" id="dutyUnitID"  name="equipment.dutyUnit"> 
+											<input type="hidden" id="dutyUnitNAME"  name="equipment.dutyUnitName">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					<div style="clear: both;"></div>
+				</div>
+			</form>
+			<div class="rows" style="text-align: center;">
+				<button class="btn btn-success btn-sm" style="width: 120px;" onclick="doValidate('new')">保存</button>
+				&nbsp;
+				<button class="btn btn-danger btn-sm" style="width: 120px;" onclick="history.go(-1)">取消</button>
+				&nbsp;
+			</div>
+		</section>
+		<!-- /.content -->
+	</div>
+	<!-- /.content-wrapper -->
+		<!-- jQuery -->
+		<script src="../../../plugins/jquery/jquery-3.2.1.js"></script>
+		<!-- Bootstrap 3.3.7 -->
+		<script src="../../../plugins/bootstrap/js/bootstrap.js"></script>
+		<!-- AdminLTE App -->
+		<script type="text/javascript" src="../../../plugins/AdminLTE/js/adminlte.js"></script>
+		<!-- utilJS -->
+		<script type="text/javascript" src="../../../js/common/common.js"></script>
+		<script type="text/javascript" src="../../../js/util.js"></script>
+		<!-- easyUILoader -->
+		<script type="text/javascript" src="../../../plugins/easyui/easyloader.js"></script>
+		<!-- datepick -->
+		<script type="text/javascript" src="../../../plugins/flatpickr/flatpickr.js"></script>
+		<script type="text/javascript" src="../../../plugins/flatpickr/flatpickr_zh.js"></script>
+		<script type="text/javascript" src="../../../plugins/tools/validate.js"></script>
+		<script type="text/javascript" src="../../../plugins/tools/TipsModal.js"></script>
+		<script type="text/javascript" src="../../../plugins/vue/dist/vue.js"></script>
+		<script type="text/javascript" src="../../../plugins/tools/jquery.extend.js"></script>	
+		
+		<script type="text/javascript" src="../../../js/baseinfo/equipment/EquipmentDo.js"></script>
+	<!-- /.JS -->
+</body>
+
+</html>
