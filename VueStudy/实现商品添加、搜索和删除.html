@@ -6,7 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>Title</title>
     <link rel="stylesheet" type="text/css" href="lib/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="lib/animate.css">
     <script type="text/javascript" src="lib/vue.js"></script>
+
+    <style>
+       .v-enter,
+       .v-leave-to{
+           opacity: 0;
+           transform: translateY(80px);
+       }
+        .v-enter-active,
+        .v-leave-active{
+            transition: all 0.6s ease;
+        }
+    </style>
 </head>
 
 <body>
@@ -41,14 +54,18 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-for="item in search(keywords)" :key="item.productId">
-            <td v-cloak>{{item.productId}}</td>
-            <td v-text="item.productName"></td>
-            <td v-cloak>{{item.cTime}}</td>
-            <td>
-                <button type="submit" class="btn btn-info" @click="del(item.productId)">删除</button>
-            </td>
-        </tr>
+
+        <transition-group>
+            <tr v-for="item in search(keywords)" :key="item.productId">
+                <td v-cloak>{{item.productId}}</td>
+                <td v-text="item.productName"></td>
+                <td v-cloak>{{item.cTime}}</td>
+                <td>
+                    <button type="submit" class="btn btn-info" @click="del(item.productId)">删除</button>
+                </td>
+            </tr>
+        </transition-group>
+
         </tbody>
     </table>
 </div>

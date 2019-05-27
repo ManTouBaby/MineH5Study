@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="lib/bootstrap.css">
+    <link rel="stylesheet" href="lib/animate.css">
+    <script type="text/javascript" src="lib/vue.js"></script>
+    <script type="text/javascript" src="lib/vue-resource.js"></script>
+
+    <style>
+        li {
+            border: grey 1px dashed;
+            padding: 16px;
+            margin: 8px;
+            width: 100%;
+        }
+
+        li:hover {
+            background-color: #eedec2;
+            transition: all 1s ease;
+        }
+
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateY(80px);
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 1s ease;
+        }
+
+        /*移除Item后控制下面的item有动画的慢慢上移,这个固定写法*/
+        .v-move{
+            transition: all 1s ease;
+        }
+        .v-leave-active{
+            position: absolute;
+        }
+        /****************************************************/
+    </style>
+</head>
+<body>
+<div id="app">
+    <input type="button" value="添加数据项" @click="add">
+    <ul class="list-group">
+        <!--给transition-group 添加appear属性，实现入场效果-->
+        <!--通过给transition-group 设置tag属性指定transition-group渲染为指定元素，不指定的话默认为span-->
+        <transition-group appear>
+            <li v-for="(item,i) in dates" :key="item.id" @click="del(i)">
+                <div class="row">
+                    <div class="col-md-4 text-center" v-text="item.id"></div>
+                    <div class="col-md-4 text-center" v-text="item.name"></div>
+                    <div class="col-md-4 text-center" v-text="item.cTime"></div>
+                </div>
+            </li>
+        </transition-group>
+
+    </ul>
+</div>
+
+<script>
+    var vm = new Vue({
+        el: "#app",
+        data: function () {
+            return {
+                dates: [
+                    {id: 1, name: "张三", cTime: new Date()},
+                    {id: 2, name: "李四", cTime: new Date()}
+                ]
+            }
+        },
+        methods: {
+            add: function () {
+                var idValue = this.dates.length + 1;
+                this.dates.push({id: idValue, name: "李四" + idValue, cTime: new Date()})
+            },
+            del: function (i) {
+                this.dates.splice(i, 1);
+                console.log(i+"======"+this.dates.length);
+            }
+        }
+    })
+</script>
+</body>
+</html>
