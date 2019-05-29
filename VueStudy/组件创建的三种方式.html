@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件</title>
+    <link rel="stylesheet" href="lib/bootstrap.css">
+    <script type="text/javascript" src="lib/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <view1></view1>
+    <view2></view2>
+    <template id="view3">
+        <div>
+            这个是自定义组件三
+        </div>
+    </template>
+    <test></test>
+</div>
+<script>
+    //自定义组件方式一
+    var common1 = Vue.extend({
+        template: `
+        <div>这是第一个自定义组件</div>
+        `
+    })
+    Vue.component("view1", common1);
+
+    //自定义组件方式二
+    Vue.component("view2", {
+        template: `
+        <div>这个第二个自定义组件</div>
+        `
+    })
+    //自定义组件三
+    Vue.component("view3", {
+        /*这个#view3指向布局中<template id="view3">*/
+        template: "#view3"
+    })
+
+    var vm = new Vue({
+        el: "#app",
+        data: function () {
+            return {};
+        },
+        components: {//定义私有组件
+            test: {
+                template: `
+                        <div>我是私有组件</div>
+                          `
+            }
+        }
+
+    })
+</script>
+</body>
+</html>

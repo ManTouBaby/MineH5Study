@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>组件切换动画</title>
+    <link rel="stylesheet" href="lib/bootstrap.css">
+    <script type="text/javascript" src="lib/vue.js"></script>
+    <style>
+        .v-enter,
+        .v-leave-to{
+            transform: translateX(80px);
+        }
+        .v-enter-active,
+        .v-leave-active{
+            transition: all .4s ease;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <a @click="change('login')">登录</a>
+    <a @click="change('register')">注册</a>
+    <!--通过mode设置切换方式-->
+    <transition mode="out-in">
+        <component :is="changeName"></component>
+    </transition>
+</div>
+<script>
+
+    Vue.component("login", {
+        template: `
+        <div>这是登录组件</div>
+        `
+    })
+    Vue.component("register", {
+        template: `
+        <div>这是注册组件</div>
+        `
+    })
+
+    var vm = new Vue({
+        el: "#app",
+        data: function () {
+            return {
+                changeName: "login"
+            };
+        },
+        methods: {
+            change: function (type) {
+                this.changeName = type;
+            }
+        }
+    });
+</script>
+</body>
+</html>

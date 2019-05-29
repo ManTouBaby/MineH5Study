@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>发表评论</title>
+    <link rel="stylesheet" href="lib/bootstrap.css">
+    <link rel="stylesheet" href="lib/animate.css">
+    <script src="lib/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <content-view @func="loadContent"></content-view>
+    <ul class="list-group">
+        <li class="list-group-item" v-for="item in contents" v-cloak>
+            {{item.content}}
+            <span class="badge" v-text="item.user"></span>
+        </li>
+    </ul>
+</div>
+<template id="content-view">
+    <div>
+        <div class="form-group">
+            <label for="user">用户</label>
+            <input type="text" class="form-control" name="" id="user" placeholder="Input..." v-model="user">
+        </div>
+        <div class="form-group">
+            <label for="content">评论内容</label>
+            <textarea type="" class="form-control" name="" id="content" placeholder="Input..."
+                      v-model="content"></textarea>
+        </div>
+        <button type="button" class="btn btn-primary" @click="postContent">Submit</button>
+    </div>
+</template>
+<script>
+    var contentView = {
+        template: "#content-view",
+        data: function () {
+            return {
+                user: "",
+                content: ""
+            }
+        },
+        methods: {
+            postContent: function () {
+                var list = JSON.parse(localStorage.getItem("content") || "[]");
+                var itemObj = {user: this.user, content: this.content};
+                list.push(itemObj);
+                localStorage.setItem("content", JSON.stringify(list));
+                this.$emit("func");
+            }
+        }
+    };
+
+
+    var vm = new Vue({
+        el: "#app",
+        data: function () {
+            return {
+                contents: ""
+            };
+        },
+        created() {
+            this.loadContent();
+        },
+        methods: {
+            loadContent: function () {
+                this.contents = JSON.parse(localStorage.getItem("content") || "[]");
+            }
+        },
+        components: {
+            contentView
+        }
+    })
+</script>
+</body>
+</html>
