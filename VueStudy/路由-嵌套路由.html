@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="lib/bootstrap.css">
+    <script src="lib/jquery.js"></script>
+    <script src="lib/bootstrap.js"></script>
+    <script src="lib/vue.js"></script>
+    <script src="lib/vue-router.js"></script>
+    <title>嵌套路由</title>
+</head>
+<body>
+<div id="app">
+    <router-view></router-view>
+</div>
+<template id="header">
+    <div>
+        <ul class="nav nav-tabs">
+            <li role="presentation" class="active">
+                <router-link to="/home">Home</router-link>
+            </li>
+            <li role="presentation">
+                <router-link to="/profile">Profile</router-link>
+            </li>
+            <li role="presentation">
+                <router-link to="/message">Messages</router-link>
+            </li>
+        </ul>
+        <keep-alive>
+            <router-view></router-view>
+        </keep-alive>
+    </div>
+</template>
+<template id="homeView">
+    <div>
+        <ul class="nav nav-tabs">
+            <li role="presentation">
+                <router-link to="/home/son1">兒子一</router-link>
+            </li>
+            <li role="presentation">
+                <router-link to="/home/son2">兒子二</router-link>
+            </li>
+        </ul>
+        <router-view></router-view>
+    </div>
+</template>
+<script>
+
+    var header = {
+        template: `#header`
+    }
+
+    var home = {
+        template: `#homeView`
+    }
+
+    var profile = {
+        template: `<div>我是profile頁面</div>`
+    }
+
+    var message = {
+        template: `<div>我是message頁面</div>`
+    }
+    var son = {
+        template: `<div>我是子佈局{{pageId}}</div>`,
+        data: function () {
+            return {
+                pageId: "son1"
+            }
+        },
+        created: function () {
+            console.log(this.$router)
+        },
+        //获取路由数据更新方法一
+        // beforeRouteUpdate: function (to, from, next) {
+        //     this.pageId = to.params.id;
+        //     console.log("to   " + to)
+        //     next()
+        // }
+        //获取路由数据更新方法二
+        watch:{
+            '$route':function(to,from){
+                    this.pageId = to.params.id;
+                    console.log("to  "+to)
+            }
+        }
+
+    }
+
+    var mineRouter = new VueRouter({
+        routes: [
+            {
+                path: "/",
+                component: header,
+                children: [
+                    {
+                        path: "home",
+                        component: home,
+                        children: [
+                            {
+                                path: ":id",
+                                component: son
+                            }
+                        ]
+                    },
+                    {
+                        path: "profile",
+                        component: profile
+                    },
+                    {
+                        path: "message",
+                        component: message
+                    }
+                ]
+            }
+        ]
+    })
+    var vm = new Vue({
+        el: "#app",
+        data: function () {
+            return {}
+        },
+        methods: {},
+        router: mineRouter
+
+    })
+</script>
+</body>
+</html>

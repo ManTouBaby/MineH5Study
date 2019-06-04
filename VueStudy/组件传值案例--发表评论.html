@@ -7,15 +7,28 @@
     <link rel="stylesheet" href="lib/bootstrap.css">
     <link rel="stylesheet" href="lib/animate.css">
     <script src="lib/vue.js"></script>
+    <style>
+        .v-enter,
+        .v-leave-to{
+            transform: translateY(80px);
+        }
+        .v-enter-active,
+        .v-leave-to{
+            transition: all 1s ease;
+        }
+    </style>
 </head>
 <body>
 <div id="app">
     <content-view @func="loadContent"></content-view>
     <ul class="list-group">
-        <li class="list-group-item" v-for="item in contents" v-cloak>
-            {{item.content}}
-            <span class="badge" v-text="item.user"></span>
-        </li>
+        <transition-group>
+            <li class="list-group-item" v-for="item in contents" v-cloak :key="item.id">
+                {{item.content}}
+                <span class="badge" v-text="item.user"></span>
+            </li>
+        </transition-group>
+
     </ul>
 </div>
 <template id="content-view">
@@ -27,7 +40,7 @@
         <div class="form-group">
             <label for="content">评论内容</label>
             <textarea type="" class="form-control" name="" id="content" placeholder="Input..."
-                      v-model="content"></textarea>
+                      v-model="content" @keyup.enter="postContent"></textarea>
         </div>
         <button type="button" class="btn btn-primary" @click="postContent">Submit</button>
     </div>
@@ -37,6 +50,7 @@
         template: "#content-view",
         data: function () {
             return {
+                id:"",
                 user: "",
                 content: ""
             }
@@ -44,7 +58,7 @@
         methods: {
             postContent: function () {
                 var list = JSON.parse(localStorage.getItem("content") || "[]");
-                var itemObj = {user: this.user, content: this.content};
+                var itemObj = {id:new Date(),user: this.user, content: this.content};
                 list.push(itemObj);
                 localStorage.setItem("content", JSON.stringify(list));
                 this.$emit("func");

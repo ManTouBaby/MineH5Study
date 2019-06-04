@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="lib/vue.js"></script>
+    <script src="lib/vue-router.js"></script>
+    <title>经典布局</title>
+    <style>
+        html, body {
+            padding: 0;
+            margin: 0;
+        }
+
+        .header {
+            background-color: #ffdcb1;
+        }
+
+        .container {
+            display: flex;
+        }
+
+        .leftBox {
+            background-color: #ffc3fd;
+            flex: 2;
+            height: 188px;
+        }
+
+        .mainBox {
+            background-color: #a1a8ff;
+            flex: 8;
+            height: 188px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <router-view></router-view>
+    <div class="container">
+        <router-view name="leftBox"></router-view>
+        <router-view name="mainBox"></router-view>
+    </div>
+</div>
+<script>
+    var header = {
+        template: `<div class="header">我是头部组件</div>`
+    }
+    var leftBox = {
+        template: `<div class="leftBox">我是左边菜单栏</div>`
+    }
+    var mainBox = {
+        template: `<div class="mainBox">我是主要内容布局</div>`
+    }
+    var homeRouter = new VueRouter({
+        routes: [
+            {
+                path: "/", components: {
+                    'default': header,
+                    leftBox,
+                    mainBox
+                }
+            }
+
+        ]
+    })
+    var vm = new Vue({
+        el: "#app",
+        data: function () {
+            return {};
+        },
+        methods: {},
+        router: homeRouter
+    })
+</script>
+</body>
+
+</html>
